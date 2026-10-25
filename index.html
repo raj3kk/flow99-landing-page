@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow99 — WhatsApp par AI jo kabhi sota nahi | Demo</title>
+<meta name="description" content="Flow99 demo landing page: WhatsApp AI automation ka realistic demo. Ye standalone demo hai — koi real WhatsApp, payment ya login nahi.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Ambient depth layers: parallax on scroll, pure CSS/SVG, no images -->
+<div class="ambient" aria-hidden="true">
+  <div class="orb orb-a" data-parallax="18"></div>
+  <div class="orb orb-b" data-parallax="34"></div>
+  <div class="orb orb-c" data-parallax="12"></div>
+  <div class="grid-fade"></div>
+  <div class="grain"></div>
+</div>
+
+<header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark">◉</span><span class="brand-name">Flow<span>99</span></span><span class="demo-pill">DEMO</span></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#features" data-i18n="navFeatures">Features</a>
+    <a href="#how" data-i18n="navHow">Kaise Kaam Karta Hai</a>
+    <a href="#demo" data-i18n="navDemo">Demo</a>
+    <a href="#pricing" data-i18n="navPricing">Pricing</a>
+    <a href="#faq" data-i18n="navFaq">FAQ</a>
+    <a href="#contact" data-i18n="navContact">Contact</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" class="lang-btn active" data-lang="hinglish">Hinglish</button>
+    <button type="button" class="lang-btn" data-lang="hindi">हिंदी</button>
+    <button type="button" class="lang-btn" data-lang="en">English</button>
+  </div>
+  <a class="btn btn-small" href="#demo" data-i18n="ctaDemo">Demo Dekho →</a>
+</header>
+
+<main id="top">
+  <!-- ============ HERO: phone IS the story, not a stock illustration ============ -->
+  <section class="hero reveal">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="live-dot"></span> <span data-i18n="heroEyebrow">LIVE DEMO • Koi real WhatsApp nahi, sirf simulation</span></p>
+      <h1 data-i18n="heroTitle">Raat 2 baje aaya customer bhi <em>jawab paaye</em> — subah tak booking pakki.</h1>
+      <p class="lede" data-i18n="heroLede">Flow99 aapke WhatsApp par AI assistant lagata hai — jo har message ka turant jawab de, booking le, reminder bheje, aur koi customer raat ko khaali haath wapas na jaaye. Neeche phone me khud try karo, yehi asli feel hai.</p>
+      <div class="hero-cta">
+        <a class="btn btn-big" href="#demo" data-i18n="heroCta">▶ Demo Dekho — khud chat karo</a>
+        <a class="btn btn-ghost" href="#pricing" data-i18n="heroCta2">Demo Pricing Dekho</a>
+      </div>
+      <div class="hero-proof">
+        <div><strong data-i18n="proof1n">24×7</strong><span data-i18n="proof1t">jawab, chhutti par bhi</span></div>
+        <div><strong data-i18n="proof2n">~3 sec</strong><span data-i18n="proof2t">demo me AI reply time</span></div>
+        <div><strong data-i18n="proof3n">0 miss</strong><span data-i18n="proof3t">demo chat me message</span></div>
+      </div>
+      <p class="micro-note" data-i18n="heroNote">⚠ Ye page standalone demo hai. Is par dikhaye numbers, reviews aur prices asli Flow99 ke nahi hain.</p>
+    </div>
+
+    <div class="hero-stage" data-parallax="8">
+      <div class="float-card card-a" data-parallax="22">✓ <span data-i18n="floatA">Booking confirm — Kal 11:00 AM</span></div>
+      <div class="float-card card-b" data-parallax="30">⏰ <span data-i18n="floatB">Reminder set — 1 ghanta pehle</span></div>
+      <div class="phone" id="heroPhone" aria-label="Demo WhatsApp chat mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-head"><span class="avatar">F</span><div><strong>Flow99 Demo Business</strong><small data-i18n="phoneOnline">online • AI assistant active</small></div><span class="phone-demo">DEMO</span></div>
+        <div class="phone-chat" id="heroChat">
+          <div class="bubble in">Namaste! Aapki shop raat ko bhi khuli hai kya?</div>
+          <div class="bubble out">Namaste! 🙏 Haan, humara AI assistant 24×7 jawab deta hai. Aapko kya chahiye — price, timing ya booking?</div>
+          <div class="bubble in">Kal subah 11 baje haircut book karna hai.</div>
+          <div class="bubble out">Done! ✅ Kal 11:00 AM, haircut — booking confirm. Reminder 1 ghanta pehle mil jayega.</div>
+        </div>
+        <div class="phone-input"><span data-i18n="phoneHint">Demo chat neeche wale section me chalegi ↓</span></div>
+      </div>
+      <div class="phone-shadow"></div>
+    </div>
+  </section>
+
+  <!-- Ticker: time-based, feels alive without being a toy -->
+  <div class="ticker" aria-hidden="true"><div class="ticker-track">
+    <span>🟢 Customer ne message bheja → AI ne 3 sec me jawab diya →</span><span>📅 Booking confirm hui →</span><span>⏰ Reminder time par gaya →</span><span>💬 Koi message miss nahi hua →</span><span>🟢 Customer ne message bheja → AI ne 3 sec me jawab diya →</span><span>📅 Booking confirm hui →</span>
+  </div></div>
+
+  <!-- ============ PROBLEM ============ -->
+  <section class="section problem reveal" id="problem">
+    <p class="kicker" data-i18n="probKicker">PROBLEM — JO HAR ROZ HOTA HAI</p>
+    <h2 data-i18n="probTitle">Customer message karta hai. Aap busy hote ho. Wo chala jaata hai.</h2>
+    <div class="cards3">
+      <article class="card"><div class="card-ico">💬</div><h3 data-i18n="prob1t">Missed messages</h3><p data-i18n="prob1p">Din me 40 message aaye, 12 ka jawab der se mila — 5 customer ne doosri shop try kar li.</p><p class="card-tag" data-i18n="prob1tag">Demo example</p></article>
+      <article class="card"><div class="card-ico">🌙</div><h3 data-i18n="prob2t">Raat ke customer lost</h3><p data-i18n="prob2p">Raat 10 ke baad poochne wala subah tak wait nahi karta. Subah tak wo kisi aur ka customer hai.</p><p class="card-tag" data-i18n="prob2tag">Demo example</p></article>
+      <article class="card"><div class="card-ico">📅</div><h3 data-i18n="prob3t">Bhooli hui bookings</h3><p data-i18n="prob3p">Booking to ho gayi, reminder nahi gaya — customer aaya hi nahi, slot khaali reh gaya.</p><p class="card-tag" data-i18n="prob3tag">Demo example</p></article>
+    </div>
+  </section>
+
+  <!-- ============ LIVE DEMO — the centrepiece ============ -->
+  <section class="section demo-wrap reveal" id="demo">
+    <p class="kicker" data-i18n="demoKicker">LIVE DEMO — SIRF SIMULATION, KOI REAL SEND NAHI</p>
+    <h2 data-i18n="demoTitle">Yahaan type karo. AI abhi jawab dega. Yehi poora product hai.</h2>
+    <p class="lede small" data-i18n="demoSub">Neeche likho — jaise asli customer likhta hai: “price kya hai?”, “kal booking chahiye”, “timing kya hai?” — ya ek button dabao aur poora flow dekho.</p>
+    <div class="demo-grid">
+      <div class="demo-phone">
+        <div class="phone-head"><span class="avatar">F</span><div><strong>Flow99 Demo Business</strong><small data-i18n="phoneOnline2">online • AI assistant active</small></div><span class="phone-demo">DEMO</span></div>
+        <div class="demo-chat" id="demoChat" aria-live="polite">
+          <div class="bubble in demo-welcome" data-i18n="demoWelcome">Namaste! 🙏 Main Flow99 demo assistant hoon. Poochho — price, timing, ya booking?</div>
+        </div>
+        <div class="chips">
+          <button type="button" data-chip="price kya hai?">Price kya hai?</button>
+          <button type="button" data-chip="kal 11 baje booking chahiye">Kal booking chahiye</button>
+          <button type="button" data-chip="timing kya hai?">Timing kya hai?</button>
+          <button type="button" data-chip="offer hai kya?">Offer hai kya?</button>
+        </div>
+        <form class="demo-form" id="demoForm">
+          <input id="demoInput" type="text" autocomplete="off" placeholder="Yahaan customer jaisa message likho…" aria-label="Demo message">
+          <button type="submit">➤</button>
+        </form>
+        <p class="micro-note" data-i18n="demoNote">Demo chat: jawab canned demo replies se aate hain. Koi message kahin bheja ya save nahi hota.</p>
+      </div>
+      <div class="demo-side">
+        <h3 data-i18n="simTitle">Ek click, poora flow dekho</h3>
+        <button type="button" class="sim-btn" data-sim="broadcast">📣 <span data-i18n="simB">Broadcast simulation chalao</span></button>
+        <button type="button" class="sim-btn" data-sim="booking">📅 <span data-i18n="simBk">Booking simulation chalao</span></button>
+        <button type="button" class="sim-btn" data-sim="reminder">⏰ <span data-i18n="simR">Reminder simulation chalao</span></button>
+        <div class="timeline" id="timeline"><p class="timeline-empty" data-i18n="simEmpty">Koi simulation chalaao — yahaan step-by-step dikhega: message gaya → AI ne jawab diya → booking/reminder time par.</p></div>
+        <div class="clock-box"><span data-i18n="clockLabel">Demo clock (aapka local time)</span><strong id="demoClock">--:--:--</strong><p data-i18n="clockNote">Reminder “time par” isi clock se judta hai — demo me time-based flow dikhane ke liye.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section reveal" id="features">
+    <p class="kicker" data-i18n="featKicker">FEATURES — HAR EK KE SAATH EK CHHOTA EXAMPLE</p>
+    <h2 data-i18n="featTitle">Sirf auto-reply nahi — poora kaam sambhalne wala system.</h2>
+    <div class="feat-grid">
+      <article class="card"><h3>💬 <span data-i18n="f1t">Auto-reply</span></h3><p data-i18n="f1p">Har “price / timing” wale message ka turant, business ke andaaz me jawab.</p><p class="ex" data-i18n="f1ex">Example: “Haircut ₹299 se shuru” — 3 sec me.</p></article>
+      <article class="card"><h3>🌙 <span data-i18n="f2t">24×7 replies</span></h3><p data-i18n="f2p">Raat, chhutti, busy hours — AI kabhi offline nahi hota.</p><p class="ex" data-i18n="f2ex">Example: Raat 2 baje ka message, subah booking ready.</p></article>
+      <article class="card"><h3>📣 <span data-i18n="f3t">Broadcast</span></h3><p data-i18n="f3p">Offer ya update ek saath sabhi customers tak — demo me simulation se dekho.</p><p class="ex" data-i18n="f3ex">Example: “Diwali offer — 20% off” sabko ek saath.</p></article>
+      <article class="card"><h3>📅 <span data-i18n="f4t">Booking</span></h3><p data-i18n="f4p">Chat se seedha slot book — date, time, service sab chat me pakka.</p><p class="ex" data-i18n="f4ex">Example: “Kal 11 AM” → confirm + reminder set.</p></article>
+      <article class="card"><h3>⏰ <span data-i18n="f5t">Reminder</span></h3><p data-i18n="f5p">Booking se pehle time par yaad dilaaye — no-show kam ho.</p><p class="ex" data-i18n="f5ex">Example: Booking se 1 ghanta pehle reminder.</p></article>
+      <article class="card"><h3>👥 <span data-i18n="f6t">Team inbox</span></h3><p data-i18n="f6p">Saari chats ek jagah — team dekhe, AI handle kare, zaroorat par human le le.</p><p class="ex" data-i18n="f6ex">Example: Staff ko sirf wahi chat mile jo AI ne escalate ki.</p></article>
+      <article class="card"><h3>📊 <span data-i18n="f7t">Analytics</span></h3><p data-i18n="f7p">Kitne message, kitni booking, kitne miss hue — sab ek nazar me.</p><p class="ex" data-i18n="f7ex">Example: “Is hafte 0 missed message” dashboard me.</p></article>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section reveal" id="how">
+    <p class="kicker" data-i18n="howKicker">KAISE KAAM KARTA HAI — 3 STEPS</p>
+    <h2 data-i18n="howTitle">Setup lamba nahi. Teen steps, phir automation on.</h2>
+    <ol class="steps">
+      <li><span class="step-n">1</span><h3 data-i18n="how1t">Number connect karo</h3><p data-i18n="how1p">Apna business WhatsApp number Flow99 se jodo. Demo me ye step sirf samjhane ke liye hai — yahaan koi number connect nahi hota.</p></li>
+      <li><span class="step-n">2</span><h3 data-i18n="how2t">AI ko business sikhao</h3><p data-i18n="how2p">Price, timing, services, offer — ek baar batao. AI usi ke hisaab se jawab dega, apni taraf se kuch invent nahi karega.</p></li>
+      <li><span class="step-n">3</span><h3 data-i18n="how3t">Automation on</h3><p data-i18n="how3p">Ab har message, booking aur reminder AI sambhalega — aap sirf apne kaam par dhyaan do.</p></li>
+    </ol>
+  </section>
+
+  <!-- ============ RESULTS (demo only) ============ -->
+  <section class="section reveal" id="results">
+    <p class="kicker" data-i18n="resKicker">RESULTS — DEMO NUMBERS, ASLI DAAVE NAHI</p>
+    <h2 data-i18n="resTitle">Demo me kya dikhta hai, jab system time par chalta hai.</h2>
+    <div class="stats">
+      <div><strong>0</strong><span data-i18n="res1">missed demo message</span></div>
+      <div><strong>~3 sec</strong><span data-i18n="res2">demo AI reply time</span></div>
+      <div><strong>100%</strong><span data-i18n="res3">demo bookings par reminder</span></div>
+      <div><strong>24×7</strong><span data-i18n="res4">demo availability</span></div>
+    </div>
+    <p class="micro-note" data-i18n="resNote">⚠ Ye numbers demo simulation ke hain. Kisi real business ka result claim nahi kiya ja raha.</p>
+  </section>
+
+  <!-- ============ PRICING (demo only) ============ -->
+  <section class="section reveal" id="pricing">
+    <p class="kicker" data-i18n="priceKicker">PRICING — DEMO PRICING ONLY</p>
+    <h2 data-i18n="priceTitle">Demo plans — asli Flow99 prices nahi hain.</h2>
+    <div class="billing"><button type="button" class="bill-btn active" data-bill="monthly" data-i18n="billM">Monthly</button><button type="button" class="bill-btn" data-bill="yearly" data-i18n="billY">Yearly (demo: 2 mahine free jaisa dikhaya gaya)</button></div>
+    <div class="cards3 price-grid">
+      <article class="card price-card"><h3>Starter</h3><p class="price"><span data-price-monthly>₹499</span><span data-price-yearly hidden>₹415</span><small data-i18n="perMonth">/mahina • DEMO</small></p><ul><li data-i18n="s1a">Auto-reply</li><li data-i18n="s1b">24×7 demo replies</li><li data-i18n="s1c">1 number (demo)</li></ul><a class="btn btn-ghost" href="#demo" data-i18n="tryDemo">Demo try karo</a></article>
+      <article class="card price-card hot"><span class="hot-tag" data-i18n="popular">Sabse popular (demo)</span><h3>Growth</h3><p class="price"><span data-price-monthly>₹999</span><span data-price-yearly hidden>₹832</span><small data-i18n="perMonth2">/mahina • DEMO</small></p><ul><li data-i18n="s2a">Sab Starter + Broadcast</li><li data-i18n="s2b">Booking + Reminder</li><li data-i18n="s2c">Team inbox</li></ul><a class="btn" href="#demo" data-i18n="tryDemo2">Demo try karo</a></article>
+      <article class="card price-card"><h3>Scale</h3><p class="price"><span data-price-monthly>₹1,999</span><span data-price-yearly hidden>₹1,665</span><small data-i18n="perMonth3">/mahina • DEMO</small></p><ul><li data-i18n="s3a">Sab Growth + Analytics</li><li data-i18n="s3b">Priority demo support</li><li data-i18n="s3c">Multiple staff seats (demo)</li></ul><a class="btn btn-ghost" href="#demo" data-i18n="tryDemo3">Demo try karo</a></article>
+    </div>
+    <p class="micro-note" data-i18n="priceNote">⚠ Demo pricing: ye Flow99 ki asli prices hone ka daava nahi hai. Koi payment, OTP ya login is page par nahi hai.</p>
+  </section>
+
+  <!-- ============ REVIEWS (demo only) ============ -->
+  <section class="section reveal" id="reviews">
+    <p class="kicker" data-i18n="revKicker">REVIEWS — DEMO ONLY, ASLI NAAM/PHOTO NAHI</p>
+    <h2 data-i18n="revTitle">Demo businesses kya kehte — kalpana, asli review nahi.</h2>
+    <div class="cards3">
+      <article class="card"><p data-i18n="r1p">“Pehle raat ke message subah tak thande pad jaate the. Demo me dekha — ab har message ka turant jawab hai.”</p><p class="card-tag">— Demo Business A, Salon (fictional)</p></article>
+      <article class="card"><p data-i18n="r2p">“Booking ke baad reminder ka demo dekh kar samajh aaya — no-show ka darr kitna kam ho sakta hai.”</p><p class="card-tag">— Demo Business B, Clinic (fictional)</p></article>
+      <article class="card"><p data-i18n="r3p">“Broadcast ka simulation sabse kaam ka laga — offer sab tak, ek saath, bina ek-ek ko type kiye.”</p><p class="card-tag">— Demo Business C, Restaurant (fictional)</p></article>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section reveal" id="faq">
+    <p class="kicker" data-i18n="faqKicker">FAQ</p>
+    <h2 data-i18n="faqTitle">Aksar pooche jaane wale sawaal</h2>
+    <div class="faq-list">
+      <details open><summary data-i18n="q1">Ye real WhatsApp se judta hai?</summary><p data-i18n="a1">Nahi. Ye standalone demo page hai — koi real WhatsApp, number, ya message yahaan se nahi bheja jaata.</p></details>
+      <details><summary data-i18n="q2">Demo chat ka jawab asli AI hai?</summary><p data-i18n="a2">Nahi — canned demo replies hain, jo keywords (price, timing, booking, offer) se chunte hain. Sirf feel dikhane ke liye.</p></details>
+      <details><summary data-i18n="q3">Pricing asli hai?</summary><p data-i18n="a3">Nahi. Pricing section me DEMO likha hai — ye asli Flow99 prices ka daava nahi hai, aur yahaan koi payment nahi hoti.</p></details>
+      <details><summary data-i18n="q4">Mera data save hota hai?</summary><p data-i18n="a4">Nahi. Demo chat aur contact form kuch bhi kahin save ya bhejta nahi — form par sirf screen par demo confirmation dikhta hai.</p></details>
+      <details><summary data-i18n="q5">Raat ko bhi jawab milega?</summary><p data-i18n="a5">Demo concept yehi hai — AI 24×7 jawab de. Asli product ke liye alag se poochna hoga; ye page uska demo feel dikhata hai.</p></details>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA + CONTACT (demo form only) ============ -->
+  <section class="section cta reveal" id="contact">
+    <h2 data-i18n="ctaTitle">Ek baar demo chat karke dekho — phir faisla karo.</h2>
+    <p data-i18n="ctaSub">Upar demo me apna sawaal type karo, ya neeche demo form bharo (kuch save nahi hoga).</p>
+    <a class="btn btn-big" href="#demo" data-i18n="ctaBtn">Demo Dekho ↑</a>
+    <form class="contact-form" id="contactForm">
+      <input type="text" id="cName" placeholder="Aapka naam (demo)" aria-label="Naam">
+      <input type="text" id="cBiz" placeholder="Business type, jaise Salon (demo)" aria-label="Business type">
+      <button class="btn" type="submit" data-i18n="contactSubmit">Demo Request Bhejo (demo only)</button>
+      <p class="form-msg" id="formMsg" hidden></p>
+      <p class="micro-note" data-i18n="contactNote">Demo form: submit par sirf screen par confirmation dikhega. Koi data save, email ya WhatsApp send nahi hoga.</p>
+    </form>
+  </section>
+</main>
+<footer><p><strong>Flow99</strong> — <span data-i18n="footerText">Standalone demo landing page. Live Flow99 (flow99.in) se connected nahi. Koi login, payment, OTP ya real WhatsApp send nahi.</span></p></footer>
+<script src="js/app.js"></script>
+</body>
+</html>
