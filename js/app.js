@@ -1,425 +1,406 @@
-// Flow99 landing demo — static only. No network send, no storage, no login/payment/OTP.
+
+/* part1 */
+/* PART 1 — hero + scenes 1–3. Vanilla JS only. No network, no storage, no globals except wp1* guards. */
 (function () {
   'use strict';
-  var currentLang = 'hinglish';
 
-  // Hindi / English text for main UI strings. Hinglish is the HTML original, restored from data-orig.
-  var I18N = {
-    navFeatures: { hindi: 'फीचर्स', en: 'Features' },
-    navHow: { hindi: 'कैसे काम करता है', en: 'How It Works' },
-    navDemo: { hindi: 'डेमो', en: 'Demo' },
-    navPricing: { hindi: 'प्राइसिंग', en: 'Pricing' },
-    navFaq: { hindi: 'सामान्य प्रश्न', en: 'FAQ' },
-    navContact: { hindi: 'संपर्क', en: 'Contact' },
-    ctaDemo: { hindi: 'डेमो देखें →', en: 'See Demo →' },
-    heroEyebrow: { hindi: 'लाइव डेमो • कोई असली WhatsApp नहीं, सिर्फ सिमुलेशन', en: 'LIVE DEMO • No real WhatsApp, simulation only' },
-    heroTitle: { hindi: 'रात 2 बजे आया ग्राहक भी <em>जवाब पाए</em> — सुबह तक बुकिंग पक्की।', en: 'Even a customer at 2 AM <em>gets a reply</em> — booking confirmed by morning.' },
-    heroLede: { hindi: 'Flow99 आपके WhatsApp पर AI असिस्टेंट लगाता है — जो हर मैसेज का तुरंत जवाब दे, बुकिंग ले, रिमाइंडर भेजे, और कोई ग्राहक रात को खाली हाथ वापस न जाए। नीचे फोन में खुद ट्राई करें, यही असली फील है।', en: 'Flow99 puts an AI assistant on your WhatsApp — it replies to every message instantly, takes bookings, sends reminders, and no customer leaves empty-handed at night. Try it in the phone below; that is the real feel.' },
-    heroCta: { hindi: '▶ डेमो देखें — खुद चैट करें', en: '▶ See Demo — chat yourself' },
-    heroCta2: { hindi: 'डेमो प्राइसिंग देखें', en: 'See Demo Pricing' },
-    proof1t: { hindi: 'जवाब, छुट्टी पर भी', en: 'replies, even on holidays' },
-    proof2t: { hindi: 'डेमो में AI रिप्लाई टाइम', en: 'demo AI reply time' },
-    proof3t: { hindi: 'डेमो चैट में मैसेज', en: 'missed demo message' },
-    heroNote: { hindi: '⚠ यह पेज स्टैंडअलोन डेमो है। इस पर दिखाए नंबर, रिव्यू और कीमतें असली Flow99 के नहीं हैं।', en: '⚠ This page is a standalone demo. Numbers, reviews and prices shown here are not real Flow99 figures.' },
-    floatA: { hindi: 'बुकिंग कन्फर्म — कल 11:00 AM', en: 'Booking confirmed — Tomorrow 11:00 AM' },
-    floatB: { hindi: 'रिमाइंडर सेट — 1 घंटा पहले', en: 'Reminder set — 1 hour before' },
-    phoneOnline: { hindi: 'ऑनलाइन • AI असिस्टेंट चालू', en: 'online • AI assistant active' },
-    phoneOnline2: { hindi: 'ऑनलाइन • AI असिस्टेंट चालू', en: 'online • AI assistant active' },
-    phoneHint: { hindi: 'डेमो चैट नीचे वाले सेक्शन में चलेगी ↓', en: 'The demo chat runs in the section below ↓' },
-    probKicker: { hindi: 'समस्या — जो हर रोज़ होती है', en: 'THE PROBLEM — WHAT HAPPENS EVERY DAY' },
-    probTitle: { hindi: 'ग्राहक मैसेज करता है। आप व्यस्त होते हैं। वह चला जाता है।', en: 'A customer messages. You are busy. They leave.' },
-    prob1t: { hindi: 'मिस्ड मैसेज', en: 'Missed messages' },
-    prob1p: { hindi: 'दिन में 40 मैसेज आए, 12 का जवाब देर से मिला — 5 ग्राहकों ने दूसरी दुकान ट्राई कर ली।', en: '40 messages in a day, 12 answered late — 5 customers tried another shop.' },
-    prob2t: { hindi: 'रात के ग्राहक खो गए', en: 'Night customers lost' },
-    prob2p: { hindi: 'रात 10 बजे के बाद पूछने वाला सुबह तक इंतज़ार नहीं करता। सुबह तक वह किसी और का ग्राहक है।', en: 'Someone asking after 10 PM will not wait till morning. By morning, they are someone else’s customer.' },
-    prob3t: { hindi: 'भूली हुई बुकिंग', en: 'Forgotten bookings' },
-    prob3p: { hindi: 'बुकिंग तो हो गई, रिमाइंडर नहीं गया — ग्राहक आया ही नहीं, स्लॉट खाली रह गया।', en: 'The booking happened, no reminder went out — the customer never came, the slot stayed empty.' },
-    demoKicker: { hindi: 'लाइव डेमो — सिर्फ सिमुलेशन, कोई असली सेंड नहीं', en: 'LIVE DEMO — SIMULATION ONLY, NO REAL SEND' },
-    demoTitle: { hindi: 'यहाँ टाइप करें। AI अभी जवाब देगा। यही पूरा प्रोडक्ट है।', en: 'Type here. The AI replies now. This is the whole product.' },
-    demoSub: { hindi: 'नीचे लिखें — जैसे असली ग्राहक लिखता है: “कीमत क्या है?”, “कल बुकिंग चाहिए”, “टाइमिंग क्या है?” — या एक बटन दबाएँ और पूरा फ्लो देखें।', en: 'Write below — like a real customer: “What is the price?”, “I need a booking tomorrow”, “What are the timings?” — or press a button and watch the full flow.' },
-    demoWelcome: { hindi: 'नमस्ते! 🙏 मैं Flow99 डेमो असिस्टेंट हूँ। पूछें — कीमत, टाइमिंग, या बुकिंग?', en: 'Hello! 🙏 I am the Flow99 demo assistant. Ask — price, timings, or booking?' },
-    demoNote: { hindi: 'डेमो चैट: जवाब canned डेमो रिप्लाई से आते हैं। कोई मैसेज कहीं भेजा या सेव नहीं होता।', en: 'Demo chat: replies are canned demo replies. No message is sent or saved anywhere.' },
-    simTitle: { hindi: 'एक क्लिक, पूरा फ्लो देखें', en: 'One click, see the full flow' },
-    simB: { hindi: 'ब्रॉडकास्ट सिमुलेशन चलाएँ', en: 'Run broadcast simulation' },
-    simBk: { hindi: 'बुकिंग सिमुलेशन चलाएँ', en: 'Run booking simulation' },
-    simR: { hindi: 'रिमाइंडर सिमुलेशन चलाएँ', en: 'Run reminder simulation' },
-    simEmpty: { hindi: 'कोई सिमुलेशन चलाएँ — यहाँ step-by-step दिखेगा: मैसेज गया → AI ने जवाब दिया → बुकिंग/रिमाइंडर समय पर।', en: 'Run a simulation — here you will see it step by step: message sent → AI replied → booking/reminder on time.' },
-    clockLabel: { hindi: 'डेमो क्लॉक (आपका लोकल टाइम)', en: 'Demo clock (your local time)' },
-    clockNote: { hindi: 'रिमाइंडर “समय पर” इसी क्लॉक से जुड़ता है — डेमो में time-based फ्लो दिखाने के लिए।', en: 'The “on time” reminder is tied to this clock — to show the time-based flow in the demo.' },
-    featKicker: { hindi: 'फीचर्स — हर एक के साथ एक छोटा उदाहरण', en: 'FEATURES — EACH WITH A SMALL EXAMPLE' },
-    featTitle: { hindi: 'सिर्फ ऑटो-रिप्लाई नहीं — पूरा काम संभालने वाला सिस्टम।', en: 'Not just auto-reply — a system that handles the whole job.' },
-    howKicker: { hindi: 'कैसे काम करता है — 3 स्टेप्स', en: 'HOW IT WORKS — 3 STEPS' },
-    howTitle: { hindi: 'सेटअप लंबा नहीं। तीन स्टेप्स, फिर ऑटोमेशन ऑन।', en: 'Setup is not long. Three steps, then automation on.' },
-    resKicker: { hindi: 'रिज़ल्ट — डेमो नंबर, असली दावे नहीं', en: 'RESULTS — DEMO NUMBERS, NOT REAL CLAIMS' },
-    resTitle: { hindi: 'डेमो में क्या दिखता है, जब सिस्टम समय पर चलता है।', en: 'What the demo shows, when the system runs on time.' },
-    priceKicker: { hindi: 'प्राइसिंग — डेमो प्राइसिंग ओनली', en: 'PRICING — DEMO PRICING ONLY' },
-    priceTitle: { hindi: 'डेमो प्लान — असली Flow99 कीमतें नहीं हैं।', en: 'Demo plans — these are not real Flow99 prices.' },
-    billM: { hindi: 'मासिक', en: 'Monthly' },
-    billY: { hindi: 'वार्षिक (डेमो: 2 महीने फ्री जैसा दिखाया गया)', en: 'Yearly (demo: shown as 2 months free)' },
-    popular: { hindi: 'सबसे पॉपुलर (डेमो)', en: 'Most popular (demo)' },
-    priceNote: { hindi: '⚠ डेमो प्राइसिंग: यह Flow99 की असली कीमतें होने का दावा नहीं है। यहाँ कोई पेमेंट, OTP या लॉगिन नहीं है।', en: '⚠ Demo pricing: this does not claim to be real Flow99 prices. No payment, OTP or login happens on this page.' },
-    revKicker: { hindi: 'रिव्यू — डेमो ओनली, असली नाम/फोटो नहीं', en: 'REVIEWS — DEMO ONLY, NO REAL NAMES/PHOTOS' },
-    revTitle: { hindi: 'डेमो बिज़नेस क्या कहते — कल्पना, असली रिव्यू नहीं।', en: 'What demo businesses say — imagined, not real reviews.' },
-    faqKicker: { hindi: 'सामान्य प्रश्न', en: 'FAQ' },
-    faqTitle: { hindi: 'अक्सर पूछे जाने वाले सवाल', en: 'Frequently asked questions' },
-    ctaTitle: { hindi: 'एक बार डेमो चैट करके देखें — फिर फैसला करें।', en: 'Try the demo chat once — then decide.' },
-    ctaSub: { hindi: 'ऊपर डेमो में अपना सवाल टाइप करें, या नीचे डेमो फॉर्म भरें (कुछ सेव नहीं होगा)।', en: 'Type your question in the demo above, or fill the demo form below (nothing will be saved).' },
-    ctaBtn: { hindi: 'डेमो देखें ↑', en: 'See Demo ↑' },
-    contactSubmit: { hindi: 'डेमो रिक्वेस्ट भेजें (सिर्फ डेमो)', en: 'Send Demo Request (demo only)' },
-    contactNote: { hindi: 'डेमो फॉर्म: सबमिट पर सिर्फ स्क्रीन पर कन्फर्मेशन दिखेगा। कोई डेटा सेव, ईमेल या WhatsApp सेंड नहीं होगा।', en: 'Demo form: on submit only an on-screen confirmation appears. No data is saved, emailed or sent on WhatsApp.' },
-    footerText: { hindi: 'स्टैंडअलोन डेमो लैंडिंग पेज। लाइव Flow99 (flow99.in) से कनेक्टेड नहीं। कोई लॉगिन, पेमेंट, OTP या असली WhatsApp सेंड नहीं।', en: 'Standalone demo landing page. Not connected to live Flow99 (flow99.in). No login, payment, OTP or real WhatsApp send.' },
-    tryDemo: { hindi: 'डेमो ट्राई करें', en: 'Try Demo' },
-    tryDemo2: { hindi: 'डेमो ट्राई करें', en: 'Try Demo' },
-    tryDemo3: { hindi: 'डेमो ट्राई करें', en: 'Try Demo' }
-  };
-
-  var els = document.querySelectorAll('[data-i18n]');
-  els.forEach(function (el) { if (!el.dataset.orig) el.dataset.orig = el.innerHTML; });
-
-  function setLang(lang) {
-    currentLang = lang;
-    document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
-    els.forEach(function (el) {
-      var key = el.dataset.i18n;
-      if (lang === 'hinglish' || !I18N[key] || !I18N[key][lang]) { el.innerHTML = el.dataset.orig; }
-      else { el.innerHTML = I18N[key][lang]; }
-    });
-    var input = document.getElementById('demoInput');
-    if (input) input.placeholder = lang === 'en' ? 'Type like a customer…' : lang === 'hindi' ? 'ग्राहक जैसा मैसेज लिखें…' : 'Yahaan customer jaisa message likho…';
+  function wp1ReducedMotion() {
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
   }
-  document.querySelectorAll('.lang-btn').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang); }); });
 
-  // Reveal on scroll (IntersectionObserver = no scroll jank)
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-
-  // Light parallax: rAF-throttled, desktop only, respects reduced motion
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var pxEls = document.querySelectorAll('[data-parallax]');
-  var ticking = false;
-  function onScroll() {
-    if (ticking || reduceMotion || window.innerWidth < 900) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      var y = window.scrollY;
-      pxEls.forEach(function (el) {
-        var f = parseFloat(el.dataset.parallax || '10');
-        el.style.transform = 'translateY(' + (y * f / 1000).toFixed(1) + 'px)';
+  function wp1RevealOnScroll() {
+    var items = document.querySelectorAll('.wp1-reveal');
+    if (!items.length) return;
+    if (wp1ReducedMotion() || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('wp1-in'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('wp1-in'); observer.unobserve(entry.target); }
       });
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  // Hero phone tilt on desktop mouse move
-  var stage = document.querySelector('.hero-stage');
-  var phone = document.getElementById('heroPhone');
-  if (stage && phone && !reduceMotion) {
-    stage.addEventListener('mousemove', function (e) {
-      if (window.innerWidth < 900) return;
-      var r = stage.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var yy = (e.clientY - r.top) / r.height - 0.5;
-      phone.style.transform = 'rotateY(' + (-7 + x * 10).toFixed(1) + 'deg) rotateX(' + (2 - yy * 8).toFixed(1) + 'deg)';
-    });
-    stage.addEventListener('mouseleave', function () { phone.style.transform = ''; });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { observer.observe(el); });
   }
 
-  // Demo clock
-  var clockEl = document.getElementById('demoClock');
-  function tickClock() {
-    if (clockEl) clockEl.textContent = new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
+  function wp1BuildParticles() {
+    var host = document.querySelector('[data-wp1-particles]');
+    if (!host || wp1ReducedMotion()) return;
+    var count = window.innerWidth < 860 ? 14 : 28;
+    for (var i = 0; i < count; i++) {
+      var dot = document.createElement('i');
+      dot.style.left = Math.floor(Math.random() * 100) + '%';
+      dot.style.top = Math.floor(Math.random() * 100) + '%';
+      dot.style.animationDelay = (Math.random() * 4).toFixed(1) + 's';
+      dot.style.animationDuration = (5 + Math.random() * 5).toFixed(1) + 's';
+      host.appendChild(dot);
+    }
   }
-  tickClock(); setInterval(tickClock, 1000);
-  function nowTime() { return new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }); }
 
-  // Demo chat — canned replies only
-  var chat = document.getElementById('demoChat');
-  function addBubble(text, cls) {
-    var d = document.createElement('div');
-    d.className = 'bubble ' + cls; d.textContent = text; chat.appendChild(d);
-    chat.scrollTop = chat.scrollHeight; return d;
-  }
-  function replyFor(msg) {
-    var m = ' ' + msg.toLowerCase() + ' ';
-    if (/price|कीमत|rate|charge|kitna|कितना/.test(m)) return currentLang === 'en' ? 'Demo reply: Our services start at ₹299 (demo price). Which service do you want — haircut, facial, or something else?' : 'Demo jawab: Humari service ₹299 se shuru hoti hai (demo price). Aapko kaunsi service chahiye — haircut, facial, ya kuch aur?';
-    if (/booking|book|बुक|slot|kal|कल|tomorrow|aaj/.test(m)) return currentLang === 'en' ? 'Demo reply: Done! ✅ Your demo booking is confirmed for tomorrow 11:00 AM. A reminder will come 1 hour before — in this demo, nothing is really booked.' : 'Demo jawab: Done! ✅ Aapki demo booking kal 11:00 AM ke liye confirm hai. Reminder 1 ghanta pehle milega — demo me asli booking nahi hoti.';
-    if (/timing|time|samay|समय|khula|open|close|kab/.test(m)) return currentLang === 'en' ? 'Demo reply: We are open 10 AM to 9 PM, every day. And this AI replies even at night — that is the demo idea.' : 'Demo jawab: Hum subah 10 se raat 9 baje tak khule hain, har din. Aur ye AI raat ko bhi jawab deta hai — yehi demo ka idea hai.';
-    if (/offer|discount|ऑफर|off|deal/.test(m)) return currentLang === 'en' ? 'Demo reply: Demo offer: 20% off on your first visit (demo only, not a real offer). Want a demo booking with it?' : 'Demo jawab: Demo offer: Pehli visit par 20% off (sirf demo, asli offer nahi). Iske saath demo booking kar doon?';
-    if (/namaste|hello|hi\b|hii|hey/.test(m)) return currentLang === 'en' ? 'Demo reply: Hello! 🙏 How can I help — price, timings, or a booking?' : 'Demo jawab: Namaste! 🙏 Kaise madad karoon — price, timing, ya booking?';
-    return currentLang === 'en' ? 'Demo reply: Got it! In a real setup the AI would answer from your business details. Try: “price?”, “timing?”, or “booking tomorrow”.' : 'Demo jawab: Samajh gaya! Asli setup me AI aapke business details se jawab dega. Try karo: “price?”, “timing?”, ya “kal booking”.';
-  }
-  function sendDemo(text) {
-    if (!text.trim()) return;
-    addBubble(text, 'in');
-    var typing = addBubble('AI type kar raha hai…', 'out typing');
-    setTimeout(function () {
-      typing.remove();
-      addBubble(replyFor(text), 'out');
-    }, 900);
-  }
-  var form = document.getElementById('demoForm');
-  if (form) form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var input = document.getElementById('demoInput');
-    var v = input.value; input.value = ''; sendDemo(v);
-  });
-  document.querySelectorAll('[data-chip]').forEach(function (b) { b.addEventListener('click', function () { sendDemo(b.dataset.chip); }); });
-
-  // Simulations — timeline only, no send
-  var timeline = document.getElementById('timeline');
-  var SIMS = {
-    broadcast: [
-      '📣 Broadcast taiyaar: “Demo offer — 20% off” (demo text)',
-      '👥 3 demo customers ko bheja gaya (simulation — koi real send nahi)',
-      '✅ 2 ne turant reply kiya, 1 ne demo booking poochhi'
-    ],
-    booking: [
-      '💬 Customer: “Kal 11 baje booking chahiye”',
-      '🤖 AI: Slot check kiya (demo) → 11:00 AM khaali hai',
-      '✅ Booking confirm + calendar note (demo) — asli booking nahi'
-    ],
-    reminder: [
-      '⏰ Booking: Kal 11:00 AM (demo)',
-      '🕙 Reminder time: 10:00 AM — 1 ghanta pehle (demo clock se)',
-      '✅ Reminder bheja gaya (simulation) → customer ne “Aa raha hoon” kaha (demo)'
-    ]
-  };
-  document.querySelectorAll('[data-sim]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var steps = SIMS[b.dataset.sim] || [];
-      timeline.innerHTML = '';
-      steps.forEach(function (s, i) {
-        setTimeout(function () {
-          var p = document.createElement('p');
-          p.innerHTML = '<span class="time">' + nowTime() + '</span> <span class="ok">✓ Step ' + (i + 1) + ':</span> ' + s;
-          timeline.appendChild(p);
-        }, i * 700);
+  function wp1Parallax() {
+    var hero = document.getElementById('hero');
+    if (!hero || wp1ReducedMotion()) return;
+    var layers = hero.querySelectorAll('[data-wp1-depth]');
+    if (!layers.length) return;
+    var raf = null, mx = 0, my = 0;
+    function wp1ApplyParallax() {
+      raf = null;
+      layers.forEach(function (el) {
+        var depth = parseFloat(el.getAttribute('data-wp1-depth')) || 20;
+        var x = (mx * depth).toFixed(1), y = (my * depth).toFixed(1);
+        el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
       });
-    });
-  });
-
-  // Pricing toggle
-  document.querySelectorAll('.bill-btn').forEach(function (b) {
-    b.addEventListener('click', function () {
-      document.querySelectorAll('.bill-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
-      var yearly = b.dataset.bill === 'yearly';
-      document.querySelectorAll('[data-price-monthly]').forEach(function (el) { el.hidden = yearly; });
-      document.querySelectorAll('[data-price-yearly]').forEach(function (el) { el.hidden = !yearly; });
-    });
-  });
-
-  // Contact demo form — shows confirmation only, saves nothing
-  var cForm = document.getElementById('contactForm');
-  if (cForm) cForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var msg = document.getElementById('formMsg');
-    var name = document.getElementById('cName').value.trim();
-    msg.textContent = currentLang === 'en'
-      ? 'Demo confirmation: Thanks' + (name ? ', ' + name : '') + '! This is a demo only — nothing was saved or sent.'
-      : 'Demo confirmation: Dhanyavaad' + (name ? ', ' + name : '') + '! Ye sirf demo hai — kuch save ya send nahi hua.';
-    msg.hidden = false;
-    cForm.reset();
-  });
-
-  // Workflow Explorer — vanilla JS only, no network, no storage.
-  // Rotate: drag (mouse + touch via Pointer Events) + buttons + arrow keys.
-  // Zoom: buttons + Ctrl+wheel + two-finger pinch. Explode: CSS class only
-  // (layer-stack.exploded, styled by css/style.css); collapse removes it.
-  // Try-in-demo wires to the EXISTING demo above: sendDemo() for chat
-  // layers, the existing [data-sim] buttons for booking/reminder/broadcast,
-  // and the existing #results section for the analytics layer. Nothing new
-  // is invented as a separate product, and nothing is sent or saved.
-  var wfStage = document.getElementById('workflowRotateStage');
-  if (wfStage) {
-    var wfInner = document.getElementById('workflowRotateInner');
-    var wfStack = document.getElementById('workflowStack');
-    var wfZoomLabel = document.getElementById('workflowZoomLabel');
-    var wfAutoBtn = document.getElementById('workflowAutoRotate');
-    var wfExplodeBtn = document.getElementById('workflowExplode');
-    var WF_HOME_X = 0, WF_HOME_Y = -12;
-    var wfRotX = WF_HOME_X, wfRotY = WF_HOME_Y, wfZoom = 1, wfExploded = false;
-    var wfLowDevice = window.innerWidth <= 480 ||
-      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
-      (navigator.deviceMemory && navigator.deviceMemory <= 2);
-    var wfAuto = !reduceMotion && !wfLowDevice;
-    var wfDragging = false, wfDragged = false, wfInView = false, wfLoopOn = false;
-    var wfPending = false, wfPointers = new Map(), wfPinchDist = 0, wfPinchZoom = 1;
-    var wfLastX = 0, wfLastY = 0, wfMoved = 0;
-
-    function wfClamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
-    function wfApply() {
-      if (wfInner) wfInner.style.transform = 'rotateX(' + wfRotX.toFixed(1) + 'deg) rotateY(' + wfRotY.toFixed(1) + 'deg) scale(' + wfZoom.toFixed(2) + ')';
-      if (wfZoomLabel) wfZoomLabel.textContent = Math.round(wfZoom * 100) + '%';
     }
-    function wfSchedule() {
-      if (wfPending) return;
-      wfPending = true;
-      requestAnimationFrame(function () { wfPending = false; wfApply(); });
-    }
-    function wfSmooth(on) { if (wfInner) wfInner.style.transition = on ? 'transform .45s ease' : 'none'; }
-    function wfSetAuto(on) {
-      wfAuto = on;
-      if (wfAutoBtn) { wfAutoBtn.textContent = 'Auto-rotate: ' + (on ? 'On' : 'Off'); wfAutoBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); }
-      if (on && !wfLoopOn) { wfLoopOn = true; requestAnimationFrame(wfAutoTick); }
-    }
-    function wfAutoTick() {
-      if (!wfAuto) { wfLoopOn = false; return; }
-      if (wfInView && !wfDragging && !document.hidden) {
-        wfRotY += 0.12;
-        if (wfRotY > 180) wfRotY -= 360;
-        wfSmooth(false); wfApply();
-      }
-      requestAnimationFrame(wfAutoTick);
-    }
-    function wfSetExploded(on) {
-      wfExploded = on;
-      if (wfStack) wfStack.classList.toggle('exploded', on);
-      if (wfExplodeBtn) wfExplodeBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    }
-    function wfRotateStep(dx, dy) { wfSmooth(true); wfRotY = wfClamp(wfRotY + dx, -180, 180); wfRotX = wfClamp(wfRotX + dy, -35, 35); wfApply(); }
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      mx = ((e.clientX - r.left) / Math.max(r.width, 1) - 0.5);
+      my = ((e.clientY - r.top) / Math.max(r.height, 1) - 0.5);
+      if (!raf) raf = requestAnimationFrame(wp1ApplyParallax);
+    }, { passive: true });
+  }
 
-    var wfBtn = function (id, fn) { var b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
-    wfBtn('workflowRotateLeft', function () { wfRotateStep(-15, 0); });
-    wfBtn('workflowRotateRight', function () { wfRotateStep(15, 0); });
-    wfBtn('workflowRotateReset', function () { wfSmooth(true); wfRotX = WF_HOME_X; wfRotY = WF_HOME_Y; wfApply(); });
-    wfBtn('workflowZoomIn', function () { wfSmooth(true); wfZoom = wfClamp(wfZoom + 0.15, 0.8, 1.6); wfApply(); });
-    wfBtn('workflowZoomOut', function () { wfSmooth(true); wfZoom = wfClamp(wfZoom - 0.15, 0.8, 1.6); wfApply(); });
-    wfBtn('workflowZoomReset', function () { wfSmooth(true); wfZoom = 1; wfApply(); });
-    wfBtn('workflowExplode', function () { wfSetExploded(true); });
-    wfBtn('workflowCollapse', function () { wfSetExploded(false); });
-    if (wfAutoBtn) wfAutoBtn.addEventListener('click', function () { wfSetAuto(!wfAuto); });
+  function wp1CycleLiveBubble() {
+    var bubble = document.querySelector('[data-wp1-live-bubble]');
+    if (!bubble) return;
+    var messages = [
+      'Evening delivery added to your demo request. No real order is placed.',
+      'Demo FAQ answered instantly — no live chat is connected.',
+      'Demo follow-up queued in this animation. Nothing is sent.'
+    ];
+    var idx = 0;
+    window.setInterval(function () {
+      idx = (idx + 1) % messages.length;
+      // Keep the DEMO label + speaker line; replace only the message text node area safely.
+      var who = bubble.querySelector('.wp1-bubble-who');
+      var tag = bubble.querySelector('.wp1-demo-tag');
+      bubble.textContent = '';
+      if (who) bubble.appendChild(who);
+      bubble.appendChild(document.createTextNode(messages[idx] + ' '));
+      if (tag) bubble.appendChild(tag);
+    }, 6000);
+  }
 
-    // Drag rotate: pointer events cover mouse + touch. Buttons inside the
-    // stage are controls, not drag handles, so a press on one never rotates.
-    // Horizontal drag rotates; touch-action pan-y keeps vertical page
-    // scroll working on phones. A drag over a card suppresses its tap.
-    wfStage.style.touchAction = 'pan-y';
-    if (wfInner) wfInner.style.transformStyle = 'preserve-3d';
-    wfStage.addEventListener('pointerdown', function (e) {
-      if (e.target.closest('button')) return;
-      wfPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (wfPointers.size === 2) {
-        var pts = Array.from(wfPointers.values());
-        wfPinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-        wfPinchZoom = wfZoom;
-      } else {
-        wfDragging = true; wfDragged = false; wfMoved = 0;
-        wfLastX = e.clientX; wfLastY = e.clientY;
-        try { wfStage.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+  function wp1CycleInstagramPanels() {
+    var panels = document.querySelectorAll('[data-wp1-ig-panel]');
+    var agent = document.querySelector('[data-wp1-ig-agent]');
+    if (!panels.length || wp1ReducedMotion()) return;
+    var idx = 0;
+    function wp1HighlightIgPanel() {
+      panels.forEach(function (p, i) { p.classList.toggle('wp1-active', i === idx); });
+      if (agent) agent.style.transform = 'translateX(' + (idx * 12) + 'px)';
+      idx = (idx + 1) % panels.length;
+    }
+    wp1HighlightIgPanel();
+    window.setInterval(wp1HighlightIgPanel, 3500);
+  }
+
+  function wp1Init() {
+    wp1RevealOnScroll();
+    wp1BuildParticles();
+    wp1Parallax();
+    if (!wp1ReducedMotion()) { wp1CycleLiveBubble(); wp1CycleInstagramPanels(); }
+    else {
+      var panels = document.querySelectorAll('[data-wp1-ig-panel]');
+      if (panels.length) panels[0].classList.add('wp1-active');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wp1Init);
+  } else {
+    wp1Init();
+  }
+})();
+
+/* part2 */
+/* ============================================================
+   WORKER 2 / PART 2 — vanilla JS only, guarded, prefixed wp2.
+   No network calls, no storage, no libraries, no live navigation.
+   - Scroll reveals (IntersectionObserver, fallback: show all)
+   - Gentle scroll parallax via rAF (transform only, disabled on
+     mobile / reduced-motion, never changes scroll behaviour)
+   - Subtle 3D tilt on [data-wp2-tilt] (pointer:fine only)
+   - Scene 5 demo workflow sequencer (loops while in view)
+   - Final CTA: scroll to #pricing if present, else on-screen
+     demo confirmation. Secondary link: #agents, else features area.
+   ============================================================ */
+(function () {
+  'use strict';
+  if (typeof document === 'undefined' || typeof window === 'undefined') return;
+
+  var wp2Reduced = false;
+  try {
+    wp2Reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) { wp2Reduced = false; }
+
+  /* ---------- 1. Scroll-triggered reveals + stagger ---------- */
+  var wp2RevealEls = document.querySelectorAll('.wp2-reveal, .wp2-stagger');
+  if ('IntersectionObserver' in window && !wp2Reduced) {
+    var wp2Observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('wp2-in');
+          wp2Observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    wp2RevealEls.forEach(function (el) { wp2Observer.observe(el); });
+  } else {
+    // Fallback / reduced-motion: content fully visible, no trap.
+    wp2RevealEls.forEach(function (el) { el.classList.add('wp2-in'); });
+  }
+
+  /* ---------- 2. Gentle parallax (responds to actual scroll) ---------- */
+  var wp2ParallaxEls = document.querySelectorAll('[data-wp2-parallax]');
+  var wp2Ticking = false;
+  function wp2ApplyParallax() {
+    wp2Ticking = false;
+    if (wp2Reduced || window.innerWidth < 820) {
+      wp2ParallaxEls.forEach(function (el) { el.style.transform = ''; });
+      return;
+    }
+    wp2ParallaxEls.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      var depth = parseFloat(el.getAttribute('data-wp2-parallax')) || 0.04;
+      // Only shift while on screen; small range so layout never jumps.
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        var offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * depth;
+        el.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
       }
     });
-    wfStage.addEventListener('pointermove', function (e) {
-      if (!wfPointers.has(e.pointerId)) return;
-      wfPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (wfPointers.size === 2) {
-        var pts = Array.from(wfPointers.values());
-        var d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-        if (wfPinchDist > 0) { wfSmooth(false); wfZoom = wfClamp(wfPinchZoom * d / wfPinchDist, 0.8, 1.6); wfSchedule(); }
+  }
+  function wp2OnScroll() {
+    if (!wp2Ticking) { wp2Ticking = true; requestAnimationFrame(wp2ApplyParallax); }
+  }
+  if (wp2ParallaxEls.length && !wp2Reduced) {
+    window.addEventListener('scroll', wp2OnScroll, { passive: true });
+    window.addEventListener('resize', wp2OnScroll, { passive: true });
+    wp2ApplyParallax();
+  }
+
+  /* ---------- 3. Subtle 3D tilt (pointer:fine only) ---------- */
+  var wp2TiltEls = document.querySelectorAll('[data-wp2-tilt]');
+  var wp2FinePointer = false;
+  try { wp2FinePointer = window.matchMedia('(pointer: fine)').matches; } catch (e) {}
+  if (wp2FinePointer && !wp2Reduced) {
+    wp2TiltEls.forEach(function (el) {
+      el.addEventListener('pointermove', function (ev) {
+        var r = el.getBoundingClientRect();
+        var x = (ev.clientX - r.left) / Math.max(r.width, 1) - 0.5;
+        var y = (ev.clientY - r.top) / Math.max(r.height, 1) - 0.5;
+        el.style.transform = 'perspective(800px) rotateX(' + (-y * 5).toFixed(2) +
+          'deg) rotateY(' + (x * 6).toFixed(2) + 'deg)';
+      });
+      el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  /* ---------- 4. Scene 5: generic demo workflow sequencer ---------- */
+  var wp2Flow = document.getElementById('wp2-flow');
+  var wp2Reply = document.getElementById('wp2-demo-reply');
+  var wp2Replay = document.getElementById('wp2-replay-flow');
+  var wp2Replies = [
+    'Working through the demo workflow…',
+    'Demo: understanding the question…',
+    'Demo: applying the demo business rules…',
+    'Demo: drafting a helpful reply…',
+    'Demo reply ready to send (demo only, nothing sent).',
+    '✓ Demo: reply sent in this mock + demo record updated.'
+  ];
+  if (wp2Flow && wp2Reply) {
+    var wp2Steps = wp2Flow.querySelectorAll('.wp2-flow-step');
+    var wp2Nodes = document.querySelectorAll('.wp2-node');
+    var wp2Timer = null;
+    var wp2Index = -1;
+    function wp2ClearFlow() {
+      wp2Steps.forEach(function (s) { s.classList.remove('wp2-step-on'); });
+      wp2Nodes.forEach(function (n) { n.classList.remove('wp2-node-on'); });
+    }
+    function wp2AdvanceFlow() {
+      wp2Index += 1;
+      if (wp2Index >= wp2Steps.length) {
+        clearInterval(wp2Timer); wp2Timer = null;
+        wp2Reply.textContent = '✓ Demo complete: “Yes — demo weekend delivery is available.” (Nothing was actually sent.)';
         return;
       }
-      if (!wfDragging) return;
-      var dx = e.clientX - wfLastX, dy = e.clientY - wfLastY;
-      wfLastX = e.clientX; wfLastY = e.clientY;
-      wfMoved += Math.abs(dx) + Math.abs(dy);
-      if (wfMoved > 8) wfDragged = true;
-      wfRotY = wfClamp(wfRotY + dx * 0.35, -180, 180);
-      wfRotX = wfClamp(wfRotX - dy * 0.25, -35, 35);
-      wfSmooth(false); wfSchedule();
-    });
-    function wfEndPointer(e) {
-      wfPointers.delete(e.pointerId);
-      if (wfPointers.size < 2) wfPinchDist = 0;
-      if (wfPointers.size === 0) wfDragging = false;
-    }
-    wfStage.addEventListener('pointerup', wfEndPointer);
-    wfStage.addEventListener('pointercancel', wfEndPointer);
-    wfStage.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); wfRotateStep(-15, 0); }
-      else if (e.key === 'ArrowRight') { e.preventDefault(); wfRotateStep(15, 0); }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); wfRotateStep(0, -10); }
-      else if (e.key === 'ArrowDown') { e.preventDefault(); wfRotateStep(0, 10); }
-    });
-    wfStage.addEventListener('wheel', function (e) {
-      if (!e.ctrlKey) return;
-      e.preventDefault();
-      wfSmooth(false); wfZoom = wfClamp(wfZoom + (e.deltaY < 0 ? 0.08 : -0.08), 0.8, 1.6); wfApply();
-    }, { passive: false });
-
-    // Expand / collapse a layer. One layer open at a time; the card itself
-    // and its toggle button both work (one handler, via bubbling), while a
-    // drag or a Try-button click never toggles.
-    var wfCards = document.querySelectorAll('.layer-card');
-    function wfSetExpanded(card, expand) {
-      wfCards.forEach(function (c) {
-        var open = expand && c === card;
-        c.classList.toggle('active', open);
-        c.setAttribute('aria-expanded', open ? 'true' : 'false');
-        var detail = c.querySelector('.layer-detail');
-        if (detail) detail.hidden = !open;
-        var tog = c.querySelector('.layer-toggle');
-        if (tog) tog.textContent = open ? 'Details chhupao' : 'Details dikhao';
+      wp2ClearFlow();
+      wp2Steps[wp2Index].classList.add('wp2-step-on');
+      wp2Steps[wp2Index].scrollIntoView({ block: 'nearest', behavior: 'auto' });
+      wp2Nodes.forEach(function (n) {
+        if (parseInt(n.getAttribute('data-wp2-node'), 10) <= wp2Index) n.classList.add('wp2-node-on');
       });
+      wp2Reply.textContent = wp2Replies[wp2Index] || wp2Replies[0];
     }
-    wfCards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        if (e.target.closest('.layer-try')) return;
-        if (wfDragged) { wfDragged = false; return; }
-        wfSetExpanded(card, card.getAttribute('aria-expanded') !== 'true');
-      });
-      card.addEventListener('keydown', function (e) {
-        if (e.target !== card) return;
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wfSetExpanded(card, card.getAttribute('aria-expanded') !== 'true'); }
-      });
-    });
-
-    // Try in demo: reuse only what already exists on this page.
-    function wfHighlight(el) {
-      if (!el) return;
-      el.style.outline = '3px solid #f2a93b';
-      el.style.outlineOffset = '3px';
-      setTimeout(function () { el.style.outline = ''; el.style.outlineOffset = ''; }, 2600);
+    function wp2StartFlow() {
+      if (wp2Timer) clearInterval(wp2Timer);
+      wp2Index = -1; wp2ClearFlow();
+      wp2Reply.textContent = wp2Replies[0];
+      if (wp2Reduced) {
+        // Reduced motion: show the finished demo state at once.
+        wp2Steps.forEach(function (s) { s.classList.add('wp2-step-on'); });
+        wp2Nodes.forEach(function (n) { n.classList.add('wp2-node-on'); });
+        wp2Reply.textContent = '✓ Demo complete: “Yes — demo weekend delivery is available.” (Nothing was actually sent.)';
+        return;
+      }
+      wp2Timer = setInterval(wp2AdvanceFlow, 1400);
+      wp2AdvanceFlow();
     }
-    function wfGoTo(el) {
-      if (!el) return;
-      el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-      wfHighlight(el);
-    }
-    function wfSim(name) {
-      var b = document.querySelector('[data-sim="' + name + '"]');
-      if (b) b.click();
-    }
-    function wfTriggerDemo(n) {
-      var demo = document.getElementById('demo');
-      if (n === 1) { wfGoTo(demo); sendDemo('price kya hai?'); }
-      else if (n === 2) { wfGoTo(demo); sendDemo('kal 11 baje booking chahiye'); }
-      else if (n === 3) { wfGoTo(demo); sendDemo('timing kya hai?'); }
-      else if (n === 4) { wfGoTo(demo); wfSim('booking'); }
-      else if (n === 5) { wfGoTo(demo); wfSim('reminder'); }
-      else if (n === 6) { wfGoTo(document.getElementById('results')); }
-    }
-    wfCards.forEach(function (card) {
-      var tryBtn = card.querySelector('.layer-try');
-      if (tryBtn) tryBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        wfTriggerDemo(parseInt(card.dataset.layer, 10));
-      });
-    });
-    wfBtn('workflowBroadcastTry', function () { wfGoTo(document.getElementById('demo')); wfSim('broadcast'); });
-
-    // Auto-rotate only while the stage is visible; small/low devices and
-    // reduced-motion start with it off (see wfAuto above).
+    // Start once when the workflow scrolls into view.
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { wfInView = en.isIntersecting; });
-      }, { threshold: 0.15 }).observe(wfStage);
-    } else { wfInView = true; }
-    window.addEventListener('resize', function () {
-      if (window.innerWidth <= 480 && wfAuto) wfSetAuto(false);
+      var wp2FlowObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { wp2StartFlow(); wp2FlowObserver.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      wp2FlowObserver.observe(wp2Flow);
+    } else { wp2StartFlow(); }
+    if (wp2Replay) wp2Replay.addEventListener('click', wp2StartFlow);
+  }
+
+  /* ---------- 5. Final CTA (DEMO — goes nowhere live) ---------- */
+  var wp2Cta = document.getElementById('wp2-cta-start');
+  var wp2Confirm = document.getElementById('wp2-demo-confirm');
+  var wp2Note = document.getElementById('wp2-cta-note');
+  if (wp2Cta) {
+    wp2Cta.addEventListener('click', function () {
+      var pricing = document.getElementById('pricing');
+      if (pricing) {
+        pricing.scrollIntoView({ behavior: wp2Reduced ? 'auto' : 'smooth', block: 'start' });
+        return;
+      }
+      // No #pricing in this fragment build: on-screen demo confirmation only.
+      if (wp2Confirm) wp2Confirm.hidden = false;
+      if (wp2Note) wp2Note.textContent = 'Demo confirmation shown above — no account created, nothing sent, nowhere live.';
     });
-    wfApply();
-    wfSetAuto(wfAuto);
+  }
+
+  /* Secondary link: #agents if present, else a features area, else stay. */
+  var wp2Features = document.getElementById('wp2-cta-features');
+  if (wp2Features) {
+    wp2Features.addEventListener('click', function (ev) {
+      var agents = document.getElementById('agents');
+      var features = document.getElementById('features') ||
+        document.querySelector('[data-wp2-features]');
+      var target = agents || features;
+      if (target) {
+        ev.preventDefault();
+        target.scrollIntoView({ behavior: wp2Reduced ? 'auto' : 'smooth', block: 'start' });
+      } else if (agents === null && !features) {
+        // No destination exists in this fragment build: keep href harmless.
+        ev.preventDefault();
+        if (wp2Confirm) {
+          wp2Confirm.hidden = false;
+          wp2Confirm.textContent = 'Demo note: the features area lives in another part of the page — nothing was sent or opened live.';
+        }
+      }
+      // If #agents exists, the default anchor scroll is left intact.
+    });
+  }
+})();
+
+/* part3 */
+/* ============================================================
+   WORKER 3 — nav / sound / progress (DEMO landing page)
+   Vanilla JS only. All identifiers prefixed wp3.
+   Guarded: every lookup null-checked; script no-ops if fragments
+   are absent. No network calls, no storage, no autoplay.
+   Sound: OFF by default. Only enabled by a user click on the
+   toggle, and only then does a Web Audio context get created.
+   Sounds are tiny synthesized blips (no audio files, no fetch).
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- Mobile menu: open / close ---------- */
+  var wp3MenuBtn = document.getElementById('wp3-menu-btn');
+  var wp3MobileMenu = document.getElementById('wp3-mobile-menu');
+  if (wp3MenuBtn && wp3MobileMenu) {
+    wp3MenuBtn.addEventListener('click', function () {
+      var wp3Open = wp3MobileMenu.hasAttribute('hidden');
+      if (wp3Open) {
+        wp3MobileMenu.removeAttribute('hidden');
+        wp3MenuBtn.setAttribute('aria-expanded', 'true');
+        wp3MenuBtn.setAttribute('aria-label', 'Close menu');
+      } else {
+        wp3MobileMenu.setAttribute('hidden', '');
+        wp3MenuBtn.setAttribute('aria-expanded', 'false');
+        wp3MenuBtn.setAttribute('aria-label', 'Open menu');
+      }
+      wp3PlayBlip();
+    });
+    /* Close the menu when a link inside it is tapped. */
+    var wp3Links = wp3MobileMenu.querySelectorAll('a');
+    for (var i = 0; i < wp3Links.length; i++) {
+      wp3Links[i].addEventListener('click', function () {
+        wp3MobileMenu.setAttribute('hidden', '');
+        wp3MenuBtn.setAttribute('aria-expanded', 'false');
+        wp3MenuBtn.setAttribute('aria-label', 'Open menu');
+      });
+    }
+  }
+
+  /* ---------- Scroll progress indicator ---------- */
+  var wp3ProgressFill = document.getElementById('wp3-progress-fill');
+  function wp3UpdateProgress() {
+    if (!wp3ProgressFill) { return; }
+    var wp3Doc = document.documentElement;
+    var wp3Max = wp3Doc.scrollHeight - wp3Doc.clientHeight;
+    var wp3Pct = wp3Max > 0 ? (wp3Doc.scrollTop / wp3Max) * 100 : 0;
+    wp3ProgressFill.style.width = wp3Pct + '%';
+  }
+  window.addEventListener('scroll', wp3UpdateProgress, { passive: true });
+  window.addEventListener('resize', wp3UpdateProgress);
+  wp3UpdateProgress();
+
+  /* ---------- Sound toggle: OFF by default, click-to-enable ---------- */
+  var wp3SoundOn = false; /* default muted/off — never autoplay */
+  var wp3AudioCtx = null;
+  var wp3Toggle = document.getElementById('wp3-sound-toggle');
+  var wp3Icon = wp3Toggle ? wp3Toggle.querySelector('.wp3-sound-icon') : null;
+  var wp3Label = wp3Toggle ? wp3Toggle.querySelector('.wp3-sound-label') : null;
+
+  function wp3PlayBlip() {
+    if (!wp3SoundOn || !wp3AudioCtx) { return; }
+    try {
+      var wp3Osc = wp3AudioCtx.createOscillator();
+      var wp3Gain = wp3AudioCtx.createGain();
+      wp3Osc.type = 'sine';
+      wp3Osc.frequency.value = 880;
+      wp3Gain.gain.setValueAtTime(0.04, wp3AudioCtx.currentTime);
+      wp3Gain.gain.exponentialRampToValueAtTime(0.001, wp3AudioCtx.currentTime + 0.12);
+      wp3Osc.connect(wp3Gain);
+      wp3Gain.connect(wp3AudioCtx.destination);
+      wp3Osc.start();
+      wp3Osc.stop(wp3AudioCtx.currentTime + 0.13);
+    } catch (wp3Err) { /* silent: interface sound is optional */ }
+  }
+
+  if (wp3Toggle) {
+    wp3Toggle.addEventListener('click', function () {
+      wp3SoundOn = !wp3SoundOn;
+      if (wp3SoundOn && !wp3AudioCtx) {
+        /* Created only after this user click — never before. */
+        try {
+          var AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) { wp3AudioCtx = new AC(); }
+        } catch (wp3Err) { wp3AudioCtx = null; }
+      }
+      if (wp3AudioCtx && wp3AudioCtx.state === 'suspended') {
+        wp3AudioCtx.resume().catch(function () {});
+      }
+      wp3Toggle.setAttribute('aria-pressed', wp3SoundOn ? 'true' : 'false');
+      wp3Toggle.setAttribute('aria-label', wp3SoundOn
+        ? 'Interface sounds on. Tap to turn off.'
+        : 'Interface sounds off. Tap to turn on.');
+      if (wp3Icon) { wp3Icon.textContent = wp3SoundOn ? '🔊' : '🔇'; }
+      if (wp3Label) { wp3Label.textContent = wp3SoundOn ? 'Sound On' : 'Sound Off'; }
+      wp3PlayBlip(); /* confirmation blip only after enabling */
+    });
+  }
+
+  /* Subtle click blips on demo buttons — only when sound is ON. */
+  var wp3Clickables = document.querySelectorAll('.wp3-plan-btn, .wp3-nav-link, .wp3-footer-link');
+  for (var j = 0; j < wp3Clickables.length; j++) {
+    wp3Clickables[j].addEventListener('click', wp3PlayBlip);
   }
 })();
