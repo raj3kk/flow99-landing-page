@@ -223,4 +223,203 @@
     msg.hidden = false;
     cForm.reset();
   });
+
+  // Workflow Explorer — vanilla JS only, no network, no storage.
+  // Rotate: drag (mouse + touch via Pointer Events) + buttons + arrow keys.
+  // Zoom: buttons + Ctrl+wheel + two-finger pinch. Explode: CSS class only
+  // (layer-stack.exploded, styled by css/style.css); collapse removes it.
+  // Try-in-demo wires to the EXISTING demo above: sendDemo() for chat
+  // layers, the existing [data-sim] buttons for booking/reminder/broadcast,
+  // and the existing #results section for the analytics layer. Nothing new
+  // is invented as a separate product, and nothing is sent or saved.
+  var wfStage = document.getElementById('workflowRotateStage');
+  if (wfStage) {
+    var wfInner = document.getElementById('workflowRotateInner');
+    var wfStack = document.getElementById('workflowStack');
+    var wfZoomLabel = document.getElementById('workflowZoomLabel');
+    var wfAutoBtn = document.getElementById('workflowAutoRotate');
+    var wfExplodeBtn = document.getElementById('workflowExplode');
+    var WF_HOME_X = 0, WF_HOME_Y = -12;
+    var wfRotX = WF_HOME_X, wfRotY = WF_HOME_Y, wfZoom = 1, wfExploded = false;
+    var wfLowDevice = window.innerWidth <= 480 ||
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
+      (navigator.deviceMemory && navigator.deviceMemory <= 2);
+    var wfAuto = !reduceMotion && !wfLowDevice;
+    var wfDragging = false, wfDragged = false, wfInView = false, wfLoopOn = false;
+    var wfPending = false, wfPointers = new Map(), wfPinchDist = 0, wfPinchZoom = 1;
+    var wfLastX = 0, wfLastY = 0, wfMoved = 0;
+
+    function wfClamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+    function wfApply() {
+      if (wfInner) wfInner.style.transform = 'rotateX(' + wfRotX.toFixed(1) + 'deg) rotateY(' + wfRotY.toFixed(1) + 'deg) scale(' + wfZoom.toFixed(2) + ')';
+      if (wfZoomLabel) wfZoomLabel.textContent = Math.round(wfZoom * 100) + '%';
+    }
+    function wfSchedule() {
+      if (wfPending) return;
+      wfPending = true;
+      requestAnimationFrame(function () { wfPending = false; wfApply(); });
+    }
+    function wfSmooth(on) { if (wfInner) wfInner.style.transition = on ? 'transform .45s ease' : 'none'; }
+    function wfSetAuto(on) {
+      wfAuto = on;
+      if (wfAutoBtn) { wfAutoBtn.textContent = 'Auto-rotate: ' + (on ? 'On' : 'Off'); wfAutoBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+      if (on && !wfLoopOn) { wfLoopOn = true; requestAnimationFrame(wfAutoTick); }
+    }
+    function wfAutoTick() {
+      if (!wfAuto) { wfLoopOn = false; return; }
+      if (wfInView && !wfDragging && !document.hidden) {
+        wfRotY += 0.12;
+        if (wfRotY > 180) wfRotY -= 360;
+        wfSmooth(false); wfApply();
+      }
+      requestAnimationFrame(wfAutoTick);
+    }
+    function wfSetExploded(on) {
+      wfExploded = on;
+      if (wfStack) wfStack.classList.toggle('exploded', on);
+      if (wfExplodeBtn) wfExplodeBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    function wfRotateStep(dx, dy) { wfSmooth(true); wfRotY = wfClamp(wfRotY + dx, -180, 180); wfRotX = wfClamp(wfRotX + dy, -35, 35); wfApply(); }
+
+    var wfBtn = function (id, fn) { var b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
+    wfBtn('workflowRotateLeft', function () { wfRotateStep(-15, 0); });
+    wfBtn('workflowRotateRight', function () { wfRotateStep(15, 0); });
+    wfBtn('workflowRotateReset', function () { wfSmooth(true); wfRotX = WF_HOME_X; wfRotY = WF_HOME_Y; wfApply(); });
+    wfBtn('workflowZoomIn', function () { wfSmooth(true); wfZoom = wfClamp(wfZoom + 0.15, 0.8, 1.6); wfApply(); });
+    wfBtn('workflowZoomOut', function () { wfSmooth(true); wfZoom = wfClamp(wfZoom - 0.15, 0.8, 1.6); wfApply(); });
+    wfBtn('workflowZoomReset', function () { wfSmooth(true); wfZoom = 1; wfApply(); });
+    wfBtn('workflowExplode', function () { wfSetExploded(true); });
+    wfBtn('workflowCollapse', function () { wfSetExploded(false); });
+    if (wfAutoBtn) wfAutoBtn.addEventListener('click', function () { wfSetAuto(!wfAuto); });
+
+    // Drag rotate: pointer events cover mouse + touch. Buttons inside the
+    // stage are controls, not drag handles, so a press on one never rotates.
+    // Horizontal drag rotates; touch-action pan-y keeps vertical page
+    // scroll working on phones. A drag over a card suppresses its tap.
+    wfStage.style.touchAction = 'pan-y';
+    if (wfInner) wfInner.style.transformStyle = 'preserve-3d';
+    wfStage.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      wfPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (wfPointers.size === 2) {
+        var pts = Array.from(wfPointers.values());
+        wfPinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        wfPinchZoom = wfZoom;
+      } else {
+        wfDragging = true; wfDragged = false; wfMoved = 0;
+        wfLastX = e.clientX; wfLastY = e.clientY;
+        try { wfStage.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+      }
+    });
+    wfStage.addEventListener('pointermove', function (e) {
+      if (!wfPointers.has(e.pointerId)) return;
+      wfPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (wfPointers.size === 2) {
+        var pts = Array.from(wfPointers.values());
+        var d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        if (wfPinchDist > 0) { wfSmooth(false); wfZoom = wfClamp(wfPinchZoom * d / wfPinchDist, 0.8, 1.6); wfSchedule(); }
+        return;
+      }
+      if (!wfDragging) return;
+      var dx = e.clientX - wfLastX, dy = e.clientY - wfLastY;
+      wfLastX = e.clientX; wfLastY = e.clientY;
+      wfMoved += Math.abs(dx) + Math.abs(dy);
+      if (wfMoved > 8) wfDragged = true;
+      wfRotY = wfClamp(wfRotY + dx * 0.35, -180, 180);
+      wfRotX = wfClamp(wfRotX - dy * 0.25, -35, 35);
+      wfSmooth(false); wfSchedule();
+    });
+    function wfEndPointer(e) {
+      wfPointers.delete(e.pointerId);
+      if (wfPointers.size < 2) wfPinchDist = 0;
+      if (wfPointers.size === 0) wfDragging = false;
+    }
+    wfStage.addEventListener('pointerup', wfEndPointer);
+    wfStage.addEventListener('pointercancel', wfEndPointer);
+    wfStage.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); wfRotateStep(-15, 0); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); wfRotateStep(15, 0); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); wfRotateStep(0, -10); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); wfRotateStep(0, 10); }
+    });
+    wfStage.addEventListener('wheel', function (e) {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      wfSmooth(false); wfZoom = wfClamp(wfZoom + (e.deltaY < 0 ? 0.08 : -0.08), 0.8, 1.6); wfApply();
+    }, { passive: false });
+
+    // Expand / collapse a layer. One layer open at a time; the card itself
+    // and its toggle button both work (one handler, via bubbling), while a
+    // drag or a Try-button click never toggles.
+    var wfCards = document.querySelectorAll('.layer-card');
+    function wfSetExpanded(card, expand) {
+      wfCards.forEach(function (c) {
+        var open = expand && c === card;
+        c.classList.toggle('active', open);
+        c.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var detail = c.querySelector('.layer-detail');
+        if (detail) detail.hidden = !open;
+        var tog = c.querySelector('.layer-toggle');
+        if (tog) tog.textContent = open ? 'Details chhupao' : 'Details dikhao';
+      });
+    }
+    wfCards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('.layer-try')) return;
+        if (wfDragged) { wfDragged = false; return; }
+        wfSetExpanded(card, card.getAttribute('aria-expanded') !== 'true');
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.target !== card) return;
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wfSetExpanded(card, card.getAttribute('aria-expanded') !== 'true'); }
+      });
+    });
+
+    // Try in demo: reuse only what already exists on this page.
+    function wfHighlight(el) {
+      if (!el) return;
+      el.style.outline = '3px solid #f2a93b';
+      el.style.outlineOffset = '3px';
+      setTimeout(function () { el.style.outline = ''; el.style.outlineOffset = ''; }, 2600);
+    }
+    function wfGoTo(el) {
+      if (!el) return;
+      el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      wfHighlight(el);
+    }
+    function wfSim(name) {
+      var b = document.querySelector('[data-sim="' + name + '"]');
+      if (b) b.click();
+    }
+    function wfTriggerDemo(n) {
+      var demo = document.getElementById('demo');
+      if (n === 1) { wfGoTo(demo); sendDemo('price kya hai?'); }
+      else if (n === 2) { wfGoTo(demo); sendDemo('kal 11 baje booking chahiye'); }
+      else if (n === 3) { wfGoTo(demo); sendDemo('timing kya hai?'); }
+      else if (n === 4) { wfGoTo(demo); wfSim('booking'); }
+      else if (n === 5) { wfGoTo(demo); wfSim('reminder'); }
+      else if (n === 6) { wfGoTo(document.getElementById('results')); }
+    }
+    wfCards.forEach(function (card) {
+      var tryBtn = card.querySelector('.layer-try');
+      if (tryBtn) tryBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        wfTriggerDemo(parseInt(card.dataset.layer, 10));
+      });
+    });
+    wfBtn('workflowBroadcastTry', function () { wfGoTo(document.getElementById('demo')); wfSim('broadcast'); });
+
+    // Auto-rotate only while the stage is visible; small/low devices and
+    // reduced-motion start with it off (see wfAuto above).
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { wfInView = en.isIntersecting; });
+      }, { threshold: 0.15 }).observe(wfStage);
+    } else { wfInView = true; }
+    window.addEventListener('resize', function () {
+      if (window.innerWidth <= 480 && wfAuto) wfSetAuto(false);
+    });
+    wfApply();
+    wfSetAuto(wfAuto);
+  }
 })();
