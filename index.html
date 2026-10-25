@@ -122,6 +122,119 @@
     </div>
   </section>
 
+  <!-- ============ WORKFLOW EXPLORER — DEMO ONLY ============ -->
+  <section class="section workflow-explorer reveal" id="workflow">
+    <p class="kicker">WORKFLOW EXPLORER — DEMO ONLY, SIRF SIMULATION</p>
+    <h2>Workflow Explorer — layer by layer</h2>
+    <p class="lede small">Ek customer message se lekar demo numbers tak — poora demo workflow 6 layers me. Kisi layer par tap karo to dekho uske andar demo me kya hota hai, phir “Try in demo” se wahi step asli demo chat / simulation me chalao. <span class="demo-pill">DEMO</span></p>
+    <p class="micro-note">⚠ Ye explorer standalone demo hai — fictional demo business ke saath. Isme dikhaye steps, numbers aur replies demo ke hain, asli daave nahi.</p>
+    <div class="zoom-controls" role="group" aria-label="Rotate controls">
+      <button type="button" id="workflowRotateLeft">↺ Rotate left</button>
+      <button type="button" id="workflowRotateRight">↻ Rotate right</button>
+      <button type="button" id="workflowRotateReset">Reset view</button>
+      <button type="button" id="workflowAutoRotate" aria-pressed="true">Auto-rotate: On</button>
+    </div>
+    <div class="zoom-controls" role="group" aria-label="Zoom controls">
+      <button type="button" id="workflowZoomOut">− Zoom out</button>
+      <span id="workflowZoomLabel" aria-live="polite">100%</span>
+      <button type="button" id="workflowZoomIn">+ Zoom in</button>
+      <button type="button" id="workflowZoomReset">Reset zoom</button>
+    </div>
+    <div class="zoom-controls" role="group" aria-label="Layer controls">
+      <button type="button" class="explode-btn" id="workflowExplode" aria-pressed="false">Explode layers</button>
+      <button type="button" id="workflowCollapse">Collapse</button>
+      <button type="button" id="workflowBroadcastTry">Broadcast simulation bhi try karo (demo)</button>
+    </div>
+    <p class="micro-note">Drag karo: stage ko mouse ya touch se drag karke ghumao — stack aur demo phone ek saath ghoomte hain. Do ungli se pinch karke zoom bhi kar sakte ho. Keyboard: stage par focus karke arrow keys se rotate karo.</p>
+    <div class="rotate-stage" id="workflowRotateStage" tabindex="0" aria-label="Rotatable demo workflow stage: stack aur demo phone ek saath ghoomte hain">
+      <div class="workflow-rotate-inner" id="workflowRotateInner">
+        <div class="layer-stack" id="workflowStack">
+          <article class="layer-card" data-layer="1" tabindex="0" aria-expanded="false">
+            <p><strong>Layer 1</strong> <span class="demo-pill">DEMO</span></p>
+            <h3>Customer message in</h3>
+            <p>Demo customer ka message aata hai — jaise “price kya hai?”</p>
+            <div class="layer-detail" hidden>
+              <h4>Is layer ke andar (demo)</h4>
+              <p>Message demo chat me dikhta hai. Koi asli message kahin bheja ya save nahi hota — ye sirf screen par demo hai.</p>
+              <p><strong>Example (demo):</strong> Demo customer: “Price kya hai?”</p>
+              <button type="button" class="layer-try">Try in demo ↓</button>
+            </div>
+            <button type="button" class="layer-toggle">Details dikhao</button>
+          </article>
+          <article class="layer-card" data-layer="2" tabindex="0" aria-expanded="false">
+            <p><strong>Layer 2</strong> <span class="demo-pill">DEMO</span></p>
+            <h3>AI understands intent (price / timing / booking)</h3>
+            <p>Demo AI samajhta hai customer ko price chahiye, timing chahiye, ya booking chahiye.</p>
+            <div class="layer-detail" hidden>
+              <h4>Is layer ke andar (demo)</h4>
+              <p>Demo me AI keywords se intent pehchanta hai — price, timing, ya booking — aur usi hisaab se canned demo reply chunta hai. Apni taraf se kuch invent nahi karta.</p>
+              <p><strong>Example (demo):</strong> “Kal 11 baje booking chahiye” → intent: booking.</p>
+              <button type="button" class="layer-try">Try in demo ↓</button>
+            </div>
+            <button type="button" class="layer-toggle">Details dikhao</button>
+          </article>
+          <article class="layer-card" data-layer="3" tabindex="0" aria-expanded="false">
+            <p><strong>Layer 3</strong> <span class="demo-pill">DEMO</span></p>
+            <h3>Auto-reply out</h3>
+            <p>Turant demo jawab jaata hai — demo me ~3 sec me.</p>
+            <div class="layer-detail" hidden>
+              <h4>Is layer ke andar (demo)</h4>
+              <p>Intent ke hisaab se demo reply banta hai — price, timing, ya offer — aur demo chat me dikhta hai. Asli customer ko kuch bheja nahi jaata.</p>
+              <p><strong>Example (demo):</strong> “Hum subah 10 se raat 9 baje tak khule hain.”</p>
+              <button type="button" class="layer-try">Try in demo ↓</button>
+            </div>
+            <button type="button" class="layer-toggle">Details dikhao</button>
+          </article>
+          <article class="layer-card" data-layer="4" tabindex="0" aria-expanded="false">
+            <p><strong>Layer 4</strong> <span class="demo-pill">DEMO</span></p>
+            <h3>Booking confirmed</h3>
+            <p>Slot demo me check hota hai, phir booking confirm dikhti hai.</p>
+            <div class="layer-detail" hidden>
+              <h4>Is layer ke andar (demo)</h4>
+              <p>Demo me slot khaali dikhaya jaata hai, confirm message aata hai, aur ek demo calendar note banta hai. Asli booking nahi hoti.</p>
+              <p><strong>Example (demo):</strong> “Kal 11:00 AM, haircut — booking confirm (demo).”</p>
+              <button type="button" class="layer-try">Try in demo ↓</button>
+            </div>
+            <button type="button" class="layer-toggle">Details dikhao</button>
+          </article>
+          <article class="layer-card" data-layer="5" tabindex="0" aria-expanded="false">
+            <p><strong>Layer 5</strong> <span class="demo-pill">DEMO</span></p>
+            <h3>Reminder on time</h3>
+            <p>Booking se 1 ghanta pehle demo reminder dikhta hai.</p>
+            <div class="layer-detail" hidden>
+              <h4>Is layer ke andar (demo)</h4>
+              <p>Demo clock se reminder time nikalta hai — booking se 1 ghanta pehle — aur simulation me reminder bheja hua dikhta hai.</p>
+              <p><strong>Example (demo):</strong> Booking kal 11:00 AM → reminder 10:00 AM (demo).</p>
+              <button type="button" class="layer-try">Try in demo ↓</button>
+            </div>
+            <button type="button" class="layer-toggle">Details dikhao</button>
+          </article>
+          <article class="layer-card" data-layer="6" tabindex="0" aria-expanded="false">
+            <p><strong>Layer 6</strong> <span class="demo-pill">DEMO</span></p>
+            <h3>Analytics view</h3>
+            <p>Demo numbers ek nazar me — kitne message, kitni booking, kitne miss hue.</p>
+            <div class="layer-detail" hidden>
+              <h4>Is layer ke andar (demo)</h4>
+              <p>Ye layer koi naya number invent nahi karti — yehi page ke Results section ke demo numbers dikhati hai: 0 missed demo message, ~3 sec demo reply time, 100% demo bookings par reminder.</p>
+              <p><strong>Example (demo):</strong> “Is hafte 0 missed message” — demo dashboard jaisa view.</p>
+              <button type="button" class="layer-try">Demo results dekho ↓</button>
+            </div>
+            <button type="button" class="layer-toggle">Details dikhao</button>
+          </article>
+        </div>
+        <div class="workflow-phone" aria-label="Demo phone preview, workflow stage ke saath ghoomta hai">
+          <div class="phone-head"><span class="avatar">F</span><div><strong>Flow99 Demo Business</strong><small>online • AI assistant active</small></div><span class="phone-demo">DEMO</span></div>
+          <div class="phone-chat">
+            <div class="bubble in">Price kya hai?</div>
+            <div class="bubble out">Demo jawab: Humari service ₹299 se shuru hoti hai (demo price).</div>
+            <div class="bubble out">Done! ✅ Kal 11:00 AM — booking confirm (demo).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="micro-note">Stage rotate, zoom aur explode — sab sirf isi demo page par visual effect hain. Koi data save ya send nahi hota.</p>
+  </section>
+
   <!-- ============ FEATURES ============ -->
   <section class="section reveal" id="features">
     <p class="kicker" data-i18n="featKicker">FEATURES — HAR EK KE SAATH EK CHHOTA EXAMPLE</p>
