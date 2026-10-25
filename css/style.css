@@ -52,3 +52,46 @@ footer{padding:24px 20px 40px;text-align:center;color:#5a6b63;font-size:14px}
 @media(max-width:900px){.nav{display:none}.hero{grid-template-columns:1fr;padding-top:34px}.cards3,.feat-grid,.steps,.stats,.demo-grid{grid-template-columns:1fr}.float-card{font-size:12px}.card-a{left:6px}.card-b{right:6px}.hero-proof{gap:14px}}
 @media(max-width:400px){.topbar{padding:10px 12px;gap:8px}.brand{font-size:19px}.btn-small{display:none}.lang-btn{padding:6px 7px;font-size:12px}h1{font-size:32px}.section{padding:44px 14px}.phone{width:92vw}.stats{grid-template-columns:1fr 1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}.reveal{opacity:1;transform:none}.bubble{animation:none}}
+
+/* ============================================================
+   SCI-FI WORKFLOW EXPLORER (Worker B, CSS only, appended)
+   Base palette kept: deep green #0d7a4a / #0f1f1a + cream #f4f1ea
+   + gold #f2a93b. No external fonts, images, or network assets.
+   Readability rule: light panels carry dark text; dark panels
+   carry near-white text. Glow is on borders/shadows only, never
+   on text (no text-shadow glow on body copy).
+   ============================================================ */
+.workflow-explorer{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(238,247,240,.92));border:1px solid #d8e8dd;border-radius:24px;padding:24px;box-shadow:0 18px 44px rgba(15,31,26,.10)}
+.workflow-explorer::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(13,122,74,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(13,122,74,.07) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse at 50% 20%,black 30%,transparent 85%)}
+.workflow-explorer>*{position:relative}
+.workflow-explorer h3,.workflow-explorer h4{color:#0f1f1a}
+.workflow-explorer p{color:#33463e}
+.rotate-stage{perspective:1200px;perspective-origin:50% 40%}
+.layer-stack{position:relative;transform-style:preserve-3d;transition:transform .6s ease;display:grid;gap:14px;padding:8px 0 4px}
+.layer-card{position:relative;transform-style:preserve-3d;background:rgba(255,255,255,.94);color:#0f1f1a;border:1px solid #d8e8dd;border-left:4px solid #0d7a4a;border-radius:16px;padding:18px 20px;box-shadow:0 12px 28px rgba(15,31,26,.10),0 0 0 1px rgba(126,226,160,.25);transition:transform .45s ease,box-shadow .45s ease,border-color .45s ease;cursor:pointer}
+.layer-card h3,.layer-card h4{color:#0f1f1a;margin:4px 0 6px}
+.layer-card p{color:#33463e;margin:6px 0}
+.layer-card small{color:#5a6b63}
+.layer-card:hover{transform:translateY(-2px);border-color:#0d7a4a;box-shadow:0 16px 34px rgba(15,31,26,.14),0 0 18px rgba(126,226,160,.35)}
+.layer-card.active{border-color:#0d7a4a;border-left-color:#f2a93b;background:#ffffff;box-shadow:0 16px 36px rgba(15,31,26,.14),0 0 22px rgba(126,226,160,.45);animation:holo-pulse 6s ease-in-out infinite}
+.layer-card.active::after{content:"";position:absolute;top:12px;right:14px;width:9px;height:9px;border-radius:50%;background:#22a06b;box-shadow:0 0 0 5px rgba(34,160,107,.18)}
+.layer-card.exploded{transform:translateZ(44px) scale(1.01)}
+.layer-stack.exploded .layer-card:nth-child(1){transform:translateY(-6px) translateZ(56px)}
+.layer-stack.exploded .layer-card:nth-child(2){transform:translateY(0) translateZ(36px)}
+.layer-stack.exploded .layer-card:nth-child(3){transform:translateY(6px) translateZ(18px)}
+.layer-stack.exploded .layer-card:nth-child(n+4){transform:translateY(10px) translateZ(6px)}
+.layer-detail{background:#0f1f1a;color:#eafff2;border:1px solid rgba(126,226,160,.35);border-radius:16px;padding:20px;box-shadow:0 16px 34px rgba(15,31,26,.22);background-image:linear-gradient(rgba(126,226,160,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(126,226,160,.06) 1px,transparent 1px);background-size:24px 24px}
+.layer-detail h3,.layer-detail h4{color:#ffffff}
+.layer-detail p,.layer-detail li{color:#d7e3dc}
+.layer-detail strong{color:#7ee2a0}
+.zoom-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.zoom-controls button,.explode-btn{border:1px solid #0d7a4a;background:#ffffff;color:#0f1f1a;border-radius:99px;padding:9px 15px;font-weight:700;box-shadow:0 8px 20px rgba(15,31,26,.10);transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+.zoom-controls button:hover,.explode-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(13,122,74,.25)}
+.explode-btn{background:#0d7a4a;color:#ffffff;box-shadow:0 10px 24px rgba(13,122,74,.30),0 0 14px rgba(126,226,160,.30)}
+.explode-btn[aria-pressed="true"]{background:#0f1f1a;border-color:#f2a93b;color:#ffe9a8}
+.layer-card:focus-visible,.zoom-controls button:focus-visible,.explode-btn:focus-visible{outline:3px solid #f2a93b;outline-offset:3px}
+@keyframes holo-pulse{0%,100%{box-shadow:0 16px 36px rgba(15,31,26,.14),0 0 14px rgba(126,226,160,.30)}50%{box-shadow:0 16px 36px rgba(15,31,26,.14),0 0 24px rgba(126,226,160,.50)}}
+/* Small phones: lighter glow/shadow, flatter 3D, no blur cost */
+@media(max-width:480px){.workflow-explorer{padding:16px 14px;border-radius:18px}.workflow-explorer::before{background-size:22px 22px;opacity:.7}.rotate-stage{perspective:800px}.layer-stack{gap:10px}.layer-card{padding:14px 16px;box-shadow:0 8px 18px rgba(15,31,26,.10);border-left-width:3px}.layer-card:hover{transform:none;box-shadow:0 8px 18px rgba(15,31,26,.10)}.layer-card.active{animation:none;box-shadow:0 8px 18px rgba(15,31,26,.12),0 0 8px rgba(126,226,160,.25)}.layer-card.exploded,.layer-stack.exploded .layer-card{transform:none}.layer-detail{padding:16px}.zoom-controls button,.explode-btn{padding:8px 13px}}
+/* Reduced motion: no auto-rotate, no pulse, instant state changes */
+@media(prefers-reduced-motion:reduce){.workflow-explorer,.layer-stack,.layer-card,.zoom-controls button,.explode-btn{transition:none;animation:none}.layer-card.active{animation:none}.layer-card:hover{transform:none}}
