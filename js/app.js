@@ -1,262 +1,310 @@
-'use strict';
+/* Flow99 landing page — Worker B: scroll-animation workflow + page JS.
+   Vanilla JS only. No libraries, no network calls, no storage, no secrets,
+   no payment / OTP / login code, no real WhatsApp sends. Standalone demo only:
+   the hero chat below uses canned demo text and never sends or saves anything.
+   Coordinator CSS hooks used by this file (define in the white glass stylesheet):
+     .wf-js .wf-step            -> hidden start state (opacity 0, small translateY/scale)
+     .wf-js .wf-step.in-view    -> visible state (transition to opacity 1, none)
+     .wf-step.is-active         -> current step emphasis (optional stronger glass/shadow)
+     .wf-step.is-highlighted    -> gentle auto-play highlight (same look as .is-active
+                                  is fine; keep it subtle so it never fights scrolling)
+     #flow99-reveal             -> hidden start state (small scale, low opacity)
+     #flow99-reveal.revealed    -> big FLOW99 text scaled/glowed in
+     @media (prefers-reduced-motion: reduce) -> all of the above with no transition
+   If the coordinator stylesheet omits the .wf-js start states, steps simply stay
+   readable and this script still drives progress, highlight and reveal classes.
+   Progress is also set inline on #workflow-progress (style.width), so it works
+   even without coordinator CSS for the bar itself. */
+(function () {
+  'use strict';
 
-/*
- * Flow99 landing page — original vanilla JS, no libraries, no CDN.
- * Features (all guarded with null checks; nothing throws if a hook is absent):
- *   1. Hero glow follows the mouse (desktop only) + subtle scroll drift.
- *   2. .reveal elements fade/slide in via IntersectionObserver, staggered
- *      by index within their parent (transition-delay capped).
- *   3. .float-panel elements get a subtle scroll parallax (desktop only).
- *      CSS keyframes own the floating; this file never fights them.
- *   4. Auto-playing demo chat loop (canned replies only, no network,
- *      no input, no send). Pauses when the tab is hidden.
- *   5. Mobile menu toggle (class 'open' + aria-expanded).
- *   6. Smooth anchor scrolling (respects prefers-reduced-motion).
- * Deliberately absent from this file: network calls, browser storage,
- * cookies, credentials, payments, one-time codes, logins, navigation to
- * live sites, scroll-snap, scroll trapping, audio/sound.
- */
+  var docEl = document.documentElement;
+  var reducedMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-document.addEventListener('DOMContentLoaded', function () {
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isDesktop = window.matchMedia('(min-width: 768px)').matches;
+  /* Mark JS as present so hidden start states only apply when JS can reveal. */
+  docEl.classList.add('wf-js');
+  if (reducedMotion) docEl.classList.add('wf-reduced-motion');
 
-  /* ------------------------------------------------------------------ */
-  /* Small helpers                                                       */
-  /* ------------------------------------------------------------------ */
-
-  // rAF throttle: at most one callback per animation frame.
-  function rafThrottle(fn) {
-    var scheduled = false;
-    return function () {
-      if (scheduled) { return; }
-      scheduled = true;
-      window.requestAnimationFrame(function () {
-        scheduled = false;
-        fn();
-      });
-    };
+  /* ---------- Small helpers ---------- */
+  function clamp(value, min, max) {
+    return value < min ? min : (value > max ? max : value);
   }
 
-  /* ------------------------------------------------------------------ */
-  /* 1. Hero glow: mouse-follow (desktop) + subtle scroll drift          */
-  /* ------------------------------------------------------------------ */
+  function $(selector, root) {
+    return (root || document).querySelector(selector);
+  }
 
-  var hero = document.getElementById('hero');
-  var heroGlow = document.getElementById('heroGlow');
+  function $$(selector, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(selector));
+  }
 
-  if (hero && heroGlow && !reducedMotion && isDesktop) {
-    var glowX = 0;
-    var glowY = 0;
-    var scrollShift = 0;
+  /* ---------- Mobile menu toggle ---------- */
+  function initMobileMenu() {
+    var toggle = $('[data-menu-toggle]') || $('.nav-toggle') || $('#menu-toggle');
+    var menu = $('[data-mobile-menu]') || $('.mobile-menu') || $('#mobile-menu') ||
+      $('.nav-links') || $('#nav-links');
+    if (!toggle || !menu) return;
 
-    function applyGlow() {
-      heroGlow.style.transform =
-        'translate(' + glowX.toFixed(1) + 'px, ' + (glowY + scrollShift).toFixed(1) + 'px)';
+    function setOpen(open) {
+      menu.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
-    var applyGlowThrottled = rafThrottle(applyGlow);
 
-    hero.addEventListener('mousemove', function (event) {
-      var rect = hero.getBoundingClientRect();
-      // Offset from hero centre, damped so the glow drifts rather than snaps.
-      glowX = (event.clientX - rect.left - rect.width / 2) * 0.12;
-      glowY = (event.clientY - rect.top - rect.height / 2) * 0.12;
-      applyGlowThrottled();
+    toggle.addEventListener('click', function () {
+      setOpen(!menu.classList.contains('open'));
     });
-
-    window.addEventListener('scroll', rafThrottle(function () {
-      // Subtle downward drift as the hero leaves the viewport.
-      scrollShift = Math.min(window.scrollY * 0.08, 60);
-      applyGlow();
-    }), { passive: true });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') setOpen(false);
+    });
+    $$('a', menu).forEach(function (link) {
+      link.addEventListener('click', function () { setOpen(false); });
+    });
   }
 
-  /* ------------------------------------------------------------------ */
-  /* 2. Reveal on scroll (IntersectionObserver, staggered per parent)    */
-  /* ------------------------------------------------------------------ */
-
-  var revealEls = document.querySelectorAll('.reveal');
-
-  if (revealEls.length > 0) {
-    if (reducedMotion) {
-      // No animation: everything visible immediately.
-      revealEls.forEach(function (el) {
-        el.classList.add('visible');
-        el.style.transitionDelay = '0ms';
-      });
-    } else if ('IntersectionObserver' in window) {
-      // Stagger: delay by index within the element's parent, capped at 300ms.
-      var parentsSeen = new Map();
-      revealEls.forEach(function (el) {
-        var parent = el.parentElement;
-        var index = parentsSeen.get(parent) || 0;
-        parentsSeen.set(parent, index + 1);
-        el.style.transitionDelay = Math.min(index * 80, 300) + 'ms';
-      });
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-      // Coordinator merge fix: hide first (pre-reveal), then reveal on intersect.
-      // Without this, .reveal's visible-by-default base state meant no fade-in.
-      revealEls.forEach(function (el) {
-        el.classList.add('pre-reveal');
-        observer.observe(el);
-      });
-    } else {
-      // Fallback for very old browsers: show everything.
-      revealEls.forEach(function (el) { el.classList.add('visible'); });
-    }
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* 3. Float-panel scroll parallax (desktop only, never fights CSS)     */
-  /* ------------------------------------------------------------------ */
-
-  var floatPanels = document.querySelectorAll('.float-panel');
-
-  if (floatPanels.length > 0 && !reducedMotion && isDesktop) {
-    var applyParallax = rafThrottle(function () {
-      floatPanels.forEach(function (panel) {
-        var rect = panel.getBoundingClientRect();
-        var viewportH = window.innerHeight || 1;
-        // Only nudge panels near the viewport; strength is deliberately small
-        // so the CSS float keyframes remain the dominant motion.
-        if (rect.bottom > -100 && rect.top < viewportH + 100) {
-          var offset = (rect.top + rect.height / 2 - viewportH / 2) * -0.04;
-          panel.style.setProperty('--scroll-parallax', offset.toFixed(1) + 'px');
-          panel.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+  /* ---------- Smooth scroll for nav anchors ---------- */
+  function initSmoothScroll() {
+    $$('a[href^="#"]').forEach(function (link) {
+      var targetId = link.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (!target) return;
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (reducedMotion || !('scrollBehavior' in docEl.style)) {
+          target.scrollIntoView();
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
-    window.addEventListener('scroll', applyParallax, { passive: true });
-    // Initial position, in case the page loads mid-scroll.
-    applyParallax();
   }
 
-  /* ------------------------------------------------------------------ */
-  /* 4. Demo chat: auto-playing scripted loop, canned replies only       */
-  /* ------------------------------------------------------------------ */
+  /* ---------- Workflow scroll-'video' ---------- */
+  var section = $('#workflow');
+  var stepsContainer = $('#workflow-steps');
+  var progressBar = $('#workflow-progress');
+  var reveal = $('#flow99-reveal');
+  var steps = stepsContainer ? $$('.wf-step', stepsContainer) : $$('.wf-step');
+  var totalSteps = steps.length;
+  var currentIndex = -1;      /* last step seen / highlighted (0-based, -1 = none) */
+  var highestSeen = -1;       /* furthest step ever revealed — progress never rewinds below it while in section */
+  var revealDone = false;
+  var sectionInView = false;
+  var manualPauseUntil = 0;   /* timestamp: auto-play stays off until then after manual scroll/touch */
+  var autoTimer = null;
+  var scrollQueued = false;
 
-  var demoChat = document.getElementById('demoChat');
-  var chatMessages = document.getElementById('chatMessages');
-  var demoChatStatus = document.getElementById('demoChatStatus');
-
-  if (demoChatStatus) {
-    demoChatStatus.textContent = 'DEMO \u2014 no message is sent or saved';
+  function setProgress(value) {
+    if (!progressBar) return;
+    progressBar.style.width = (clamp(value, 0, 1) * 100).toFixed(1) + '%';
+    progressBar.setAttribute('aria-valuenow', String(Math.round(clamp(value, 0, 1) * 100)));
   }
 
-  if (chatMessages) {
-    // Three short scripted exchanges for a fictional 'Demo Store'.
-    // Every AI line is a canned demo reply; nothing is sent anywhere.
-    var script = [
-      { who: 'customer', text: 'Hi! Is the handmade soap in stock?' },
-      { who: 'ai', text: 'Yes! The handmade soap is in stock at \u20B9299. Would you like to book one?' },
-      { who: 'customer', text: 'Yes, please book one for me.' },
-      { who: 'ai', text: 'Done! Your order is booked. You will get a reminder before delivery.' },
-      { who: 'customer', text: 'What time do you deliver?' },
-      { who: 'ai', text: 'We deliver between 10 am and 7 pm. Your slot is tomorrow, 11 am.' },
-      { who: 'customer', text: 'Can I change it to the evening?' },
-      { who: 'ai', text: 'Of course \u2014 moved to tomorrow evening, 6 pm. Reminder set!' }
-    ];
-
-    var MAX_BUBBLES = 6;
-    var step = 0;
-    var timer = null;
-    var running = false;
-
-    function appendBubble(line) {
-      var bubble = document.createElement('div');
-      bubble.className = line.who === 'ai' ? 'msg-ai' : 'msg-customer';
-      bubble.textContent = line.text;
-      chatMessages.appendChild(bubble);
-      // Keep only the last ~6 bubbles so the demo never grows unbounded.
-      while (chatMessages.children.length > MAX_BUBBLES) {
-        chatMessages.removeChild(chatMessages.firstChild);
-      }
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function playNext() {
-      appendBubble(script[step % script.length]);
-      step += 1;
-      // Brief pause after each AI reply so the exchange reads naturally.
-      var last = script[(step - 1 + script.length) % script.length];
-      var delay = last.who === 'ai' ? 2200 : 1400;
-      timer = window.setTimeout(function () {
-        if (running) { playNext(); }
-      }, delay);
-    }
-
-    function startLoop() {
-      if (running) { return; }
-      running = true;
-      // Small lead-in so the first bubble does not appear instantly.
-      timer = window.setTimeout(playNext, 600);
-    }
-
-    function stopLoop() {
-      running = false;
-      if (timer !== null) {
-        window.clearTimeout(timer);
-        timer = null;
-      }
-    }
-
-    // Pause while the tab is hidden; restart when it becomes visible again.
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        stopLoop();
-      } else {
-        startLoop();
-      }
+  function markStep(index) {
+    if (index < 0 || index >= totalSteps) return;
+    if (index > highestSeen) highestSeen = index;
+    currentIndex = index;
+    steps[index].classList.add('in-view');
+    steps.forEach(function (step, i) {
+      step.classList.toggle('is-active', i === index);
     });
-
-    startLoop();
   }
 
-  /* ------------------------------------------------------------------ */
-  /* 5. Mobile menu toggle                                               */
-  /* ------------------------------------------------------------------ */
+  function showReveal() {
+    if (revealDone || !reveal) return;
+    revealDone = true;
+    reveal.classList.add('revealed');
+    setProgress(1);
+  }
 
-  var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  var mobileMenu = document.getElementById('mobileMenu');
+  function updateProgress() {
+    scrollQueued = false;
+    if (!section) {
+      /* No section wrapper: fall back to step-based progress only. */
+      if (totalSteps > 0 && highestSeen >= 0) {
+        setProgress((highestSeen + 1) / totalSteps);
+      }
+      return;
+    }
+    var rect = section.getBoundingClientRect();
+    var viewportH = window.innerHeight || 1;
+    var travelled = viewportH - rect.top;
+    var span = viewportH + rect.height;
+    var scrollProgress = span > 0 ? travelled / span : 0;
+    var stepProgress = totalSteps > 0 && highestSeen >= 0
+      ? (highestSeen + 1) / totalSteps : 0;
+    /* Scroll position drives the bar; revealed steps only raise it, never lower it. */
+    var value = Math.max(scrollProgress, stepProgress);
+    if (rect.top >= viewportH) value = 0;
+    if (rect.bottom <= 0) value = 1;
+    if (revealDone) value = 1;
+    setProgress(value);
+    if (value >= 0.995) showReveal();
+  }
 
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', function () {
-      var isOpen = mobileMenu.classList.toggle('open');
-      mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
+  function queueProgressUpdate() {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    requestAnimationFrame(updateProgress);
+  }
 
-    // Clicking any link inside the menu closes it.
-    mobileMenu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        mobileMenu.classList.remove('open');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+  function observeSteps() {
+    if (!totalSteps) return;
+
+    if (reducedMotion) {
+      /* Readable immediately, no heavy motion; progress still fills on scroll. */
+      steps.forEach(function (step, i) {
+        step.classList.add('in-view');
+        if (i === 0) step.classList.add('is-active');
       });
-    });
+      highestSeen = totalSteps - 1;
+      currentIndex = 0;
+      updateProgress();
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      steps.forEach(function (step) { step.classList.add('in-view'); });
+      highestSeen = totalSteps - 1;
+      updateProgress();
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var index = steps.indexOf(entry.target);
+        if (index === -1) return;
+        entry.target.classList.add('in-view');
+        /* Scrolling sets the current step, so auto-play continues from here
+           instead of jumping back — manual scroll is never overridden. */
+        markStep(index);
+        if (index === totalSteps - 1) showReveal();
+      });
+      queueProgressUpdate();
+    }, { root: null, rootMargin: '0px 0px -12% 0px', threshold: 0.25 });
+
+    steps.forEach(function (step) { observer.observe(step); });
   }
 
-  /* ------------------------------------------------------------------ */
-  /* 6. Smooth anchor scrolling                                          */
-  /* ------------------------------------------------------------------ */
+  /* ---------- Auto-play highlight (never scrolls the page) ---------- */
+  function stopAutoPlay() {
+    if (autoTimer !== null) {
+      window.clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
 
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (event) {
-      var targetId = anchor.getAttribute('href');
-      // Ignore bare '#' links; only handle real in-page targets.
-      if (!targetId || targetId === '#') { return; }
-      // getElementById avoids selector-parsing errors on unusual hrefs.
-      var target = document.getElementById(targetId.slice(1));
-      if (!target) { return; } // Target missing: let the default happen (no-op).
-      event.preventDefault();
-      target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+  function highlightStep(index) {
+    if (!totalSteps) return;
+    currentIndex = index;
+    steps.forEach(function (step, i) {
+      step.classList.toggle('is-highlighted', i === index);
+      step.classList.toggle('is-active', i === index);
     });
-  });
-});
+    if (index === totalSteps - 1) showReveal();
+  }
+
+  function startAutoPlay() {
+    if (reducedMotion || !totalSteps || autoTimer !== null) return;
+    if (!sectionInView || document.hidden) return;
+    autoTimer = window.setInterval(function () {
+      if (document.hidden || !sectionInView) { stopAutoPlay(); return; }
+      if (Date.now() < manualPauseUntil) return; /* manual scroll owns the moment */
+      var next = currentIndex < 0 ? 0 : (currentIndex + 1) % totalSteps;
+      /* Only highlight steps the visitor has already scrolled into view once,
+         except the very first cycle, so auto-play never spoils unseen steps. */
+      if (highestSeen >= 0 && next > highestSeen && highestSeen < totalSteps - 1) {
+        next = 0;
+      }
+      steps[next].classList.add('in-view');
+      highlightStep(next);
+    }, 2500);
+  }
+
+  function observeSection() {
+    if (!section) { sectionInView = true; startAutoPlay(); return; }
+    if (!('IntersectionObserver' in window)) {
+      sectionInView = true; startAutoPlay(); return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        sectionInView = entry.isIntersecting;
+        if (sectionInView) startAutoPlay(); else stopAutoPlay();
+      });
+    }, { threshold: 0.15 });
+    observer.observe(section);
+  }
+
+  function noteManualInteraction() {
+    /* Any manual scroll/touch/wheel inside the workflow pauses auto-play
+       briefly; auto-play resumes on its own afterwards and never scrolls. */
+    manualPauseUntil = Date.now() + 6000;
+  }
+
+  function initWorkflowEvents() {
+    window.addEventListener('scroll', queueProgressUpdate, { passive: true });
+    window.addEventListener('resize', queueProgressUpdate);
+    if (section) {
+      section.addEventListener('wheel', noteManualInteraction, { passive: true });
+      section.addEventListener('touchmove', noteManualInteraction, { passive: true });
+      section.addEventListener('pointerdown', noteManualInteraction, { passive: true });
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stopAutoPlay();
+      else startAutoPlay();
+    });
+    if (section) {
+      section.addEventListener('mouseenter', function () {
+        /* Hovering pauses the highlight cycle while the visitor reads. */
+        stopAutoPlay();
+      });
+      section.addEventListener('mouseleave', function () { startAutoPlay(); });
+    }
+    queueProgressUpdate();
+  }
+
+  /* ---------- Hero demo chat loop (optional, canned text only) ---------- */
+  /* Runs ONLY if the coordinator markup opts in with data-demo-chat="auto" and
+     provides [data-demo-bubble] elements. Nothing is sent, saved or transmitted:
+     the loop just rotates canned demo lines already present on the page. */
+  function initHeroDemoChat() {
+    var chat = $('[data-demo-chat="auto"]');
+    if (!chat || reducedMotion) return;
+    var bubbles = $$('[data-demo-bubble]', chat);
+    if (bubbles.length < 2) return;
+    var canned = bubbles.map(function (bubble) { return bubble.textContent; });
+    var index = 0;
+    var timer = null;
+
+    function tick() {
+      if (document.hidden) return;
+      index = (index + 1) % canned.length;
+      bubbles.forEach(function (bubble, i) {
+        bubble.textContent = canned[(index + i) % canned.length];
+        bubble.classList.toggle('demo-current', i === 0);
+      });
+    }
+
+    function start() {
+      if (timer === null) timer = window.setInterval(tick, 4000);
+    }
+    function stop() {
+      if (timer !== null) { window.clearInterval(timer); timer = null; }
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop(); else start();
+    });
+    start();
+  }
+
+  /* ---------- Boot ---------- */
+  initMobileMenu();
+  initSmoothScroll();
+  observeSteps();
+  observeSection();
+  initWorkflowEvents();
+  initHeroDemoChat();
+})();
