@@ -1,280 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flow99 — Let AI Run Your Business, Day and Night (Demo)</title>
-<meta name="description" content="Standalone demo of a Flow99-style AI workforce: automated customer conversations, bookings, reminders and team inbox. Demo only — no live connection, no real messages, no payment.">
+<title>Flow99 — WhatsApp par AI jo kabhi sota nahi | DEMO</title>
+<meta name="description" content="Standalone DEMO landing page for Flow99 WhatsApp AI. Demo only — no signup, no payment, no real WhatsApp sends, nothing saved.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header class="navbar">
-  <a class="logo" href="#hero" aria-label="Flow99 demo home">Flow<span>99</span></a>
-  <nav class="nav-links" aria-label="Main navigation">
-    <a href="#features">Features</a>
-    <a href="#channels">Channels</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#pricing">Pricing</a>
+<a class="skip-link" href="#hero">Content par jao</a>
+
+<!-- ================= NAVBAR: white glass, sticky ================= -->
+<header class="navbar" id="top">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a class="brand" href="#hero" aria-label="Flow99 home">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span class="brand-name">Flow99</span>
+      <span class="demo-pill">DEMO</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-login" href="#">Login <span>DEMO only</span></a>
   </nav>
-  <div class="nav-actions">
-    <a class="btn btn-login" href="#">Login — DEMO</a>
-    <button id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
-  </div>
+  <p class="demo-strip">Standalone demo only — no signup, no login, no payment, no real WhatsApp message. Nothing is saved.</p>
 </header>
-<div id="mobileMenu" class="mobile-menu" hidden>
-  <a href="#features">Features</a>
-  <a href="#channels">Channels</a>
-  <a href="#how-it-works">How It Works</a>
-  <a href="#pricing">Pricing</a>
-  <a href="#">Login — DEMO</a>
-</div>
 
 <main>
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div id="heroGlow" class="hero-glow"></div>
-    <div class="hero-inner">
-      <p class="eyebrow reveal">STANDALONE DEMO &middot; NO LIVE CONNECTION &middot; NO REAL MESSAGES SENT</p>
-      <h1 class="reveal">Let AI run your business, day and night.</h1>
-      <p class="hero-sub reveal">Flow99 AI answers your customers, manages conversations and automates your business around the clock — so every question gets a reply, even while you sleep.</p>
-      <div class="cta-row reveal">
-        <a class="btn btn-primary" href="#pricing">Build Your AI Workforce</a>
-        <a class="btn btn-ghost" href="#features">Explore the Experience</a>
-      </div>
-      <p class="cta-note reveal">Demo only — these buttons create no account and start no trial.</p>
-
-      <div class="hero-panels" aria-label="Demo chat previews">
-        <div class="float-panel reveal">
-          <span class="panel-tag">WHATSAPP DEMO</span>
-          <p class="bubble customer">Hi! Do you have a slot open tomorrow afternoon?</p>
-          <p class="bubble ai">Yes — tomorrow at 3:00 PM is open. Shall I book it for you?</p>
-          <p class="panel-foot">Demo Store &middot; fictional conversation &middot; nothing sent</p>
+  <!-- ================= HERO: white + glass card ================= -->
+  <section class="hero" id="hero">
+    <div class="hero-shell">
+      <div class="hero-copy glass-card">
+        <p class="eyebrow">✦ Flow99 &middot; WhatsApp AI &middot; DEMO</p>
+        <h1>WhatsApp par AI<br>jo <span class="gold-underline">kabhi sota nahi.</span></h1>
+        <p class="hero-en">Your WhatsApp, answered day and night — a calm, premium demo of how Flow99-style AI replies, books and reminds, without you being glued to your phone.</p>
+        <p class="hero-hi">Har customer ka jawab, har booking, har reminder — ek hi jagah, saaf aur shant tareeke se. Ye sirf ek demo hai.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#features">Demo Dekho</a>
+          <a class="btn btn-ghost" href="#workflow">Workflow Dekho ↓</a>
         </div>
-        <div class="float-panel reveal">
-          <span class="panel-tag">INSTAGRAM DEMO</span>
-          <p class="bubble customer">How much is your starter pack?</p>
-          <p class="bubble ai">It starts at ₹499/month (DEMO price). Want the full details?</p>
-          <p class="panel-foot">Demo Store &middot; fictional conversation &middot; nothing sent</p>
-        </div>
-        <div class="float-panel reveal">
-          <span class="panel-tag">TEAM INBOX DEMO</span>
-          <p class="bubble ai">3 new leads qualified overnight. 1 needs a human — routed to your team.</p>
-          <p class="panel-foot">DEMO DATA &middot; fictional customers only</p>
-        </div>
-      </div>
-    </div>
-    <a class="scroll-down reveal" href="#features">Scroll down <span aria-hidden="true">&#8595;</span></a>
-  </section>
-
-  <!-- 1. FEATURES -->
-  <section id="features" class="section">
-    <h2 class="reveal">Everything your business needs, handled by AI</h2>
-    <p class="section-sub reveal">Seven building blocks of an AI workforce — each shown with a short demo example.</p>
-    <div class="grid">
-      <article class="card reveal">
-        <h3>Auto-Reply</h3>
-        <p>Instant answers to common questions, any time of day.</p>
-        <p class="demo-example">DEMO: Customer asks about timings → AI replies in seconds.</p>
-      </article>
-      <article class="card reveal">
-        <h3>24x7 Replies</h3>
-        <p>No missed messages at night, on weekends, or on holidays.</p>
-        <p class="demo-example">DEMO: A 2 AM enquiry gets a full reply, not a "we'll get back to you".</p>
-      </article>
-      <article class="card reveal">
-        <h3>Broadcast</h3>
-        <p>Send updates and offers to your audience in one go.</p>
-        <p class="demo-example">DEMO: One demo announcement drafted for a fictional audience.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Booking</h3>
-        <p>Customers book slots inside the chat — no back-and-forth.</p>
-        <p class="demo-example">DEMO: "Tomorrow 3 PM" → slot reserved in the demo calendar.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Reminder</h3>
-        <p>Gentle follow-ups so appointments and payments don't slip.</p>
-        <p class="demo-example">DEMO: A fictional booking reminder queued for the morning.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Team Inbox</h3>
-        <p>Every conversation in one place, assigned to the right person.</p>
-        <p class="demo-example">DEMO: A demo chat assigned to "Team Member A" (fictional).</p>
-      </article>
-      <article class="card reveal">
-        <h3>Analytics</h3>
-        <p>See what's working: replies, bookings, and follow-ups at a glance.</p>
-        <p class="demo-example">DEMO: Sample dashboard figures below are DEMO DATA only.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- 2. WHATSAPP CHANNEL -->
-  <section id="channels" class="section section-navy">
-    <h2 class="reveal">WhatsApp automation, in action</h2>
-    <p class="section-sub reveal">A generic chat-inspired demo for a fictional business called "Demo Store".</p>
-    <div class="demo-layout">
-      <div class="chat-shell reveal">
-        <div class="chat-header">Demo Store &middot; WhatsApp-style demo</div>
-        <div id="demoChat">
-          <div id="chatMessages">
-            <p class="bubble customer">Hi, I want to know your opening hours.</p>
-            <p class="bubble ai">We're open 9 AM – 9 PM, every day. How can I help you today?</p>
-            <p class="bubble customer">Can you help me choose a plan?</p>
-            <p class="bubble ai">Of course! Tell me what your business needs — bookings, replies, or both — and I'll suggest a fit.</p>
-          </div>
-        </div>
-        <div id="demoChatStatus">Demo conversation — the JS worker may animate new demo messages here. Nothing is sent.</div>
-      </div>
-      <div class="feature-list reveal">
-        <h3>What this demo shows</h3>
-        <ul>
-          <li>Automated replies to everyday questions</li>
-          <li>Lead qualification — asking the right follow-up questions</li>
-          <li>FAQ answers without waiting for a human</li>
-          <li>Follow-ups that keep the conversation moving</li>
-          <li>Human handoff when a question gets complicated</li>
+        <ul class="hero-points" aria-label="Demo highlights">
+          <li>Auto-reply demo</li>
+          <li>24&times;7 demo</li>
+          <li>Booking demo</li>
         </ul>
-        <p class="note"><strong>Note:</strong> This is a generic demo only. No official approval is claimed, and no message is sent to any real person or number.</p>
+        <p class="tiny-note">Demo CTAs sirf is page ke sections par scroll karte hain. Koi signup, checkout ya payment nahi hai.</p>
       </div>
-    </div>
 
-    <!-- 3. INSTAGRAM DEMO -->
-    <section id="instagram-demo" class="subsection">
-      <h2 class="reveal">Instagram automation demo</h2>
-      <p class="section-sub reveal">Generic DM-style panels for the same fictional Demo Store.</p>
-      <div class="grid">
-        <article class="card reveal">
-          <span class="panel-tag">DM DEMO</span>
-          <p class="bubble customer">I saw your post — is this available in my city?</p>
-          <p class="bubble ai">Yes, we serve your city! Want me to share the options?</p>
-        </article>
-        <article class="card reveal">
-          <span class="panel-tag">PRODUCT QUESTION DEMO</span>
-          <p class="bubble customer">What's included in the starter pack?</p>
-          <p class="bubble ai">Replies, bookings and reminders — all in one demo plan.</p>
-        </article>
-        <article class="card reveal">
-          <span class="panel-tag">LEAD CAPTURE DEMO</span>
-          <p class="bubble customer">I'm interested. What do you need from me?</p>
-          <p class="bubble ai">Just your business type and preferred contact time — demo only, nothing saved.</p>
-        </article>
-      </div>
-      <p class="note reveal"><strong>Note:</strong> Demo only — no account connected, nothing sent, no real Instagram interaction.</p>
-    </section>
-  </section>
-
-  <!-- 4. ONE CONNECTED WORKFORCE -->
-  <section id="workforce" class="section">
-    <h2 class="reveal">One connected workforce, every channel</h2>
-    <p class="section-sub reveal">Your AI team works across channels — live demos today, more channels on the way.</p>
-    <div class="data-stream reveal" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="grid channel-grid">
-      <article class="card reveal"><h3>WhatsApp</h3><p class="badge badge-demo">DEMO</p><p>Automated replies, bookings and follow-ups.</p></article>
-      <article class="card reveal"><h3>Instagram</h3><p class="badge badge-demo">DEMO</p><p>DM replies, product questions and lead capture.</p></article>
-      <article class="card reveal"><h3>Website Chat</h3><p class="badge badge-soon">COMING SOON</p><p>On-site chat handled by the same AI workforce.</p></article>
-      <article class="card reveal"><h3>Email</h3><p class="badge badge-soon">COMING SOON</p><p>Inbox replies drafted and organised by AI.</p></article>
-      <article class="card reveal"><h3>Voice</h3><p class="badge badge-soon">COMING SOON</p><p>Voice conversations with the same business rules.</p></article>
-      <article class="card reveal"><h3>Telegram</h3><p class="badge badge-soon">COMING SOON</p><p>Chat automation on Telegram, when it launches.</p></article>
+      <figure class="hero-media glass-card">
+        <img src="assets/media-generation-flow99-shop-owner-phone-0-184719e1-1908-46d7-a914-b3ffc67fc196.webp"
+             alt="Demo illustration: a shop owner checking WhatsApp messages on a phone"
+             loading="eager" width="900" height="900">
+        <figcaption>DEMO photo — AI-generated illustration, not a real customer.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- 5. HOW IT WORKS -->
-  <section id="how-it-works" class="section section-navy">
-    <h2 class="reveal">How the AI workflow works</h2>
-    <p class="section-sub reveal">A simplified illustration of a generic demo flow — not internal architecture, code, or prompts.</p>
-    <ol class="steps">
-      <li class="reveal"><strong>1. Incoming Message</strong><span>A customer writes in on any connected channel.</span></li>
-      <li class="reveal"><strong>2. Understand Intent</strong><span>The AI figures out what the customer actually wants.</span></li>
-      <li class="reveal"><strong>3. Apply Business Rules</strong><span>Your timings, prices and policies shape the answer.</span></li>
-      <li class="reveal"><strong>4. Generate Reply</strong><span>A helpful, on-brand reply is drafted.</span></li>
-      <li class="reveal"><strong>5. Send Response</strong><span>The customer gets an answer — fast, any hour.</span></li>
-      <li class="reveal"><strong>6. Update CRM</strong><span>The conversation and lead details are recorded for your team.</span></li>
-    </ol>
-    <p class="note reveal">Generic demo only. This diagram is a simplified illustration, not Flow99's internal architecture, code, or prompts.</p>
-  </section>
-
-  <!-- 6. CONTROL CENTER -->
-  <section id="control-center" class="section">
-    <h2 class="reveal">Control Center — your business at a glance</h2>
-    <p class="section-sub reveal">A dark dashboard mock. Every card is labelled DEMO DATA, with fictional customers only.</p>
-    <div class="grid dashboard-grid">
-      <article class="card reveal"><h3>Inboxes</h3><p>WhatsApp + Instagram conversations in one view.</p><p class="demo-label">DEMO DATA</p></article>
-      <article class="card reveal"><h3>Assignments</h3><p>Demo chats routed to fictional team members.</p><p class="demo-label">DEMO DATA</p></article>
-      <article class="card reveal"><h3>Workflow Status</h3><p>Auto-reply, booking and reminder flows: all "Running" in this mock.</p><p class="demo-label">DEMO DATA</p></article>
-      <article class="card reveal"><h3>Customer History</h3><p>Fictional customer "Demo Customer A" — past demo chats only.</p><p class="demo-label">DEMO DATA</p></article>
-      <article class="card reveal"><h3>Team Activity</h3><p>Fictional activity feed: replies sent, leads qualified, handoffs done.</p><p class="demo-label">DEMO DATA</p></article>
-      <article class="card reveal"><h3>Analytics</h3><p>Sample charts and counts — illustrative figures, not real results.</p><p class="demo-label">DEMO DATA</p></article>
+  <!-- ================= WORKFLOW PLACEHOLDER (Worker B supplies steps) ================= -->
+  <section id="workflow" class="section workflow-section" aria-label="Workflow demo">
+    <div class="section-head">
+      <p class="eyebrow">Workflow</p>
+      <h2>Message aaya, to aage kya hota hai?</h2>
+      <p class="section-sub">Neeche ka workflow sirf ek demo flow hai — asli WhatsApp par kuch bhi send nahi hota.</p>
     </div>
+    <div class="wf-progress-track" role="progressbar" aria-label="Workflow progress"><div id="workflow-progress"></div></div>
+    <div id="workflow-steps"><!-- Coordinator notes: this fragment assumes the page already provides
+     <section id="workflow">, <div id="workflow-progress"> (the fill bar) and
+     <div id="flow99-reveal"> (coordinator's reveal div). No <html>/<head>/<body>
+     wrapper here on purpose — fragment only. All demo content is labelled DEMO;
+     nothing here claims a real customer, real business, real result or live status. -->
+
+<article class="wf-step" data-step="1">
+  <div class="wf-photo">
+    <img src="assets/media-generation-flow99-shop-owner-phone-0-184719e1-1908-46d7-a914-b3ffc67fc196.webp" alt="DEMO illustration of a shop owner checking a phone message" loading="lazy" decoding="async">
+    <p class="wf-caption">DEMO photo — AI-generated illustration, not a real customer</p>
+  </div>
+  <div class="wf-card glass">
+    <span class="wf-num">01</span>
+    <h3 class="wf-title">Customer sends a WhatsApp message</h3>
+    <p class="wf-text">A customer messages the business on WhatsApp — just like a normal chat.</p>
+  </div>
+</article>
+
+<article class="wf-step" data-step="2">
+  <div class="wf-photo wf-icon" aria-hidden="true">
+    <svg viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="12" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="20" r="3" fill="currentColor"/><circle cx="44" cy="38" r="3" fill="currentColor"/><circle cx="20" cy="38" r="3" fill="currentColor"/></svg>
+    <span class="wf-icon-label">Intent</span>
+  </div>
+  <div class="wf-card glass">
+    <span class="wf-num">02</span>
+    <h3 class="wf-title">Flow99 AI understands the intent</h3>
+    <p class="wf-text">It reads price, timing, or booking intent from the message.</p>
+  </div>
+</article>
+
+<article class="wf-step" data-step="3">
+  <div class="wf-photo wf-icon" aria-hidden="true">
+    <svg viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true"><rect x="8" y="12" width="48" height="34" rx="10" stroke="currentColor" stroke-width="2"/><path d="M20 54h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="29" r="2.5" fill="currentColor"/><circle cx="32" cy="29" r="2.5" fill="currentColor"/><circle cx="40" cy="29" r="2.5" fill="currentColor"/></svg>
+    <span class="wf-icon-label">Instant reply</span>
+  </div>
+  <div class="wf-card glass">
+    <span class="wf-num">03</span>
+    <h3 class="wf-title">AI replies instantly</h3>
+    <p class="wf-text">A helpful demo reply in about 3 seconds. DEMO timing only.</p>
+  </div>
+</article>
+
+<article class="wf-step" data-step="4">
+  <div class="wf-photo">
+    <img src="assets/media-generation-flow99-salon-booking-0-7a9b9caa-7074-43d8-ad62-3b3ef1511335.webp" alt="DEMO illustration of a booking being confirmed" loading="lazy" decoding="async">
+    <p class="wf-caption">DEMO photo — AI-generated illustration, not a real business</p>
+  </div>
+  <div class="wf-card glass">
+    <span class="wf-num">04</span>
+    <h3 class="wf-title">Booking confirmed</h3>
+    <p class="wf-text">The demo booking is confirmed in the chat — no extra app needed.</p>
+  </div>
+</article>
+
+<article class="wf-step" data-step="5">
+  <div class="wf-photo wf-icon" aria-hidden="true">
+    <svg viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true"><path d="M32 10a16 16 0 0 1 16 16c0 12 4 16 4 16H12s4-4 4-16A16 16 0 0 1 32 10Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M28 50a4 4 0 0 0 8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M32 18v10l7 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="wf-icon-label">Reminder</span>
+  </div>
+  <div class="wf-card glass">
+    <span class="wf-num">05</span>
+    <h3 class="wf-title">Reminder sent on time</h3>
+    <p class="wf-text">A demo reminder goes out 1 hour before the booking. DEMO timing only.</p>
+  </div>
+</article>
+
+<article class="wf-step" data-step="6">
+  <div class="wf-photo wf-icon" aria-hidden="true">
+    <svg viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true"><path d="M10 52V34M24 52V22M38 52V28M52 52V14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 52h44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="wf-icon-label">DEMO analytics</span>
+  </div>
+  <div class="wf-card glass">
+    <span class="wf-num">06</span>
+    <h3 class="wf-title">Analytics — business grows</h3>
+    <p class="wf-text">A demo dashboard shows messages, bookings, and reminders at a glance.</p>
+    <p class="wf-text wf-demo-numbers">DEMO only: 24 demo messages · 18 demo bookings · 12 demo reminders. Illustration only — not real results, revenue, or growth.</p>
+  </div>
+</article></div>
+    <div id="flow99-reveal">FLOW99</div>
   </section>
 
-  <!-- 7. HUMAN + AI HANDOFF -->
-  <section id="handoff" class="section section-navy">
-    <h2 class="reveal">When it gets complicated, a human steps in</h2>
-    <p class="section-sub reveal">AI handles the routine. Humans handle the moments that matter.</p>
-    <div class="handoff-demo reveal">
-      <p class="bubble customer">My booking got charged twice and I need this fixed today — it's urgent.</p>
-      <p class="bubble ai">I understand — this needs a human. I'm passing your full conversation and booking details to the team now.</p>
-      <p class="bubble human">Hi, I'm on it — I've got your full context here and I'll sort this out with you.</p>
+  <!-- ================= FEATURES ================= -->
+  <section id="features" class="section" aria-label="Features demo">
+    <div class="section-head">
+      <p class="eyebrow">Features &middot; Demo examples</p>
+      <h2>Ek inbox, saara kaam — shanti se.</h2>
+      <p class="section-sub">Har feature ke saath ek chhota demo example hai. Ye live service nahi hai.</p>
     </div>
-    <p class="note reveal"><strong>Note:</strong> Demo story only — fictional issue, fictional customer, no real handoff takes place on this page.</p>
-  </section>
-
-  <!-- 8. PRICING -->
-  <section id="pricing" class="section">
-    <h2 class="reveal">Pricing</h2>
-    <p class="section-sub reveal">Demo plans to explore the idea — pick the shape that fits your business.</p>
-    <div class="grid pricing-grid">
-      <article class="card reveal">
-        <h3>Starter</h3><p class="price">₹499<span>/month</span></p><p class="badge badge-demo">DEMO</p>
-        <ul><li>Auto-replies</li><li>24x7 demo replies</li><li>Basic analytics (DEMO)</li></ul>
+    <div class="feature-grid">
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">💬</div>
+        <h3>Auto-reply</h3>
+        <p>Customer ke common sawalon ka turant jawab — demo me.</p>
+        <p class="demo-example"><strong>Demo example:</strong> “Price kya hai?” → “Demo jawab: Starter demo plan ₹499 se shuru hota hai.”</p>
       </article>
-      <article class="card reveal card-highlight">
-        <h3>Growth</h3><p class="price">₹1,499<span>/month</span></p><p class="badge badge-demo">DEMO</p>
-        <ul><li>Everything in Starter</li><li>Bookings + reminders</li><li>Team inbox</li></ul>
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">🌙</div>
+        <h3>24&times;7 Available</h3>
+        <p>Raat ko bhi jawab rukta nahi — demo me, din-raat.</p>
+        <p class="demo-example"><strong>Demo example:</strong> Raat 11 baje aaya message → subah tak demo reply taiyaar.</p>
       </article>
-      <article class="card reveal">
-        <h3>Scale</h3><p class="price">₹2,999<span>/month</span></p><p class="badge badge-demo">DEMO</p>
-        <ul><li>Everything in Growth</li><li>Broadcasts</li><li>Full analytics (DEMO)</li></ul>
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">📣</div>
+        <h3>Broadcast</h3>
+        <p>Ek message, kai customers tak — demo preview ke saath.</p>
+        <p class="demo-example"><strong>Demo example:</strong> “Diwali offer — demo preview only, kisi ko send nahi hua.”</p>
+      </article>
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">📅</div>
+        <h3>Booking</h3>
+        <p>Chat se seedha appointment slot — demo booking flow.</p>
+        <p class="demo-example"><strong>Demo example:</strong> “Kal 11 baje?” → “Demo slot: Kal, 11:00 AM — confirm nahi hua, sirf preview.”</p>
+      </article>
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">⏰</div>
+        <h3>Reminder</h3>
+        <p>Appointment se pehle yaad dilaana — demo reminder.</p>
+        <p class="demo-example"><strong>Demo example:</strong> “Kal ka appointment yaad hai na?” — demo text, send nahi hua.</p>
+      </article>
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">👥</div>
+        <h3>Team Inbox</h3>
+        <p>Ek hi inbox me poori team — demo view.</p>
+        <p class="demo-example"><strong>Demo example:</strong> Ek chat, do team members ka demo view — koi real chat nahi.</p>
+      </article>
+      <article class="glass-card feature-card">
+        <div class="feature-icon" aria-hidden="true">📊</div>
+        <h3>Analytics</h3>
+        <p>Kitne message, kitni booking — demo numbers ke saath.</p>
+        <p class="demo-example"><strong>Demo example:</strong> “Aaj: 12 demo chats, 3 demo bookings” — ye numbers demo hain, asli nahi.</p>
+      </article>
+      <article class="glass-card feature-card feature-photo">
+        <img src="assets/media-generation-flow99-salon-booking-0-7a9b9caa-7074-43d8-ad62-3b3ef1511335.webp"
+             alt="Demo illustration: a salon booking on a phone"
+             loading="lazy" width="900" height="900">
+        <h3>Booking, visually.</h3>
+        <p>Salon jaise business ke liye booking demo — photo bhi demo illustration hai, asli customer nahi.</p>
+        <p class="demo-example"><strong>Demo photo</strong> — AI-generated illustration, not a real customer.</p>
       </article>
     </div>
-    <p class="warning reveal">Demo pricing only — not Flow99's actual plans. No payment, no checkout, no signup.</p>
   </section>
 
-  <!-- 9. FAQ -->
-  <section id="faq" class="section section-navy">
-    <h2 class="reveal">Frequently asked questions</h2>
+  <!-- ================= PRICING: DEMO ONLY ================= -->
+  <section id="pricing" class="section pricing-section" aria-label="Demo pricing">
+    <div class="section-head">
+      <p class="eyebrow">Pricing &middot; DEMO</p>
+      <h2>Demo plans — sirf dekhne ke liye.</h2>
+      <p class="demo-warning"><strong>Demo pricing only — not Flow99's actual plans. No payment, no checkout, no signup.</strong></p>
+    </div>
+    <div class="pricing-grid">
+      <article class="glass-card price-card">
+        <h3>Starter</h3>
+        <p class="price">₹499<span>/month &middot; DEMO</span></p>
+        <ul>
+          <li>Auto-reply demo</li>
+          <li>1 demo inbox view</li>
+          <li>Booking demo</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="#faq">Demo Dekho</a>
+      </article>
+      <article class="glass-card price-card price-featured">
+        <p class="popular">Most popular — demo</p>
+        <h3>Growth</h3>
+        <p class="price">₹1,499<span>/month &middot; DEMO</span></p>
+        <ul>
+          <li>Sab Starter demo features</li>
+          <li>Broadcast demo preview</li>
+          <li>Reminder demo</li>
+          <li>Team inbox demo</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="#faq">Demo Dekho</a>
+      </article>
+      <article class="glass-card price-card">
+        <h3>Scale</h3>
+        <p class="price">₹2,999<span>/month &middot; DEMO</span></p>
+        <ul>
+          <li>Sab Growth demo features</li>
+          <li>Analytics demo</li>
+          <li>Priority demo view</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="#faq">Demo Dekho</a>
+      </article>
+    </div>
+    <p class="tiny-note centre">Koi bhi price asli nahi hai. Koi payment button, checkout ya signup form is page par nahi hai.</p>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" class="section" aria-label="Frequently asked questions">
+    <div class="section-head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Aksar pooche jaane wale sawal.</h2>
+    </div>
     <div class="faq-list">
-      <details class="reveal"><summary>Is this the real Flow99 service?</summary><p>No. This is a standalone demo with no live connection, no backend, and no account system.</p></details>
-      <details class="reveal"><summary>Does anything send a real message?</summary><p>No. No WhatsApp, Instagram, email, or any other real message is sent from this page.</p></details>
-      <details class="reveal"><summary>Are prices real?</summary><p>No. All prices on this page are DEMO prices, not Flow99's actual plans.</p></details>
-      <details class="reveal"><summary>Is data saved?</summary><p>No. Nothing you type or click here is saved or sent anywhere.</p></details>
+      <details class="glass-card faq-item" open>
+        <summary>Ye page asli Flow99 service hai?</summary>
+        <p>Nahi. Ye ek <strong>standalone demo</strong> hai — sirf design aur flow dikhane ke liye. Iska live Flow99 se koi connection nahi hai.</p>
+      </details>
+      <details class="glass-card faq-item">
+        <summary>Kya is page se asli WhatsApp message bheja ja sakta hai?</summary>
+        <p>Nahi. <strong>No real sends.</strong> Yahan koi message, booking ya reminder asli me send nahi hota — sab examples preview hain.</p>
+      </details>
+      <details class="glass-card faq-item">
+        <summary>Kya ye prices asli hain?</summary>
+        <p>Nahi. <strong>Prices not real.</strong> ₹499 / ₹1,499 / ₹2,999 sirf demo labels hain, Flow99 ke actual plans nahi. Koi payment ya checkout nahi hai.</p>
+      </details>
+      <details class="glass-card faq-item">
+        <summary>Kya meri koi jaankari save hoti hai?</summary>
+        <p>Nahi. <strong>Nothing saved.</strong> Is page par koi form data collect nahi hota, koi account nahi banta, aur koi network call nahi hoti.</p>
+      </details>
+      <details class="glass-card faq-item">
+        <summary>Kya main yahan se signup ya login kar sakta hoon?</summary>
+        <p>Nahi. Login button sirf “DEMO only” label ke saath hai aur kahi link nahi karta. Koi auth, OTP ya account flow nahi hai.</p>
+      </details>
     </div>
   </section>
 
-  <!-- 10. FINAL CTA -->
-  <section id="final-cta" class="section">
-    <h2 class="reveal">The future of business is automated.</h2>
-    <p class="section-sub reveal">Build your AI workforce with Flow99.</p>
-    <div class="cta-row reveal">
-      <a class="btn btn-primary" href="#pricing">Start Building with Flow99</a>
-      <a class="btn btn-ghost" href="#features">Explore Features</a>
+  <!-- ================= FINAL CTA: demo only ================= -->
+  <section class="section final-cta" aria-label="Final demo call to action">
+    <div class="glass-card cta-card">
+      <p class="eyebrow">Demo khatam — koi agla step nahi</p>
+      <h2>Bas dekhiye, samajhiye, phir decide kijiye.</h2>
+      <p>Ye demo aapko flow samjhane ke liye hai. Yahan se koi signup, payment ya message nahi hoga.</p>
+      <div class="hero-ctas centre-ctas">
+        <a class="btn btn-primary" href="#features">Demo Dobara Dekho</a>
+        <a class="btn btn-ghost" href="#top">Upar Wapas Jao ↑</a>
+      </div>
     </div>
-    <p class="cta-note reveal">Demo only — this creates no account, starts no trial, and charges nothing.</p>
   </section>
+
+  <!-- ================= CONTACT / FOOTER ================= -->
+  <footer id="contact" class="footer">
+    <div class="footer-inner">
+      <a class="brand" href="#hero">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span class="brand-name">Flow99</span>
+        <span class="demo-pill">DEMO</span>
+      </a>
+      <p>Standalone demo landing page. No live backend, no auth, no signup, no payment, no real WhatsApp sends, no data saved.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <p class="tiny-note">Photos: AI-generated demo illustrations, not real customers. No testimonials, customer counts, revenue figures, or live-status claims are made on this page. No official WhatsApp approval is claimed.</p>
+    </div>
+  </footer>
 </main>
-
-<footer class="footer">
-  <p><strong>Flow99 demo disclaimer:</strong> This is a standalone demo page with no live connection to Flow99, no backend, no accounts, no payments, and no real messages. All businesses, customers, numbers and figures shown are fictional demo content.</p>
-  <nav aria-label="Footer">
-    <a href="#">Privacy — DEMO placeholder</a>
-    <a href="#">Terms — DEMO placeholder</a>
-  </nav>
-  <p class="footer-small">Privacy and Terms links above are DEMO placeholders, not live legal pages.</p>
-</footer>
-
-<script src="js/app.js"></script>
+<script src="js/app.js" defer></script>
 </body>
 </html>
