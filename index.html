@@ -1,700 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flow99 — Cinematic Demo Landing Page | AI Automation Workforce Demo</title>
-<meta name="description" content="Flow99 demo landing page: a standalone cinematic demo of an AI automation workforce concept. Demo only — no live service, no real sends, no data saved.">
-<meta property="og:title" content="Flow99 — Cinematic Demo Landing Page">
-<meta property="og:description" content="Standalone demo of the Flow99 AI automation workforce concept. All samples are DEMO — no live Flow99 connection.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Flow99 — Cinematic Demo Landing Page">
-<meta name="twitter:description" content="Standalone demo of the Flow99 AI automation workforce concept. All samples are DEMO — no live Flow99 connection.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow99 — Let AI Run Your Business, Day and Night (Demo)</title>
+<meta name="description" content="Standalone demo of a Flow99-style AI workforce: automated customer conversations, bookings, reminders and team inbox. Demo only — no live connection, no real messages, no payment.">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header id="nav" class="wp3-nav" role="banner">
-  <div class="wp3-nav-inner">
-    <a class="wp3-logo" href="#" aria-label="Flow99 demo home">Flow<span class="wp3-logo-accent">99</span></a>
-
-    <nav class="wp3-nav-links" aria-label="Demo page sections">
-      <a class="wp3-nav-link" href="#features">Features</a>
-      <a class="wp3-nav-link" href="#channels">Channels</a>
-      <a class="wp3-nav-link" href="#how-it-works">How It Works</a>
-      <a class="wp3-nav-link" href="#pricing">Pricing</a>
-      <a class="wp3-nav-link wp3-nav-login" href="#" aria-label="Login demo only — goes nowhere live">Login <span class="wp3-demo-tag">DEMO</span></a>
-    </nav>
-
-    <div class="wp3-nav-actions">
-      <!-- Sound toggle: OFF by default, never autoplays. See JS. -->
-      <button type="button" class="wp3-sound-toggle" id="wp3-sound-toggle"
-              aria-pressed="false" aria-label="Interface sounds off. Tap to turn on.">
-        <span class="wp3-sound-icon" aria-hidden="true">🔇</span>
-        <span class="wp3-sound-label">Sound Off</span>
-      </button>
-
-      <button type="button" class="wp3-menu-btn" id="wp3-menu-btn"
-              aria-expanded="false" aria-controls="wp3-mobile-menu"
-              aria-label="Open menu">
-        <span aria-hidden="true">☰</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Scroll progress indicator -->
-  <div class="wp3-progress" aria-hidden="true"><div class="wp3-progress-fill" id="wp3-progress-fill"></div></div>
-
-  <!-- Mobile navigation menu -->
-  <nav class="wp3-mobile-menu" id="wp3-mobile-menu" aria-label="Mobile demo menu" hidden>
-    <a class="wp3-mobile-link" href="#features">Features</a>
-    <a class="wp3-mobile-link" href="#channels">Channels</a>
-    <a class="wp3-mobile-link" href="#how-it-works">How It Works</a>
-    <a class="wp3-mobile-link" href="#pricing">Pricing</a>
-    <a class="wp3-mobile-link wp3-mobile-login" href="#">Login <span class="wp3-demo-tag">DEMO</span></a>
-    <p class="wp3-mobile-note">Demo only — Login goes nowhere live. No account, no sign-in.</p>
+<header class="navbar">
+  <a class="logo" href="#hero" aria-label="Flow99 demo home">Flow<span>99</span></a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="#features">Features</a>
+    <a href="#channels">Channels</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
   </nav>
-
-  <p class="wp3-nav-demo-note">Standalone demo — Login is a DEMO label only and links nowhere live.</p>
+  <div class="nav-actions">
+    <a class="btn btn-login" href="#">Login — DEMO</a>
+    <button id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
 </header>
+<div id="mobileMenu" class="mobile-menu" hidden>
+  <a href="#features">Features</a>
+  <a href="#channels">Channels</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#">Login — DEMO</a>
+</div>
+
 <main>
-<!-- PART 1 — HERO + SCENES 1–3 (fragment only, paste into index.html body, in order) -->
-<!-- Standalone demo visual only. No live backend, no auth, no real signup, no real WhatsApp/Instagram send. -->
-<!-- All sample messages, names and statistics below are fictional DEMO content. -->
-
-<!-- ============ 1. HERO — full-screen cinematic scene ============ -->
-<section id="hero" class="wp1-hero" aria-label="Hero — Your business on autopilot">
-  <div class="wp1-hero-bg" aria-hidden="true">
-    <div class="wp1-hero-grid"></div>
-    <div class="wp1-hero-beam wp1-hero-beam--a"></div>
-    <div class="wp1-hero-beam wp1-hero-beam--b"></div>
-    <div class="wp1-hero-beam wp1-hero-beam--c"></div>
-    <div class="wp1-hero-glow wp1-hero-glow--cyan"></div>
-    <div class="wp1-hero-glow wp1-hero-glow--violet"></div>
-    <div class="wp1-hero-particles" data-wp1-particles></div>
-    <!-- Layered parallax skyline / operations-centre silhouette (CSS/SVG, no video, no photo) -->
-    <svg class="wp1-hero-skyline wp1-hero-layer" data-wp1-depth="12" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 320 V180 H90 V120 H150 V200 H230 V90 H290 V210 H380 V140 H450 V220 H540 V80 H620 V200 H720 V130 H800 V230 H900 V100 H980 V210 H1080 V150 H1140 V220 H1200 V320 Z" fill="#0a1226" opacity="0.9"/>
-      <path d="M0 320 V240 H120 V190 H210 V250 H340 V200 H470 V260 H600 V190 H730 V250 H860 V205 H990 V255 H1200 V320 Z" fill="#0d1a38" opacity="0.85"/>
-    </svg>
-    <svg class="wp1-hero-ring wp1-hero-layer" data-wp1-depth="28" viewBox="0 0 400 400" aria-hidden="true">
-      <circle cx="200" cy="200" r="150" fill="none" stroke="#22d3ee" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4 10"/>
-      <circle cx="200" cy="200" r="110" fill="none" stroke="#8b5cf6" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="2 8"/>
-      <circle cx="200" cy="200" r="70" fill="none" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
-    </svg>
-  </div>
-
-  <div class="wp1-hero-inner">
-    <div class="wp1-hero-copy wp1-reveal">
-      <p class="wp1-hero-status" role="status">
-        <span class="wp1-hero-dot" aria-hidden="true"></span>
-        <span>AI WORKFORCE ONLINE</span>
-        <span class="wp1-demo-tag">DEMO</span>
-      </p>
-      <p class="wp1-hero-status-note">(demo visual only, not a live system status)</p>
-
-      <h1 class="wp1-hero-title">YOUR BUSINESS. ON AUTOPILOT.</h1>
-      <p class="wp1-hero-sub">Meet the AI workforce that responds to customers, manages conversations and automates your business — around the clock.</p>
-
-      <div class="wp1-hero-ctas">
-        <a class="wp1-btn wp1-btn--primary" href="#final-cta">Build Your AI Workforce</a>
-        <span class="wp1-cta-demo" aria-label="Demo label">DEMO</span>
-        <a class="wp1-btn wp1-btn--secondary" href="#agents">Explore the Experience</a>
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div id="heroGlow" class="hero-glow"></div>
+    <div class="hero-inner">
+      <p class="eyebrow reveal">STANDALONE DEMO &middot; NO LIVE CONNECTION &middot; NO REAL MESSAGES SENT</p>
+      <h1 class="reveal">Let AI run your business, day and night.</h1>
+      <p class="hero-sub reveal">Flow99 AI answers your customers, manages conversations and automates your business around the clock — so every question gets a reply, even while you sleep.</p>
+      <div class="cta-row reveal">
+        <a class="btn btn-primary" href="#pricing">Build Your AI Workforce</a>
+        <a class="btn btn-ghost" href="#features">Explore the Experience</a>
       </div>
-      <p class="wp1-hero-note">Demo visual only — no signup, no account, no message is sent. <span class="wp1-demo-tag">DEMO</span></p>
-    </div>
+      <p class="cta-note reveal">Demo only — these buttons create no account and start no trial.</p>
 
-    <!-- Floating operations-centre visual: chat panels + live bubbles + AI auto-reply -->
-    <div class="wp1-hero-visual wp1-reveal" aria-label="Demo operations centre visual">
-      <div class="wp1-hero-panel wp1-hero-panel--main wp1-hero-layer" data-wp1-depth="18">
-        <div class="wp1-panel-head">
-          <span class="wp1-panel-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="wp1-panel-title">Demo Operations Centre</span>
-          <span class="wp1-demo-tag">DEMO</span>
+      <div class="hero-panels" aria-label="Demo chat previews">
+        <div class="float-panel reveal">
+          <span class="panel-tag">WHATSAPP DEMO</span>
+          <p class="bubble customer">Hi! Do you have a slot open tomorrow afternoon?</p>
+          <p class="bubble ai">Yes — tomorrow at 3:00 PM is open. Shall I book it for you?</p>
+          <p class="panel-foot">Demo Store &middot; fictional conversation &middot; nothing sent</p>
         </div>
-        <div class="wp1-chat" data-wp1-chat>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo visitor</span>Hi! Do you deliver on weekends? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--ai"><span class="wp1-bubble-who">AI Agent · DEMO</span>Yes — weekend delivery is available. Would you like morning or evening? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo visitor</span>Evening, please. What are the charges? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--ai" data-wp1-live-bubble><span class="wp1-bubble-who">AI Agent · DEMO</span>Evening delivery added to your demo request. No real order is placed. <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-typing" aria-hidden="true"><span></span><span></span><span></span><em>AI is typing… DEMO</em></div>
+        <div class="float-panel reveal">
+          <span class="panel-tag">INSTAGRAM DEMO</span>
+          <p class="bubble customer">How much is your starter pack?</p>
+          <p class="bubble ai">It starts at ₹499/month (DEMO price). Want the full details?</p>
+          <p class="panel-foot">Demo Store &middot; fictional conversation &middot; nothing sent</p>
         </div>
-        <div class="wp1-panel-foot">
-          <span class="wp1-pill">Auto-reply · DEMO</span>
-          <span class="wp1-pill">Lead captured · DEMO</span>
-          <span class="wp1-pill">Follow-up queued · DEMO</span>
+        <div class="float-panel reveal">
+          <span class="panel-tag">TEAM INBOX DEMO</span>
+          <p class="bubble ai">3 new leads qualified overnight. 1 needs a human — routed to your team.</p>
+          <p class="panel-foot">DEMO DATA &middot; fictional customers only</p>
         </div>
-      </div>
-
-      <div class="wp1-hero-panel wp1-hero-panel--float wp1-hero-panel--float-a wp1-hero-layer" data-wp1-depth="34">
-        <strong>Demo lead qualified</strong>
-        <span>Interest: evening delivery · DEMO</span>
-        <span class="wp1-meter"><i style="width:82%"></i></span>
-      </div>
-      <div class="wp1-hero-panel wp1-hero-panel--float wp1-hero-panel--float-b wp1-hero-layer" data-wp1-depth="44">
-        <strong>Follow-up scheduled</strong>
-        <span>Demo reminder · no message sent · DEMO</span>
       </div>
     </div>
-  </div>
+    <a class="scroll-down reveal" href="#features">Scroll down <span aria-hidden="true">&#8595;</span></a>
+  </section>
 
-  <a class="wp1-hero-scroll" href="#agents" aria-label="Scroll to Meet Your AI Agents">Scroll <span aria-hidden="true">↓</span></a>
-</section>
-
-<!-- ============ SCENE 1 — Meet Your AI Agents ============ -->
-<div id="features" aria-hidden="true"></div>
-<section id="agents" class="wp1-scene wp1-scene--agents" aria-label="Meet Your AI Agents">
-  <div class="wp1-scene-inner">
-    <p class="wp1-eyebrow">SCENE 01 · DEMO VISUAL</p>
-    <h2 class="wp1-scene-title wp1-reveal">Not Just Software. Your Digital Workforce.</h2>
-    <p class="wp1-scene-sub wp1-reveal">Fictional demo agents at holographic stations. No real people, no real staff, no live system — a visual preview only. <span class="wp1-demo-tag">DEMO</span></p>
-
-    <div class="wp1-agent-grid">
-      <!-- Agent 1: Reception / greeting -->
-      <article class="wp1-agent wp1-reveal">
-        <div class="wp1-agent-stage">
-          <div class="wp1-holo-ring" aria-hidden="true"></div>
-          <svg class="wp1-agent-figure" viewBox="0 0 200 260" role="img" aria-label="Stylised sci-fi agent silhouette, demo illustration">
-            <defs>
-              <linearGradient id="wp1-sil-a" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#0f2038"/><stop offset="1" stop-color="#1e2a44"/>
-              </linearGradient>
-              <linearGradient id="wp1-glow-a" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/>
-              </linearGradient>
-            </defs>
-            <ellipse cx="100" cy="244" rx="62" ry="8" fill="#22d3ee" opacity="0.25"/>
-            <path d="M62 250 L78 150 Q100 132 122 150 L138 250 Q100 262 62 250 Z" fill="url(#wp1-sil-a)" stroke="#334155" stroke-width="1"/>
-            <path d="M100 132 L100 96 M78 170 L62 196 M122 170 L138 196" stroke="#22d3ee" stroke-opacity="0.5" stroke-width="1.5" fill="none"/>
-            <ellipse cx="100" cy="78" rx="30" ry="36" fill="url(#wp1-sil-a)" stroke="#334155" stroke-width="1"/>
-            <path d="M78 76 Q100 66 122 76" stroke="url(#wp1-glow-a)" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <circle cx="88" cy="82" r="2.5" fill="#22d3ee"/><circle cx="112" cy="82" r="2.5" fill="#22d3ee"/>
-            <rect x="88" y="150" width="24" height="34" rx="6" fill="#0b1526" stroke="#22d3ee" stroke-opacity="0.6"/>
-            <rect x="94" y="158" width="12" height="3" rx="1.5" fill="#22d3ee"/><rect x="94" y="165" width="12" height="3" rx="1.5" fill="#8b5cf6"/>
-          </svg>
-          <span class="wp1-agent-tag">RECEPTION · DEMO</span>
-        </div>
-        <h3>Greets every visitor</h3>
-        <p>Instant first reply, day or night — in this demo animation only. No live chat is connected.</p>
-        <span class="wp1-pill">Greeting · DEMO</span>
+  <!-- 1. FEATURES -->
+  <section id="features" class="section">
+    <h2 class="reveal">Everything your business needs, handled by AI</h2>
+    <p class="section-sub reveal">Seven building blocks of an AI workforce — each shown with a short demo example.</p>
+    <div class="grid">
+      <article class="card reveal">
+        <h3>Auto-Reply</h3>
+        <p>Instant answers to common questions, any time of day.</p>
+        <p class="demo-example">DEMO: Customer asks about timings → AI replies in seconds.</p>
       </article>
-
-      <!-- Agent 2: Sales / qualification -->
-      <article class="wp1-agent wp1-reveal">
-        <div class="wp1-agent-stage">
-          <div class="wp1-holo-ring" aria-hidden="true"></div>
-          <svg class="wp1-agent-figure" viewBox="0 0 200 260" role="img" aria-label="Stylised sci-fi agent silhouette, demo illustration">
-            <ellipse cx="100" cy="244" rx="62" ry="8" fill="#8b5cf6" opacity="0.25"/>
-            <path d="M58 250 L72 148 Q100 130 128 148 L142 250 Q100 262 58 250 Z" fill="#16213a" stroke="#475569" stroke-width="1"/>
-            <path d="M100 130 L100 92 M72 168 L56 190 M128 168 L144 190" stroke="#8b5cf6" stroke-opacity="0.5" stroke-width="1.5" fill="none"/>
-            <ellipse cx="100" cy="76" rx="28" ry="34" fill="#16213a" stroke="#475569" stroke-width="1"/>
-            <path d="M80 72 Q100 62 120 72" stroke="#8b5cf6" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <circle cx="89" cy="80" r="2.5" fill="#a78bfa"/><circle cx="111" cy="80" r="2.5" fill="#a78bfa"/>
-            <rect x="70" y="152" width="60" height="40" rx="8" fill="#0b1526" stroke="#8b5cf6" stroke-opacity="0.6"/>
-            <rect x="78" y="162" width="44" height="4" rx="2" fill="#8b5cf6"/><rect x="78" y="172" width="30" height="4" rx="2" fill="#22d3ee"/>
-          </svg>
-          <span class="wp1-agent-tag">SALES · DEMO</span>
-        </div>
-        <h3>Qualifies interest</h3>
-        <p>Asks demo questions, notes intent, and prepares a handoff — all sample data, nothing real.</p>
-        <span class="wp1-pill">Lead qualification · DEMO</span>
+      <article class="card reveal">
+        <h3>24x7 Replies</h3>
+        <p>No missed messages at night, on weekends, or on holidays.</p>
+        <p class="demo-example">DEMO: A 2 AM enquiry gets a full reply, not a "we'll get back to you".</p>
       </article>
-
-      <!-- Agent 3: Support / follow-up -->
-      <article class="wp1-agent wp1-reveal">
-        <div class="wp1-agent-stage">
-          <div class="wp1-holo-ring" aria-hidden="true"></div>
-          <svg class="wp1-agent-figure" viewBox="0 0 200 260" role="img" aria-label="Stylised sci-fi agent silhouette, demo illustration">
-            <ellipse cx="100" cy="244" rx="62" ry="8" fill="#cbd5e1" opacity="0.2"/>
-            <path d="M64 250 L80 152 Q100 134 120 152 L136 250 Q100 260 64 250 Z" fill="#0f1c30" stroke="#334155" stroke-width="1"/>
-            <path d="M100 134 L100 98 M80 172 L64 196 M120 172 L136 196" stroke="#cbd5e1" stroke-opacity="0.4" stroke-width="1.5" fill="none"/>
-            <ellipse cx="100" cy="80" rx="29" ry="35" fill="#0f1c30" stroke="#334155" stroke-width="1"/>
-            <path d="M79 78 Q100 68 121 78" stroke="#22d3ee" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <circle cx="89" cy="84" r="2.5" fill="#22d3ee"/><circle cx="111" cy="84" r="2.5" fill="#22d3ee"/>
-            <circle cx="100" cy="168" r="18" fill="#0b1526" stroke="#22d3ee" stroke-opacity="0.6"/>
-            <path d="M92 168 H108 M100 160 V176" stroke="#22d3ee" stroke-width="2"/>
-          </svg>
-          <span class="wp1-agent-tag">SUPPORT · DEMO</span>
-        </div>
-        <h3>Follows up, hands off</h3>
-        <p>Answers demo FAQs and passes complex cases to a human in the story — no real handoff occurs here.</p>
-        <span class="wp1-pill">Human handoff · DEMO</span>
+      <article class="card reveal">
+        <h3>Broadcast</h3>
+        <p>Send updates and offers to your audience in one go.</p>
+        <p class="demo-example">DEMO: One demo announcement drafted for a fictional audience.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Booking</h3>
+        <p>Customers book slots inside the chat — no back-and-forth.</p>
+        <p class="demo-example">DEMO: "Tomorrow 3 PM" → slot reserved in the demo calendar.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Reminder</h3>
+        <p>Gentle follow-ups so appointments and payments don't slip.</p>
+        <p class="demo-example">DEMO: A fictional booking reminder queued for the morning.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Team Inbox</h3>
+        <p>Every conversation in one place, assigned to the right person.</p>
+        <p class="demo-example">DEMO: A demo chat assigned to "Team Member A" (fictional).</p>
+      </article>
+      <article class="card reveal">
+        <h3>Analytics</h3>
+        <p>See what's working: replies, bookings, and follow-ups at a glance.</p>
+        <p class="demo-example">DEMO: Sample dashboard figures below are DEMO DATA only.</p>
       </article>
     </div>
-    <p class="wp1-scene-note">Demo illustration only. These are stylised silhouettes, not robots, not real staff, not a live workforce. <span class="wp1-demo-tag">DEMO</span></p>
-  </div>
-</section>
+  </section>
 
-<!-- ============ SCENE 2 — WhatsApp Automation (generic chat UI, no approval claim) ============ -->
-<section id="whatsapp" class="wp1-scene wp1-scene--wa" aria-label="WhatsApp Automation demo">
-  <div class="wp1-scene-inner">
-    <p class="wp1-eyebrow">SCENE 02 · GENERIC CHAT DEMO · NO OFFICIAL APPROVAL CLAIMED</p>
-    <h2 class="wp1-scene-title wp1-reveal">Every Conversation. Handled Intelligently.</h2>
-    <p class="wp1-scene-sub wp1-reveal">A generic chat-inspired demo for a fictional business, “Demo Store”. This is not an official integration claim and no message is sent. <span class="wp1-demo-tag">DEMO</span></p>
-
-    <div class="wp1-wa-layout">
-      <div class="wp1-wa-phone wp1-reveal" aria-label="Demo chat phone visual">
-        <div class="wp1-panel-head">
-          <span class="wp1-panel-title">Demo Store · Chat Demo</span>
-          <span class="wp1-demo-tag">DEMO</span>
-        </div>
-        <div class="wp1-chat" data-wp1-wa-chat>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo customer</span>Hi, is this item in stock? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-intent wp1-reveal"><strong>Intent analysis · DEMO:</strong> stock question → product availability</div>
-          <div class="wp1-bubble wp1-bubble--ai"><span class="wp1-bubble-who">AI Agent · DEMO</span>Yes, the demo item is shown as in stock in this sample. <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo customer</span>Great — what is the price? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--ai"><span class="wp1-bubble-who">AI Agent · DEMO</span>Sample price shown for demo only — no purchase here. <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-typing" aria-hidden="true"><span></span><span></span><span></span><em>AI is typing… DEMO</em></div>
-        </div>
-      </div>
-
-      <ol class="wp1-wa-steps">
-        <li class="wp1-reveal"><strong>1 · Automated replies</strong><span>Instant demo answers, around the clock in the story.</span><span class="wp1-demo-tag">DEMO</span></li>
-        <li class="wp1-reveal"><strong>2 · Lead qualification</strong><span>Demo questions sort interest before any human step.</span><span class="wp1-demo-tag">DEMO</span></li>
-        <li class="wp1-reveal"><strong>3 · FAQs</strong><span>Hours, delivery and stock — sample answers only.</span><span class="wp1-demo-tag">DEMO</span></li>
-        <li class="wp1-reveal"><strong>4 · Follow-ups</strong><span>Demo reminders queued in the animation, never sent.</span><span class="wp1-demo-tag">DEMO</span></li>
-        <li class="wp1-reveal"><strong>5 · Human handoff</strong><span>Complex demo cases pass to a human in the story.</span><span class="wp1-demo-tag">DEMO</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCENE 3 — Instagram Automation (generic DM UI, no approval claim) ============ -->
-<section id="instagram" class="wp1-scene wp1-scene--ig" aria-label="Instagram Automation demo">
-  <div class="wp1-scene-inner">
-    <p class="wp1-eyebrow">SCENE 03 · GENERIC DM DEMO · NO OFFICIAL APPROVAL CLAIMED</p>
-    <h2 class="wp1-scene-title wp1-reveal">Turn Conversations Into Customers.</h2>
-    <p class="wp1-scene-sub wp1-reveal">Generic DM-style demo panels for the same fictional “Demo Store”. No messages are sent or received. <span class="wp1-demo-tag">DEMO</span></p>
-
-    <div class="wp1-ig-layout">
-      <div class="wp1-ig-agent" data-wp1-ig-agent aria-hidden="true">
-        <span class="wp1-ig-agent-dot"></span><span>AI Agent moving between demo panels · DEMO</span>
-      </div>
-      <div class="wp1-ig-grid">
-        <article class="wp1-ig-panel wp1-reveal" data-wp1-ig-panel>
-          <div class="wp1-panel-head"><span class="wp1-panel-title">Demo inquiry</span><span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo visitor</span>Love this! Is it available in blue? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--ai"><span class="wp1-bubble-who">AI Agent · DEMO</span>Blue is shown as available in this demo sample. <span class="wp1-demo-tag">DEMO</span></div>
-          <span class="wp1-pill">Inquiry handled · DEMO</span>
-        </article>
-        <article class="wp1-ig-panel wp1-reveal" data-wp1-ig-panel>
-          <div class="wp1-panel-head"><span class="wp1-panel-title">Demo product question</span><span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo visitor</span>What sizes does it come in? <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--ai"><span class="wp1-bubble-who">AI Agent · DEMO</span>Sample sizes listed in the demo only — no stock is real. <span class="wp1-demo-tag">DEMO</span></div>
-          <span class="wp1-pill">Product question · DEMO</span>
-        </article>
-        <article class="wp1-ig-panel wp1-reveal" data-wp1-ig-panel>
-          <div class="wp1-panel-head"><span class="wp1-panel-title">Demo lead capture</span><span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--in"><span class="wp1-bubble-who">Demo visitor</span>Please share details, I am interested. <span class="wp1-demo-tag">DEMO</span></div>
-          <div class="wp1-bubble wp1-bubble--ai"><span class="wp1-bubble-who">AI Agent · DEMO</span>Demo details noted in this animation. No contact data is collected. <span class="wp1-demo-tag">DEMO</span></div>
-          <span class="wp1-pill">Lead captured · DEMO</span>
-        </article>
-      </div>
-      <p class="wp1-scene-note">Demo panels only. No Instagram account, approval, or messaging is involved. <span class="wp1-demo-tag">DEMO</span></p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-  WORKER 2 / PART 2 — Flow99 cinematic landing page (FRAGMENT ONLY)
-  Paste these <section> blocks, in order, inside <body> of index.html.
-  Companion files: workflow-dashboard.css + workflow-dashboard.js
-  Standalone DEMO only: no backend, no auth, no sends, no live links.
-  All data below is fictional DEMO DATA. No real results are claimed.
-============================================================ -->
-
-<!-- ============ SCENE 4 — ONE CONNECTED AI WORKFORCE ============ -->
-<section id="channels" class="wp2-scene wp2-scene-channels" aria-labelledby="wp2-channels-title">
-  <div class="wp2-bg-grid" aria-hidden="true"></div>
-  <div class="wp2-bg-glow wp2-bg-glow-cyan" aria-hidden="true"></div>
-  <div class="wp2-bg-glow wp2-bg-glow-violet" aria-hidden="true"></div>
-
-  <div class="wp2-inner">
-    <p class="wp2-eyebrow wp2-reveal"><span class="wp2-eyebrow-dot"></span> SCENE 04 &nbsp;·&nbsp; ONE CONNECTED AI WORKFORCE</p>
-    <h2 id="wp2-channels-title" class="wp2-headline wp2-reveal">Every Channel.<br><span class="wp2-headline-accent">One Intelligent System.</span></h2>
-    <p class="wp2-sub wp2-reveal">Messages arrive from different places. One Flow99 intelligence core understands them, answers them, and keeps every conversation in sync — so nothing gets lost between channels.</p>
-
-    <div class="wp2-hub-wrap wp2-reveal" data-wp2-parallax="0.04">
-      <!-- Animated data streams: channels → core → agents -->
-      <svg class="wp2-streams" viewBox="0 0 900 520" role="img" aria-label="Animated diagram: demo channels connected to a central Flow99 intelligence core" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="wp2-stream-a" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
-            <stop offset="50%" stop-color="#22d3ee"/>
-            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <!-- Stream paths (CSS animates stroke-dashoffset) -->
-        <path class="wp2-stream wp2-stream-1" d="M 150 90 C 300 90, 320 210, 450 245" fill="none" stroke="url(#wp2-stream-a)" stroke-width="2"/>
-        <path class="wp2-stream wp2-stream-2" d="M 150 250 C 300 250, 320 250, 450 260" fill="none" stroke="url(#wp2-stream-a)" stroke-width="2"/>
-        <path class="wp2-stream wp2-stream-3" d="M 150 420 C 300 420, 320 290, 450 275" fill="none" stroke="url(#wp2-stream-a)" stroke-width="2"/>
-        <path class="wp2-stream wp2-stream-4" d="M 450 245 C 580 210, 600 90, 750 90" fill="none" stroke="url(#wp2-stream-a)" stroke-width="2"/>
-        <path class="wp2-stream wp2-stream-5" d="M 450 260 C 580 250, 600 250, 750 250" fill="none" stroke="url(#wp2-stream-a)" stroke-width="2"/>
-        <path class="wp2-stream wp2-stream-6" d="M 450 275 C 580 290, 600 420, 750 420" fill="none" stroke="url(#wp2-stream-a)" stroke-width="2"/>
-        <!-- Moving pulses along the streams -->
-        <circle class="wp2-pulse wp2-pulse-1" r="5" fill="#22d3ee"><animateMotion dur="3.2s" repeatCount="indefinite" path="M 150 90 C 300 90, 320 210, 450 245"/></circle>
-        <circle class="wp2-pulse wp2-pulse-2" r="5" fill="#a78bfa"><animateMotion dur="4.1s" repeatCount="indefinite" path="M 150 420 C 300 420, 320 290, 450 275"/></circle>
-        <circle class="wp2-pulse wp2-pulse-3" r="5" fill="#22d3ee"><animateMotion dur="3.6s" repeatCount="indefinite" path="M 450 260 C 580 250, 600 250, 750 250"/></circle>
-      </svg>
-
-      <!-- Left: channels -->
-      <div class="wp2-hub-col wp2-hub-col-left">
-        <article class="wp2-channel wp2-stagger" data-wp2-tilt>
-          <span class="wp2-channel-icon wp2-channel-icon-wa" aria-hidden="true">✦</span>
-          <div><strong>WhatsApp</strong><span class="wp2-tag wp2-tag-live">DEMO</span></div>
-          <p>Demo chat flows in and gets a helpful reply.</p>
-        </article>
-        <article class="wp2-channel wp2-stagger" data-wp2-tilt>
-          <span class="wp2-channel-icon wp2-channel-icon-ig" aria-hidden="true">◎</span>
-          <div><strong>Instagram</strong><span class="wp2-tag wp2-tag-live">DEMO</span></div>
-          <p>Demo comments &amp; DMs answered in one place.</p>
-        </article>
-        <article class="wp2-channel wp2-stagger">
-          <span class="wp2-channel-icon" aria-hidden="true">▣</span>
-          <div><strong>Website Chat</strong><span class="wp2-tag wp2-tag-soon">COMING SOON</span></div>
-          <p>Not part of this demo yet.</p>
-        </article>
-        <article class="wp2-channel wp2-stagger">
-          <span class="wp2-channel-icon" aria-hidden="true">✉</span>
-          <div><strong>Email</strong><span class="wp2-tag wp2-tag-soon">COMING SOON</span></div>
-          <p>Not part of this demo yet.</p>
-        </article>
-      </div>
-
-      <!-- Centre: intelligence core -->
-      <div class="wp2-core" data-wp2-tilt>
-        <div class="wp2-core-ring wp2-core-ring-1" aria-hidden="true"></div>
-        <div class="wp2-core-ring wp2-core-ring-2" aria-hidden="true"></div>
-        <div class="wp2-core-body">
-          <span class="wp2-core-mark" aria-hidden="true">◆</span>
-          <strong>FLOW99</strong>
-          <span>Intelligence Core</span>
-          <small>DEMO VISUALISATION</small>
-        </div>
-      </div>
-
-      <!-- Right: agents / outcomes -->
-      <div class="wp2-hub-col wp2-hub-col-right">
-        <article class="wp2-channel wp2-stagger" data-wp2-tilt>
-          <span class="wp2-channel-icon" aria-hidden="true">◉</span>
-          <div><strong>AI Agent</strong><span class="wp2-tag wp2-tag-live">DEMO</span></div>
-          <p>Answers routine demo questions instantly.</p>
-        </article>
-        <article class="wp2-channel wp2-stagger" data-wp2-tilt>
-          <span class="wp2-channel-icon" aria-hidden="true">⬢</span>
-          <div><strong>Workflow Engine</strong><span class="wp2-tag wp2-tag-live">DEMO</span></div>
-          <p>Routes each demo message to the right step.</p>
-        </article>
-        <article class="wp2-channel wp2-stagger">
-          <span class="wp2-channel-icon" aria-hidden="true">☎</span>
-          <div><strong>Voice Calls</strong><span class="wp2-tag wp2-tag-soon">COMING SOON</span></div>
-          <p>Not part of this demo yet.</p>
-        </article>
-        <article class="wp2-channel wp2-stagger">
-          <span class="wp2-channel-icon" aria-hidden="true">◈</span>
-          <div><strong>Telegram</strong><span class="wp2-tag wp2-tag-soon">COMING SOON</span></div>
-          <p>Not part of this demo yet.</p>
-        </article>
-      </div>
-    </div>
-
-    <p class="wp2-note wp2-reveal">Only WhatsApp and Instagram are demoed here. Every other channel above is marked COMING SOON and sends nothing.</p>
-  </div>
-</section>
-
-<!-- ============ SCENE 5 — AI BRAIN + WORKFLOW BUILDER ============ -->
-<div id="how-it-works" aria-hidden="true"></div>
-<section id="brain" class="wp2-scene wp2-scene-brain" aria-labelledby="wp2-brain-title">
-  <div class="wp2-bg-grid" aria-hidden="true"></div>
-  <div class="wp2-inner">
-    <p class="wp2-eyebrow wp2-reveal"><span class="wp2-eyebrow-dot"></span> SCENE 05 &nbsp;·&nbsp; AI BRAIN &amp; WORKFLOW BUILDER &nbsp;·&nbsp; <span class="wp2-tag wp2-tag-live">DEMO</span></p>
-    <h2 id="wp2-brain-title" class="wp2-headline wp2-reveal">From Repetitive Tasks<br><span class="wp2-headline-accent">to Intelligent Automation.</span></h2>
-    <p class="wp2-sub wp2-reveal">Watch one generic demo message travel through the workflow below. This is a simplified illustration — not Flow99's internal architecture, prompts, or code.</p>
-
-    <div class="wp2-brain-wrap">
-      <!-- Holographic neural network: nodes light up as the demo message passes -->
-      <svg class="wp2-neural wp2-reveal" viewBox="0 0 900 260" role="img" aria-label="Holographic neural network illustration with nodes lighting up" preserveAspectRatio="xMidYMid meet">
-        <g stroke="rgba(34,211,238,.35)" stroke-width="1">
-          <line x1="90" y1="130" x2="260" y2="60"/><line x1="90" y1="130" x2="260" y2="200"/>
-          <line x1="260" y1="60" x2="450" y2="130"/><line x1="260" y1="200" x2="450" y2="130"/>
-          <line x1="450" y1="130" x2="640" y2="60"/><line x1="450" y1="130" x2="640" y2="200"/>
-          <line x1="640" y1="60" x2="810" y2="130"/><line x1="640" y1="200" x2="810" y2="130"/>
-        </g>
-        <g class="wp2-nodes">
-          <circle class="wp2-node" data-wp2-node="0" cx="90" cy="130" r="16"/>
-          <circle class="wp2-node" data-wp2-node="1" cx="260" cy="60" r="12"/>
-          <circle class="wp2-node" data-wp2-node="1" cx="260" cy="200" r="12"/>
-          <circle class="wp2-node" data-wp2-node="2" cx="450" cy="130" r="18"/>
-          <circle class="wp2-node" data-wp2-node="3" cx="640" cy="60" r="12"/>
-          <circle class="wp2-node" data-wp2-node="3" cx="640" cy="200" r="12"/>
-          <circle class="wp2-node" data-wp2-node="4" cx="810" cy="130" r="16"/>
-        </g>
-      </svg>
-
-      <!-- Exactly this generic demo workflow, in this order -->
-      <ol class="wp2-flow" id="wp2-flow" aria-label="Generic demo workflow">
-        <li class="wp2-flow-step wp2-reveal" data-wp2-step="0"><span class="wp2-flow-num">01</span><strong>Incoming Message</strong><span>A demo customer message arrives.</span></li>
-        <li class="wp2-flow-step wp2-reveal" data-wp2-step="1"><span class="wp2-flow-num">02</span><strong>Understand Intent</strong><span>What is the customer asking for?</span></li>
-        <li class="wp2-flow-step wp2-reveal" data-wp2-step="2"><span class="wp2-flow-num">03</span><strong>Apply Business Rules</strong><span>Your demo rules decide what happens next.</span></li>
-        <li class="wp2-flow-step wp2-reveal" data-wp2-step="3"><span class="wp2-flow-num">04</span><strong>Generate Reply</strong><span>A helpful demo reply is drafted.</span></li>
-        <li class="wp2-flow-step wp2-reveal" data-wp2-step="4"><span class="wp2-flow-num">05</span><strong>Send Response</strong><span>The reply goes back on the same channel.</span></li>
-        <li class="wp2-flow-step wp2-reveal" data-wp2-step="5"><span class="wp2-flow-num">06</span><strong>Update CRM</strong><span>The demo conversation record is updated.</span></li>
-      </ol>
-
-      <div class="wp2-demo-chat wp2-reveal" aria-label="Demo message example">
-        <p class="wp2-demo-chat-label"><span class="wp2-tag wp2-tag-live">DEMO</span> LIVE DEMO MESSAGE — FICTIONAL BUSINESS ONLY</p>
-        <div class="wp2-demo-bubble wp2-demo-bubble-in">“Hi! Do you deliver on weekends?”</div>
-        <div class="wp2-demo-bubble wp2-demo-bubble-out" id="wp2-demo-reply">Working through the demo workflow…</div>
-        <button type="button" class="wp2-btn wp2-btn-ghost" id="wp2-replay-flow">↻ Replay demo workflow</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCENE 6 — BUSINESS CONTROL CENTER ============ -->
-<section id="control" class="wp2-scene wp2-scene-control" aria-labelledby="wp2-control-title">
-  <div class="wp2-bg-grid" aria-hidden="true"></div>
-  <div class="wp2-inner">
-    <p class="wp2-eyebrow wp2-reveal"><span class="wp2-eyebrow-dot"></span> SCENE 06 &nbsp;·&nbsp; BUSINESS CONTROL CENTER</p>
-    <h2 id="wp2-control-title" class="wp2-headline wp2-reveal">Complete Control.<br><span class="wp2-headline-accent">Without the Busywork.</span></h2>
-    <p class="wp2-sub wp2-reveal">A premium dark-mode dashboard mock — inboxes, assignments, workflows, history, team activity and analytics in one view. Every number and name below is fictional <strong>DEMO DATA</strong>. No real results are shown or implied.</p>
-
-    <div class="wp2-dash wp2-reveal" role="img" aria-label="Demo dashboard mockup with fictional demo data">
-      <div class="wp2-dash-top">
-        <div class="wp2-dash-brand"><span aria-hidden="true">◆</span> <strong>Flow99 Control Center</strong> <span class="wp2-tag wp2-tag-live">DEMO DATA</span></div>
-        <div class="wp2-dash-tabs" aria-hidden="true"><span class="wp2-dash-tab wp2-dash-tab-on">Inbox</span><span class="wp2-dash-tab">Workflows</span><span class="wp2-dash-tab">Customers</span><span class="wp2-dash-tab">Analytics</span></div>
-        <span class="wp2-dash-user">Demo Owner ▾</span>
-      </div>
-
-      <div class="wp2-dash-grid">
-        <div class="wp2-dash-card wp2-stagger">
-          <h3>Inboxes</h3>
-          <ul class="wp2-inbox-list">
-            <li><span class="wp2-dot wp2-dot-cyan"></span> WhatsApp <b>Demo thread A</b><em>“Weekend delivery?”</em></li>
-            <li><span class="wp2-dot wp2-dot-violet"></span> Instagram <b>Demo thread B</b><em>“Price list please”</em></li>
-            <li><span class="wp2-dot wp2-dot-silver"></span> Website Chat <em class="wp2-muted">COMING SOON</em></li>
-          </ul>
-          <p class="wp2-card-foot">DEMO DATA — fictional threads only</p>
-        </div>
-
-        <div class="wp2-dash-card wp2-stagger">
-          <h3>Conversation Assignments</h3>
-          <table class="wp2-mini-table">
-            <tr><th>Conversation</th><th>Assigned to</th><th>Status</th></tr>
-            <tr><td>Demo thread A</td><td>AI Agent</td><td><span class="wp2-pill">In progress</span></td></tr>
-            <tr><td>Demo thread B</td><td>Demo Teammate</td><td><span class="wp2-pill wp2-pill-wait">Waiting</span></td></tr>
-            <tr><td>Demo thread C</td><td>AI Agent</td><td><span class="wp2-pill wp2-pill-done">Resolved (demo)</span></td></tr>
-          </table>
-          <p class="wp2-card-foot">DEMO DATA</p>
-        </div>
-
-        <div class="wp2-dash-card wp2-stagger">
-          <h3>Workflow Status</h3>
-          <ul class="wp2-status-list">
-            <li><span class="wp2-pill wp2-pill-done">● Active</span> Demo Welcome Workflow</li>
-            <li><span class="wp2-pill wp2-pill-done">● Active</span> Demo FAQ Workflow</li>
-            <li><span class="wp2-pill">○ Paused</span> Demo Follow-up Workflow</li>
-          </ul>
-          <p class="wp2-card-foot">DEMO DATA — toggle is visual only, changes nothing live</p>
-        </div>
-
-        <div class="wp2-dash-card wp2-stagger">
-          <h3>Customer History</h3>
-          <ul class="wp2-history-list">
-            <li><strong>Demo Customer — Asha</strong><span>Last demo chat: “Thanks, that helps!”</span></li>
-            <li><strong>Demo Customer — Vikram</strong><span>Last demo chat: “Order status?” → demo reply sent</span></li>
-          </ul>
-          <p class="wp2-card-foot">DEMO DATA — fictional customers</p>
-        </div>
-
-        <div class="wp2-dash-card wp2-stagger">
-          <h3>Team Activity</h3>
-          <ul class="wp2-activity-list">
-            <li><time>Demo 09:00</time> Demo Teammate took over Demo thread B</li>
-            <li><time>Demo 09:12</time> AI Agent drafted a demo reply for review</li>
-            <li><time>Demo 09:20</time> Demo Owner marked Demo thread C resolved</li>
-          </ul>
-          <p class="wp2-card-foot">DEMO DATA — illustrative timeline</p>
-        </div>
-
-        <div class="wp2-dash-card wp2-stagger">
-          <h3>Analytics <span class="wp2-tag wp2-tag-live">DEMO DATA</span></h3>
-          <div class="wp2-bars" aria-hidden="true">
-            <div class="wp2-bar" style="--wp2-h:42%"><span>Mon</span></div>
-            <div class="wp2-bar" style="--wp2-h:64%"><span>Tue</span></div>
-            <div class="wp2-bar" style="--wp2-h:55%"><span>Wed</span></div>
-            <div class="wp2-bar" style="--wp2-h:82%"><span>Thu</span></div>
-            <div class="wp2-bar" style="--wp2-h:70%"><span>Fri</span></div>
+  <!-- 2. WHATSAPP CHANNEL -->
+  <section id="channels" class="section section-navy">
+    <h2 class="reveal">WhatsApp automation, in action</h2>
+    <p class="section-sub reveal">A generic chat-inspired demo for a fictional business called "Demo Store".</p>
+    <div class="demo-layout">
+      <div class="chat-shell reveal">
+        <div class="chat-header">Demo Store &middot; WhatsApp-style demo</div>
+        <div id="demoChat">
+          <div id="chatMessages">
+            <p class="bubble customer">Hi, I want to know your opening hours.</p>
+            <p class="bubble ai">We're open 9 AM – 9 PM, every day. How can I help you today?</p>
+            <p class="bubble customer">Can you help me choose a plan?</p>
+            <p class="bubble ai">Of course! Tell me what your business needs — bookings, replies, or both — and I'll suggest a fit.</p>
           </div>
-          <p class="wp2-card-foot">Demo conversation volume only — not real performance, revenue, or results.</p>
         </div>
+        <div id="demoChatStatus">Demo conversation — the JS worker may animate new demo messages here. Nothing is sent.</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCENE 7 — HUMAN + AI COLLABORATION ============ -->
-<section id="collaboration" class="wp2-scene wp2-scene-collab" aria-labelledby="wp2-collab-title">
-  <div class="wp2-bg-glow wp2-bg-glow-violet" aria-hidden="true"></div>
-  <div class="wp2-inner">
-    <p class="wp2-eyebrow wp2-reveal"><span class="wp2-eyebrow-dot"></span> SCENE 07 &nbsp;·&nbsp; HUMAN + AI COLLABORATION</p>
-    <h2 id="wp2-collab-title" class="wp2-headline wp2-reveal">AI Handles the Routine.<br><span class="wp2-headline-accent">Your Team Handles the Important.</span></h2>
-    <p class="wp2-sub wp2-reveal">When a demo issue gets complicated, the AI agent does not guess — it hands the full conversation context to a human teammate.</p>
-
-    <div class="wp2-collab-grid">
-      <div class="wp2-collab-card wp2-reveal" data-wp2-tilt>
-        <span class="wp2-collab-avatar" aria-hidden="true">🤖</span>
-        <h3>AI Agent</h3>
-        <p>Handles routine demo questions: timings, prices, and simple requests.</p>
-        <div class="wp2-collab-bubble">“I can help with that. Let me check the demo details for you.”</div>
-        <span class="wp2-tag wp2-tag-live">DEMO</span>
-      </div>
-
-      <div class="wp2-handoff wp2-reveal" aria-label="Escalation with conversation context">
-        <div class="wp2-handoff-arrow" aria-hidden="true">⟶</div>
-        <strong>Complicated issue detected (demo)</strong>
-        <p>Escalated to a human — with full context attached:</p>
+      <div class="feature-list reveal">
+        <h3>What this demo shows</h3>
         <ul>
-          <li>Demo customer: fictional Demo Customer — Asha</li>
-          <li>Channel: WhatsApp (demo)</li>
-          <li>Summary: demo request needs a human decision</li>
-          <li>Previous demo messages included — nothing re-asked</li>
+          <li>Automated replies to everyday questions</li>
+          <li>Lead qualification — asking the right follow-up questions</li>
+          <li>FAQ answers without waiting for a human</li>
+          <li>Follow-ups that keep the conversation moving</li>
+          <li>Human handoff when a question gets complicated</li>
         </ul>
-        <span class="wp2-tag wp2-tag-live">DEMO HANDOFF — NO REAL MESSAGE SENT</span>
-      </div>
-
-      <div class="wp2-collab-card wp2-reveal" data-wp2-tilt>
-        <span class="wp2-collab-avatar" aria-hidden="true">🧑‍💼</span>
-        <h3>Human Operator</h3>
-        <p>Sees the whole demo conversation and picks up exactly where the AI left off.</p>
-        <div class="wp2-collab-bubble wp2-collab-bubble-human">“Thanks for sharing that — I have the full context here, let me sort this for you.”</div>
-        <span class="wp2-tag wp2-tag-live">DEMO</span>
+        <p class="note"><strong>Note:</strong> This is a generic demo only. No official approval is claimed, and no message is sent to any real person or number.</p>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ============ SCENE 8 — FINAL CTA ============ -->
-<section id="final-cta" class="wp2-scene wp2-scene-cta" aria-labelledby="wp2-cta-title">
-  <div class="wp2-bg-grid" aria-hidden="true"></div>
-  <div class="wp2-bg-glow wp2-bg-glow-cyan" aria-hidden="true"></div>
-  <div class="wp2-inner wp2-cta-inner">
-    <p class="wp2-eyebrow wp2-reveal"><span class="wp2-eyebrow-dot"></span> SCENE 08 &nbsp;·&nbsp; THE NEXT STEP</p>
-    <h2 id="wp2-cta-title" class="wp2-headline wp2-headline-xl wp2-reveal">THE FUTURE OF BUSINESS IS AUTOMATED.</h2>
-    <p class="wp2-sub wp2-sub-lg wp2-reveal">Build your AI workforce with Flow99.</p>
-    <div class="wp2-cta-row wp2-reveal">
-      <!-- DEMO CTA: scrolls to #pricing if present, else shows on-screen demo confirmation. Goes NOWHERE live. -->
-      <button type="button" class="wp2-btn wp2-btn-primary" id="wp2-cta-start">Start Building with Flow99</button>
-      <!-- Secondary: scrolls to #agents, falling back to a features area if #agents is absent -->
-      <a class="wp2-btn wp2-btn-ghost" href="#agents" id="wp2-cta-features">Explore Features →</a>
+    <!-- 3. INSTAGRAM DEMO -->
+    <section id="instagram-demo" class="subsection">
+      <h2 class="reveal">Instagram automation demo</h2>
+      <p class="section-sub reveal">Generic DM-style panels for the same fictional Demo Store.</p>
+      <div class="grid">
+        <article class="card reveal">
+          <span class="panel-tag">DM DEMO</span>
+          <p class="bubble customer">I saw your post — is this available in my city?</p>
+          <p class="bubble ai">Yes, we serve your city! Want me to share the options?</p>
+        </article>
+        <article class="card reveal">
+          <span class="panel-tag">PRODUCT QUESTION DEMO</span>
+          <p class="bubble customer">What's included in the starter pack?</p>
+          <p class="bubble ai">Replies, bookings and reminders — all in one demo plan.</p>
+        </article>
+        <article class="card reveal">
+          <span class="panel-tag">LEAD CAPTURE DEMO</span>
+          <p class="bubble customer">I'm interested. What do you need from me?</p>
+          <p class="bubble ai">Just your business type and preferred contact time — demo only, nothing saved.</p>
+        </article>
+      </div>
+      <p class="note reveal"><strong>Note:</strong> Demo only — no account connected, nothing sent, no real Instagram interaction.</p>
+    </section>
+  </section>
+
+  <!-- 4. ONE CONNECTED WORKFORCE -->
+  <section id="workforce" class="section">
+    <h2 class="reveal">One connected workforce, every channel</h2>
+    <p class="section-sub reveal">Your AI team works across channels — live demos today, more channels on the way.</p>
+    <div class="data-stream reveal" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
-    <p class="wp2-cta-note wp2-reveal" role="status" id="wp2-cta-note">Demo only — this button creates no account, sends nothing, and takes you nowhere live.</p>
-    <div class="wp2-demo-confirm" id="wp2-demo-confirm" hidden role="status" aria-live="polite">
-      ✓ Demo confirmation: this is a standalone demo. No account was created and nothing was sent.
+    <div class="grid channel-grid">
+      <article class="card reveal"><h3>WhatsApp</h3><p class="badge badge-demo">DEMO</p><p>Automated replies, bookings and follow-ups.</p></article>
+      <article class="card reveal"><h3>Instagram</h3><p class="badge badge-demo">DEMO</p><p>DM replies, product questions and lead capture.</p></article>
+      <article class="card reveal"><h3>Website Chat</h3><p class="badge badge-soon">COMING SOON</p><p>On-site chat handled by the same AI workforce.</p></article>
+      <article class="card reveal"><h3>Email</h3><p class="badge badge-soon">COMING SOON</p><p>Inbox replies drafted and organised by AI.</p></article>
+      <article class="card reveal"><h3>Voice</h3><p class="badge badge-soon">COMING SOON</p><p>Voice conversations with the same business rules.</p></article>
+      <article class="card reveal"><h3>Telegram</h3><p class="badge badge-soon">COMING SOON</p><p>Chat automation on Telegram, when it launches.</p></article>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="pricing" class="wp3-section wp3-pricing" aria-labelledby="wp3-pricing-heading">
-  <div class="wp3-section-inner">
-    <h2 id="wp3-pricing-heading" class="wp3-section-title">Pricing <span class="wp3-demo-tag">DEMO</span></h2>
-    <p class="wp3-section-sub">Sample plans for the demo only — pick a shape, not a bill.</p>
-    <p class="wp3-warning" role="note"><strong>Demo pricing only — not Flow99's actual plans.</strong> These prices are invented demo placeholders. No payment, no checkout, no signup.</p>
+  <!-- 5. HOW IT WORKS -->
+  <section id="how-it-works" class="section section-navy">
+    <h2 class="reveal">How the AI workflow works</h2>
+    <p class="section-sub reveal">A simplified illustration of a generic demo flow — not internal architecture, code, or prompts.</p>
+    <ol class="steps">
+      <li class="reveal"><strong>1. Incoming Message</strong><span>A customer writes in on any connected channel.</span></li>
+      <li class="reveal"><strong>2. Understand Intent</strong><span>The AI figures out what the customer actually wants.</span></li>
+      <li class="reveal"><strong>3. Apply Business Rules</strong><span>Your timings, prices and policies shape the answer.</span></li>
+      <li class="reveal"><strong>4. Generate Reply</strong><span>A helpful, on-brand reply is drafted.</span></li>
+      <li class="reveal"><strong>5. Send Response</strong><span>The customer gets an answer — fast, any hour.</span></li>
+      <li class="reveal"><strong>6. Update CRM</strong><span>The conversation and lead details are recorded for your team.</span></li>
+    </ol>
+    <p class="note reveal">Generic demo only. This diagram is a simplified illustration, not Flow99's internal architecture, code, or prompts.</p>
+  </section>
 
-    <div class="wp3-pricing-grid">
-      <article class="wp3-plan">
-        <h3 class="wp3-plan-name">Starter — DEMO</h3>
-        <p class="wp3-plan-price">₹499<span class="wp3-plan-per">/month</span> <span class="wp3-demo-tag">DEMO</span></p>
-        <p class="wp3-plan-desc">For a fictional demo business trying the concept.</p>
-        <ul class="wp3-plan-list">
-          <li>Demo call handling sample</li>
-          <li>Demo business hours setup</li>
-          <li>Sample call summaries</li>
-        </ul>
-        <a class="wp3-plan-btn" href="#">Try Demo <span class="wp3-demo-tag">DEMO</span></a>
+  <!-- 6. CONTROL CENTER -->
+  <section id="control-center" class="section">
+    <h2 class="reveal">Control Center — your business at a glance</h2>
+    <p class="section-sub reveal">A dark dashboard mock. Every card is labelled DEMO DATA, with fictional customers only.</p>
+    <div class="grid dashboard-grid">
+      <article class="card reveal"><h3>Inboxes</h3><p>WhatsApp + Instagram conversations in one view.</p><p class="demo-label">DEMO DATA</p></article>
+      <article class="card reveal"><h3>Assignments</h3><p>Demo chats routed to fictional team members.</p><p class="demo-label">DEMO DATA</p></article>
+      <article class="card reveal"><h3>Workflow Status</h3><p>Auto-reply, booking and reminder flows: all "Running" in this mock.</p><p class="demo-label">DEMO DATA</p></article>
+      <article class="card reveal"><h3>Customer History</h3><p>Fictional customer "Demo Customer A" — past demo chats only.</p><p class="demo-label">DEMO DATA</p></article>
+      <article class="card reveal"><h3>Team Activity</h3><p>Fictional activity feed: replies sent, leads qualified, handoffs done.</p><p class="demo-label">DEMO DATA</p></article>
+      <article class="card reveal"><h3>Analytics</h3><p>Sample charts and counts — illustrative figures, not real results.</p><p class="demo-label">DEMO DATA</p></article>
+    </div>
+  </section>
+
+  <!-- 7. HUMAN + AI HANDOFF -->
+  <section id="handoff" class="section section-navy">
+    <h2 class="reveal">When it gets complicated, a human steps in</h2>
+    <p class="section-sub reveal">AI handles the routine. Humans handle the moments that matter.</p>
+    <div class="handoff-demo reveal">
+      <p class="bubble customer">My booking got charged twice and I need this fixed today — it's urgent.</p>
+      <p class="bubble ai">I understand — this needs a human. I'm passing your full conversation and booking details to the team now.</p>
+      <p class="bubble human">Hi, I'm on it — I've got your full context here and I'll sort this out with you.</p>
+    </div>
+    <p class="note reveal"><strong>Note:</strong> Demo story only — fictional issue, fictional customer, no real handoff takes place on this page.</p>
+  </section>
+
+  <!-- 8. PRICING -->
+  <section id="pricing" class="section">
+    <h2 class="reveal">Pricing</h2>
+    <p class="section-sub reveal">Demo plans to explore the idea — pick the shape that fits your business.</p>
+    <div class="grid pricing-grid">
+      <article class="card reveal">
+        <h3>Starter</h3><p class="price">₹499<span>/month</span></p><p class="badge badge-demo">DEMO</p>
+        <ul><li>Auto-replies</li><li>24x7 demo replies</li><li>Basic analytics (DEMO)</li></ul>
       </article>
-
-      <article class="wp3-plan wp3-plan-featured">
-        <p class="wp3-plan-badge">Most popular in this demo</p>
-        <h3 class="wp3-plan-name">Growth — DEMO</h3>
-        <p class="wp3-plan-price">₹1,499<span class="wp3-plan-per">/month</span> <span class="wp3-demo-tag">DEMO</span></p>
-        <p class="wp3-plan-desc">For a fictional demo business with more demo calls.</p>
-        <ul class="wp3-plan-list">
-          <li>Everything in Starter (demo)</li>
-          <li>Demo multi-channel sample</li>
-          <li>Demo human-handoff sample</li>
-          <li>Sample analytics view</li>
-        </ul>
-        <a class="wp3-plan-btn wp3-plan-btn-primary" href="#">Try Demo <span class="wp3-demo-tag">DEMO</span></a>
+      <article class="card reveal card-highlight">
+        <h3>Growth</h3><p class="price">₹1,499<span>/month</span></p><p class="badge badge-demo">DEMO</p>
+        <ul><li>Everything in Starter</li><li>Bookings + reminders</li><li>Team inbox</li></ul>
       </article>
-
-      <article class="wp3-plan">
-        <h3 class="wp3-plan-name">Scale — DEMO</h3>
-        <p class="wp3-plan-price">₹2,999<span class="wp3-plan-per">/month</span> <span class="wp3-demo-tag">DEMO</span></p>
-        <p class="wp3-plan-desc">For a fictional demo business at larger demo volume.</p>
-        <ul class="wp3-plan-list">
-          <li>Everything in Growth (demo)</li>
-          <li>Demo priority sample routing</li>
-          <li>Sample team view</li>
-        </ul>
-        <a class="wp3-plan-btn" href="#">Try Demo <span class="wp3-demo-tag">DEMO</span></a>
+      <article class="card reveal">
+        <h3>Scale</h3><p class="price">₹2,999<span>/month</span></p><p class="badge badge-demo">DEMO</p>
+        <ul><li>Everything in Growth</li><li>Broadcasts</li><li>Full analytics (DEMO)</li></ul>
       </article>
     </div>
-    <p class="wp3-pricing-footnote">All prices labelled DEMO. No payment is collected anywhere on this page.</p>
-  </div>
-</section>
+    <p class="warning reveal">Demo pricing only — not Flow99's actual plans. No payment, no checkout, no signup.</p>
+  </section>
 
-<!-- ============ FAQ ============ -->
-<section id="faq" class="wp3-section wp3-faq" aria-labelledby="wp3-faq-heading">
-  <div class="wp3-section-inner wp3-faq-inner">
-    <h2 id="wp3-faq-heading" class="wp3-section-title">Frequently Asked Questions</h2>
-    <div class="wp3-faq-list">
-      <details class="wp3-faq-item">
-        <summary class="wp3-faq-q">Is this the real Flow99 service?</summary>
-        <p class="wp3-faq-a">No. This is a standalone demo page only. It has no live connection to Flow99, no backend, and no real account system.</p>
-      </details>
-      <details class="wp3-faq-item">
-        <summary class="wp3-faq-q">Does anything on this page send a real call or message?</summary>
-        <p class="wp3-faq-a">No. No real sends happen here — no calls, no messages, no bookings. Every sample on this page is DEMO content.</p>
-      </details>
-      <details class="wp3-faq-item">
-        <summary class="wp3-faq-q">Which channels does the demo show?</summary>
-        <p class="wp3-faq-a">The demo illustrates a automation workforce concept across website call links and messaging-style channels as visual samples only. Nothing is connected live.</p>
-      </details>
-      <details class="wp3-faq-item">
-        <summary class="wp3-faq-q">How does human handoff work in the demo?</summary>
-        <p class="wp3-faq-a">In the concept shown, a caller can ask for a human and the demo illustrates a transfer step. In this standalone page, no real transfer happens — it is a visual sample only.</p>
-      </details>
-      <details class="wp3-faq-item">
-        <summary class="wp3-faq-q">Is my data saved anywhere?</summary>
-        <p class="wp3-faq-a">No. No data is saved — this page makes no network calls, uses no storage, and has no login or signup. Anything you tap here stays in your browser and goes nowhere.</p>
-      </details>
-      <details class="wp3-faq-item">
-        <summary class="wp3-faq-q">Are the prices real?</summary>
-        <p class="wp3-faq-a">No. Every price on this page is labelled DEMO. Demo pricing only — not Flow99's actual plans. No payment is taken.</p>
-      </details>
+  <!-- 9. FAQ -->
+  <section id="faq" class="section section-navy">
+    <h2 class="reveal">Frequently asked questions</h2>
+    <div class="faq-list">
+      <details class="reveal"><summary>Is this the real Flow99 service?</summary><p>No. This is a standalone demo with no live connection, no backend, and no account system.</p></details>
+      <details class="reveal"><summary>Does anything send a real message?</summary><p>No. No WhatsApp, Instagram, email, or any other real message is sent from this page.</p></details>
+      <details class="reveal"><summary>Are prices real?</summary><p>No. All prices on this page are DEMO prices, not Flow99's actual plans.</p></details>
+      <details class="reveal"><summary>Is data saved?</summary><p>No. Nothing you type or click here is saved or sent anywhere.</p></details>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FOOTER ============ -->
-<footer id="footer" class="wp3-footer" role="contentinfo">
-  <div class="wp3-footer-inner">
-    <div class="wp3-footer-brand">
-      <a class="wp3-logo" href="#" aria-label="Flow99 demo home">Flow<span class="wp3-logo-accent">99</span></a>
-      <p class="wp3-footer-tagline">A cinematic demo of an AI automation workforce concept.</p>
+  <!-- 10. FINAL CTA -->
+  <section id="final-cta" class="section">
+    <h2 class="reveal">The future of business is automated.</h2>
+    <p class="section-sub reveal">Build your AI workforce with Flow99.</p>
+    <div class="cta-row reveal">
+      <a class="btn btn-primary" href="#pricing">Start Building with Flow99</a>
+      <a class="btn btn-ghost" href="#features">Explore Features</a>
     </div>
-    <nav class="wp3-footer-links" aria-label="Demo legal links">
-      <a class="wp3-footer-link" href="#">Privacy Policy <span class="wp3-demo-tag">DEMO</span></a>
-      <a class="wp3-footer-link" href="#">Terms of Service <span class="wp3-demo-tag">DEMO</span></a>
-    </nav>
-    <p class="wp3-footer-note">Demo placeholders only — these links go nowhere and are NOT Flow99's live legal pages.</p>
-    <p class="wp3-footer-disclaimer"><strong>Demo disclaimer:</strong> This is a standalone demo with no live Flow99 connection. All samples, prices, and links on this page are DEMO only. No data is saved, no real sends occur, and no account exists.</p>
-    <p class="wp3-footer-copy">© Demo — Flow99 concept showcase. Not affiliated with any live service on this page.</p>
-  </div>
+    <p class="cta-note reveal">Demo only — this creates no account, starts no trial, and charges nothing.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p><strong>Flow99 demo disclaimer:</strong> This is a standalone demo page with no live connection to Flow99, no backend, no accounts, no payments, and no real messages. All businesses, customers, numbers and figures shown are fictional demo content.</p>
+  <nav aria-label="Footer">
+    <a href="#">Privacy — DEMO placeholder</a>
+    <a href="#">Terms — DEMO placeholder</a>
+  </nav>
+  <p class="footer-small">Privacy and Terms links above are DEMO placeholders, not live legal pages.</p>
 </footer>
 
-</main>
 <script src="js/app.js"></script>
 </body>
 </html>
